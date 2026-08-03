@@ -12,8 +12,8 @@
   "data": {
     "screens/PaintingScreen:PaintingScreen": {
       "[aspectRatio] 1604 / 1052": "",
-      "[aspectRatio] 2325 / 912": "",
-      "[aspectRatio] 2346 / 1470": ""
+      "[aspectRatio] 2346 / 1470": "",
+      "[aspectRatio] 2400 / 954": ""
     },
     "src/modContent:Painting": {
       "[displayName] Painting": ""
@@ -25,6 +25,8 @@
   "jsx": {
     "screens/PaintingScreen/PaintingScreen": {
       "[string] Effects": "",
+      "[string] Enter Painting": "",
+      "[string] Rewards": "",
       "[string] Trial 7 ● Flesh Withering": ""
     },
     "screens/TestScreen/FloorItem": {

@@ -2,14 +2,14 @@ import { Avatar, Badge, Box, Typography } from "@mui/material";
 import { Buff, ModScreenFC } from "afnm-types";
 import bg from "../../../assets/BG.jpg"
 import painting from "../../../assets/Painting.png"
-import smallScroll from "../../../assets/smallScroll.png";
+import smallScroll from "../../../assets/smallScroll3.png";
 import bigScroll from "../../../assets/bigScroll.png";
 import swordIcon from "../../../assets/autobattleIcon.png";
 import { elGR } from "@mui/material/locale";
 
 export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
     const { useSelector, usePlaySfx, useKeybinding, actions, components } = screenAPI;
-    const { GameDialog, BackgroundImage, PlayerComponent, GameTooltip, tooltips } = components;
+    const { GameDialog, BackgroundImage, PlayerComponent, GameTooltip, tooltips, ItemComponent } = components;
 
     const player = useSelector((state) => state.player.player);
     const breakthrough = useSelector((state) => state.breakthrough);
@@ -22,6 +22,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
     );
 
     const buffs = Array.from({ length: 5 }, () => window.modAPI.gameData.mysticalRegionBlessings[0].buff);
+    const items = Array.from({ length: 5 }, () => window.modAPI.gameData.items["Eon Glass"]);
 
     return (
         <Box position="relative" flexGrow={1} display="flex" flexDirection="column">
@@ -53,7 +54,8 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         component="img" 
                         src={window.modAPI.gameData.monsters.find(m => m.name === 'Lingyu Lurker')?.image}
                         sx={{
-                            transform: 'translate(-50%, -100%)'
+                            transform: 'translate(-50%, -100%)',
+                            filter: 'sepia(40%) saturate(60%) contrast(85%) brightness(95%)',
                         }}
                     />
                     <Box 
@@ -65,7 +67,8 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         component="img" 
                         src={window.modAPI.gameData.monsters.find(m => m.name === 'Jurenzai Swarmhost')?.image} 
                         sx={{
-                            transform: 'translate(-50%, -100%)'
+                            transform: 'translate(-50%, -100%)',
+                            filter: 'sepia(40%) saturate(60%) contrast(85%) brightness(95%)',
                         }}
                     />
                     <Box 
@@ -77,7 +80,8 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         component="img" 
                         src={window.modAPI.gameData.monsters.find(m => m.name === 'Gorashi')?.image} 
                         sx={{
-                            transform: 'translate(-50%, -100%)'
+                            transform: 'translate(-50%, -100%)',
+                            filter: 'sepia(40%) saturate(60%) contrast(85%) brightness(95%)',
                         }}
                     />
                     <Box 
@@ -89,7 +93,8 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         component="img" 
                         src={window.modAPI.gameData.monsters.find(m => m.name === 'Ratascar')?.image} 
                         sx={{
-                            transform: 'translate(-50%, -100%)'
+                            transform: 'translate(-50%, -100%)',
+                            filter: 'sepia(40%) saturate(60%) contrast(85%) brightness(95%)',
                         }}
                     />
                     <Box 
@@ -101,9 +106,55 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         component="img" 
                         src={window.modAPI.gameData.monsters.find(m => m.name === 'Feathzui')?.image} 
                         sx={{
-                            transform: 'translate(-50%, -100%)'
+                            transform: 'translate(-50%, -100%)',
+                            filter: 'sepia(40%) saturate(60%) contrast(85%) brightness(95%)',
                         }}
                     />
+
+                    <Typography
+                        onClick={() => {
+                            
+                            
+                        }}
+                        sx={{
+                            position: 'absolute',
+                            top: '96%', // Поднимаем чуть выше самого нижнего края свитка
+                            left: '57%',
+                            transform: 'translate(-50%, -100%)',
+                            zIndex: 10,
+                            
+                            // Стилизация текста
+                            color: '#102b4e', // Глубокий синий цвет, как темная вода
+                            fontSize: 'clamp(20px, 2.5vw, 45px)',
+                            fontWeight: 700,
+                            fontStyle: 'italic',
+                            letterSpacing: '3px',
+                            textTransform: 'uppercase',
+                            
+                            // Эффект свечения: белая база + голубоватое рассеивание
+                            textShadow: `
+                                0 0 10px rgba(255, 255, 255, 0.9), 
+                                0 0 20px rgba(255, 255, 255, 0.7),
+                                0 0 30px rgba(173, 216, 230, 0.6)
+                            `,
+                            
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease-in-out',
+                            
+                            // Интерактивность при наведении
+                            '&:hover': {
+                                transform: 'translate(-50%, -100%) scale(1.05)', // Легкое увеличение
+                                color: '#0a1d36', // Текст становится чуть контрастнее
+                                textShadow: `
+                                    0 0 15px rgba(255, 255, 255, 1), 
+                                    0 0 30px rgba(255, 255, 255, 0.9),
+                                    0 0 45px rgba(173, 216, 230, 0.8)
+                                `,
+                            }
+                        }}
+                    >
+                        Enter Painting
+                    </Typography>
                 </Box>
                 <Box
                     ml='4%'
@@ -124,7 +175,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         width='100%'
 
                         sx={{
-                            aspectRatio: '2325 / 912',
+                            aspectRatio: '2400 / 954',
                             backgroundImage: `url('${smallScroll}')`,
                             backgroundSize: '100% 100%',
                             backgroundPosition: 'center',
@@ -168,7 +219,8 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
 
                     <Box
                         px='12%'
-                        py='6%'
+                        pt='6%'
+                        pb='7%'
                         display='flex'
                         flexDirection='column'
                         alignItems='center'
@@ -199,9 +251,9 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                             Effects
                         </Typography>
 
-                        <Box display="flex" gap="15px" alignItems="flex-start" justifyContent='flex-start' flexWrap='wrap' flexGrow={1} width='100%' sx={{minHeight: 0}}>
+                        <Box pl='10%' display="flex" gap="15px" alignItems="flex-start" justifyContent='flex-start' flexWrap='wrap' flexGrow={1} width='100%' sx={{minHeight: 0}}>
                             {buffs.map(el => (
-                                <Box sx={{ height: '45%', aspectRatio: '1', flexShrink: 0 }}>
+                                <Box key={el.name} sx={{ height: '45%', aspectRatio: '1', flexShrink: 0 }}>
                                     {/* <GameTooltip 
                                         provider={() => (
                                             <tooltips.BuffTooltip
@@ -288,7 +340,8 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
 
                     <Box
                         px='12%'
-                        py='6%'
+                        pt='6%'
+                        pb='7%'
                         display='flex'
                         flexDirection='column'
                         alignItems='center'
@@ -316,48 +369,30 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                 mixBlendMode: 'multiply',
                                 opacity: 0.8
                             }}>
-                            Effects
+                            Rewards
                         </Typography>
 
-                        <Box display="flex" gap="15px" alignItems="flex-start" justifyContent='flex-start' flexWrap='wrap' flexGrow={1} width='100%' sx={{minHeight: 0}}>
-                            {buffs.map(el => (
-                                <Box sx={{ height: '45%', aspectRatio: '1', flexShrink: 0 }}>
-                                    <Badge
-                                    badgeContent={el.stacks}
-                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                    sx={{
-                                        width: '100%',
-                                        height: '100%',
-                                        
-                                        '& .MuiBadge-badge': {
-                                            backgroundColor: 'black',
-                                            color: 'white',
-                                            width: '35%',
-                                            height: '35%',
-                                            borderRadius: '50%',
-                                            border: '1px outset gold',
-                                            fontSize: 'clamp(10px, 1.2vw, 24px)', 
-                                            minWidth: 0,
-                                            padding: 0,
-                                            
-                                            right: '20%',
-                                            bottom: '21%',
-                                            pr: '1px',
-                                            pt: '5px'
-                                        }
-                                    }}
-                                    >
-                                        <Avatar
-                                            sx={{
-                                            width: '100%',
-                                            height: '100%',
-                                            border: '1px outset gold',
-                                            background: el.colour ?? 'rgb(50,50,50)',
-                                            }}
-                                            src={el.icon}
-                                        />
-                                    </Badge>
-                                </Box>
+                        <Box pl='10%' display="flex" gap="15px" alignItems="flex-start" justifyContent='flex-start' flexWrap='wrap' flexGrow={1} width='100%' sx={{minHeight: 0}}>
+                            {items.map(item => (
+                                // <Box sx={{ height: '45%', aspectRatio: '1', flexShrink: 0 }}>
+                                //     <GameTooltip
+                                //         key={item.name}
+                                //         provider={() => (
+                                //             <tooltips.ItemTooltip
+                                //                 item={item}
+                                //                 equipped={undefined}
+                                //                 entity={window.modAPI.utils.createPlayerCombatEntity(player, breakthrough)}
+                                //                 craftingEntity={window.modAPI.utils.createPlayerCraftingEntity(player, breakthrough)}
+                                //                 player={player}
+                                //             />
+                                //         )}
+                                //         >
+                                //         <Box>
+                                //             <ItemComponent item={item} equipped={false} removeOverlays />
+                                //         </Box>
+                                //     </GameTooltip>
+                                // </Box>
+                                <Box height='75px' width='75px' border='1px solid black'></Box>
                             ))}
                         </Box>
                     </Box>
