@@ -1,31 +1,37 @@
 import { TreasureItem, Technique } from 'afnm-types';
 
 import icon from '../assets/image.png';
+import { TestScreen } from './screens/TestScreen/TestScreen';
+import { PaintingScreen } from './screens/PaintingScreen/PaintingScreen';
 
-const myTreasure: TreasureItem = {
-  kind: 'treasure',
-  name: 'The Best Treasure',
-  description: 'Wooo mod content.',
-  icon: icon,
-  stacks: 1,
-  rarity: 'mundane',
-  realm: 'coreFormation',
-};
-window.modAPI.actions.addItem(myTreasure);
+window.modAPI.actions.addScreen({
+  key: 'testWelcomeScreen',
+  component: TestScreen
+});
 
-const myTechnique: Technique = {
-  name: 'Test technique',
-  icon: '',
-  type: 'fist',
-  effects: [
-    {
-      kind: 'buffSelf',
-      buff: window.modAPI.gameData.techniqueBuffs.fist.flow,
-      amount: {
-        value: 1,
-        stat: undefined,
-      },
-    },
-  ],
-};
-window.modAPI.actions.addTechnique(myTechnique);
+window.modAPI.actions.addScreen({
+  key: 'challengePaintingScreen',
+  component: PaintingScreen
+});
+
+window.modAPI.actions.addBuildingsToLocation('Liang Tiao Village', [
+  {
+    kind: 'modBuilding',
+    name: 'Test Building Mod',
+    displayName: 'Test Building Mod',
+    icon: icon,
+    screen: 'testWelcomeScreen',
+    position: 'middleleft'
+  }
+]);
+
+window.modAPI.actions.addBuildingsToLocation('Liang Tiao Village', [
+  {
+    kind: 'modBuilding',
+    name: 'Painting',
+    displayName: 'Painting',
+    icon: icon,
+    screen: 'challengePaintingScreen',
+    position: 'belowtop'
+  }
+]);

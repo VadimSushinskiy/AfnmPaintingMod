@@ -1,13 +1,37 @@
 {
-  "items": {
-    "src/modContent:item:The Best Treasure": {
-      "[description] Wooo mod content.": "",
-      "[name] The Best Treasure": ""
+  "arrays": {
+    "screens/TestScreen/MonsterFormation": {
+      "[string] Feathzui": "",
+      "[string] Gorashi": "",
+      "[string] Jurenzai Swarmhost": "",
+      "[string] Lingyu Lurker": "",
+      "[string] Ratascar": "",
+      "[string] Taoheti": ""
     }
   },
-  "techniques": {
-    "src/modContent:technique:Test technique": {
-      "[name] Test technique": ""
+  "data": {
+    "screens/PaintingScreen:PaintingScreen": {
+      "[aspectRatio] 1604 / 1052": "",
+      "[aspectRatio] 2325 / 912": "",
+      "[aspectRatio] 2346 / 1470": ""
+    },
+    "src/modContent:Painting": {
+      "[displayName] Painting": ""
+    },
+    "src/modContent:Test Building Mod": {
+      "[displayName] Test Building Mod": ""
+    }
+  },
+  "jsx": {
+    "screens/PaintingScreen/PaintingScreen": {
+      "[string] Effects": "",
+      "[string] Trial 7 ● Flesh Withering": ""
+    },
+    "screens/TestScreen/FloorItem": {
+      "[string] Flesh Withering": ""
+    },
+    "screens/TestScreen/TestScreen": {
+      "[string] BEGIN TRIAL": ""
     }
   }
 }
