@@ -7,16 +7,63 @@ import bigScroll from "../../../assets/bigScroll.png";
 import swordIcon from "../../../assets/autobattleIcon.png";
 import potionIcon from "../../../assets/useItemIcon.png";
 import scroll from "../../../assets/scroll.png";
+import scrollSide from "../../../assets/sideScroll4.png";
 import arrowIcon from "../../../assets/arrow.png";
 import { elGR } from "@mui/material/locale";
 import { useState } from "react";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperClass } from 'swiper';
 import { EffectCreative, Mousewheel, Navigation } from 'swiper/modules';
 
 // Стили Swiper (важно для работы эффектов)
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
+
+// Art for the centred slide. Must be 1719x1861 like scroll.png -- the slide box is
+// locked to that aspect and backgroundSize '100% 100%' stretches anything else.
+const scrollActive = scroll;
+
+// Slides within this many steps of the centre are held at full opacity (so 7 are
+// visible), and only fade across the final step as they arrive from offscreen.
+const FULLY_VISIBLE_EACH_SIDE = 2;
+const EDGE_FADE_AT = FULLY_VISIBLE_EACH_SIDE + 1;
+
+// EffectCreative overwrites each slide's own opacity every frame, so the fade is
+// published as a custom property and consumed by a child element instead.
+const applyEdgeFade = (swiper: SwiperClass) => {
+    swiper.slides.forEach((slideEl) => {
+        const progressRaw = (slideEl as HTMLElement & { progress?: number }).progress ?? 0;
+        const distance = Math.abs(progressRaw);
+
+        const fade = 1 - Math.min(Math.max(distance - FULLY_VISIBLE_EACH_SIDE, 0), 1);
+        slideEl.style.setProperty('--trial-fade', String(fade));
+
+        const scaleX = progressRaw > 0 ? -1 : 1;
+        slideEl.style.setProperty('--trial-scale-x', String(scaleX));
+
+        const clampedProgress = Math.min(Math.max(progressRaw, -1), 1);
+        
+        // В центре (0) все углы будут = 0.
+        // Справа (1): X=12, Y=-15, Z=-6 (как на твоем скрине)
+        // Слева (-1): X=12, Y=15, Z=6 (симметричный поворот влево)
+        const rotX = 12 * Math.abs(clampedProgress);
+        const rotY = 10 * clampedProgress;
+        const rotZ = 3 * clampedProgress;
+        
+        slideEl.style.setProperty('--c-rot-x', `${rotX}deg`);
+        slideEl.style.setProperty('--c-rot-y', `${rotY}deg`);
+        slideEl.style.setProperty('--c-rot-z', `${rotZ}deg`);
+    });
+};
+
+// Swiper animates its transforms with a transition rather than per-frame updates,
+// so mirror the duration it picks (0 while dragging) to keep the fade in step.
+const syncEdgeFadeDuration = (swiper: SwiperClass, duration: number) => {
+    swiper.slides.forEach((slideEl) => {
+        slideEl.style.setProperty('--trial-fade-duration', `${duration}ms`);
+    });
+};
 
 export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
     const { useSelector, usePlaySfx, useKeybinding, actions, components } = screenAPI;
@@ -185,10 +232,6 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                 containerType: 'size'
                             },
                             '& .swiper-slide': { 
-                                // width: '100%',
-                                // aspectRatio: '1719 / 1861', 
-                                // maxWidth: '20%',
-                                // maxHeight: '80%',
                                 width: 'min(22cqw, calc(100cqh * (1719 / 1861)))',
                                 aspectRatio: '1719 / 1861',
                             
@@ -201,20 +244,26 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                     transform: 'translateY(-5%)',
                                 },
 
-                                // py: '5%'
                             },
                             '& .swiper-slide-active': {
                                 filter: 'brightness(1)',
-                                
+
                                 '&:hover': {
                                     filter: 'brightness(1)',
+                                },
+
+                                '& .trial-scroll-active': {
+                                    opacity: 1,
+                                },
+
+                                '& .trial-scroll-side': {
+                                    opacity: 0,
                                 },
                             }
                         }}
                     >
                         
                         <Swiper
-                            // grabCursor={true}
                             centeredSlides={true}
                             slidesPerView={'auto'}
                             initialSlide={selectedTrialIndex} 
@@ -225,22 +274,25 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
 
                             effect='creative'
                             creativeEffect={{
-                                limitProgress: 3,
+                                limitProgress: EDGE_FADE_AT,
                                 prev: {
-                                    translate: ['-65%', '-8%', 0], 
-                                    scale: 0.95,
+                                    translate: ['-95%', '-10%', 0],
+                                    scale: 0.9,
                                 },
                                 next: {
-                                    translate: ['65%', '-8%', 0], 
-                                    scale: 0.95,
+                                    translate: ['95%', '-10%', 0],
+                                    scale: 0.9,
                                 }
-                            }}      
+                            }}
 
                              navigation={{
                                 prevEl: '.custom-prev-button',
                                 nextEl: '.custom-next-button',
                             }}
-                            
+
+                            onSetTranslate={applyEdgeFade}
+                            onSetTransition={syncEdgeFadeDuration}
+                            onAfterInit={applyEdgeFade}
                             onSlideChangeTransitionEnd={(swiper) => setSelectedTrialIndex(swiper.activeIndex)}
                             modules={[Mousewheel, EffectCreative, Navigation]}
                         >
@@ -251,7 +303,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                 top: '25%',
                                 left: '-4.5%',
                                 transform: 'translateY(-50%) scaleX(-1)',
-                                zIndex: 60,
+                                zIndex: 40,
                                 cursor: 'pointer',
                                 aspectRatio: '1 / 2',
                                 height: '20%',
@@ -280,7 +332,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                 top: '25%',
                                 right: '-5%',
                                 transform: 'translateY(-50%)',
-                                zIndex: 60,
+                                zIndex: 40,
                                 cursor: 'pointer',
                                 aspectRatio: '1 / 2',
                                 height: '20%',
@@ -304,34 +356,12 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         </Box>
 
                             {trialsList.map((trialNum, index) => {
-                                // const offset = index - selectedTrialIndex;
-                                // const distance = Math.abs(offset);
-                                // const isSelected = distance === 0;
-                                
-                                // const sign = Math.sign(offset);
-                                // const isVisible = distance <= 3
-
-                                // const scaleStep = 0.08; 
-                                // const scale = isSelected ? 1 : 1 - (distance * scaleStep);
-
-                                // // const translateY = isSelected ? 0 : distance * -22; 
-                                // const touchTranslate = (scaleStep * 100) / 2
-                                // const gapCompensation = distance * distance * touchTranslate
-
-                                // const overlapPercent = 18; 
-                                // const overlapCompensation = distance * overlapPercent;
-                                // const translateX = isSelected ? 0 : sign * -(gapCompensation + overlapCompensation);
-                                // const translateY = isSelected ? 0 : -distance * 8;
-
-                                // const zIndex = 50 - distance;
 
                                 return (
                                     <SwiperSlide 
                                         key={trialNum} 
                                         style={{ 
-                                            // zIndex: zIndex,
                                             transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
-                                            // transform: `translateX(${translateX}%) translateY(${translateY}%) scale(${scale})`,
                                             cursor: 'pointer'
                                         }}
                                     >
@@ -340,54 +370,85 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                             
                                                 width: '100%',
                                                 aspectRatio: '1719 / 1861',
-                                                backgroundImage: `url('${scroll}')`, 
-                                                backgroundSize: '100% 100%',
-                                                backgroundPosition: 'center',
+                                                
                                                 display: 'flex',
                                                 flexDirection: 'column',
                                                 alignItems: 'center',
                                                 justifyContent: 'flex-end',
 
-                                                // opacity: isVisible ? 1 : 0,
-                                                // visibility: isVisible ? 'visible' : 'hidden', 
-                                                // pointerEvents: isVisible ? 'auto' : 'none',
-                                                
-                                                // transition: 'opacity 0.4s ease, visibility 0.4s ease, filter 0.4s ease, transform 0.4s ease',
-                                                
-                                                // transform: ``,
-                                                
-                                                // filter: isSelected 
-                                                //     ? 'brightness(1) drop-shadow(0px 10px 15px rgba(0,0,0,0.5))' 
-                                                //     : 'brightness(0.6) drop-shadow(0px 5px 8px rgba(0,0,0,0.3))',
-                                                    
-                                                // '&:hover': {
-                                                //     filter: `brightness(${isSelected ? 1 : 0.8}) drop-shadow(0px 12px 18px rgba(0,0,0,0.6))`,
-                                                //     transform: `translateY(-5%)`
-                                                // }
+                                                opacity: 'var(--trial-fade, 1)',
+                                                transition: 'opacity var(--trial-fade-duration, 0ms) ease',
+
+                                                position: "relative"
                                             }}
                                         >
+                                            {/* Base art, shown when the slide sits off to the side */}
                                             <Box
-                                                width='20%'
-                                                mb={1}
+                                                className="trial-scroll-side"
                                                 sx={{
-                                                    aspectRatio: 1,
-                                                    background: index % 2 === 0 ? `linear-gradient(135deg, #9e3333 0%, #701a1a 100%)` : `linear-gradient(135deg, #368a59 0%, #17452b 100%)`,
-                                                    mask: index % 2 === 0 ? `url('${swordIcon}') center/contain no-repeat` : `url('${potionIcon}') center/contain no-repeat`,
-                                                    WebkitMask: index % 2 === 0 ? `url('${swordIcon}') center/contain no-repeat` : `url('${potionIcon}') center/contain no-repeat`,
-                                                    mixBlendMode: 'multiply',
+                                                    position: "absolute",
+                                                    inset: 0,
+                                                    backgroundImage: `url('${scrollSide}')`,
+                                                    backgroundSize: '100% 100%',
+                                                    backgroundPosition: 'center',
+                                                    transform: 'scaleX(var(--trial-scale-x, 1))',
+                                                    // transition: 'opacity 0.4s ease'
                                                 }}
                                             />
-                                            <Typography 
-                                                fontWeight={600} 
-                                                fontStyle="italic"
-                                                sx={{ 
-                                                    color: '#1b1814', 
-                                                    textShadow: '0 1px 1px rgba(255,255,255,0.4)', 
-                                                    fontSize: 'clamp(12px, 1.2vw, 22px)' 
+                                            {/* Active art, faded in while the slide is centred */}
+                                            <Box
+                                                className="trial-scroll-active"
+                                                sx={{
+                                                    position: "absolute",
+                                                    inset: 0,
+                                                    backgroundImage: `url('${scrollActive}')`,
+                                                    backgroundSize: '100% 100%',
+                                                    backgroundPosition: 'center',
+                                                    opacity: 0,
                                                 }}
-                                            >
-                                                Trial {trialNum}
-                                            </Typography>
+                                            />
+
+                                                <Box
+                                                    sx={{
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        alignItems: 'center',
+                                                        width: '100%',
+                                                        mb: '1%',
+                                                        transformOrigin: 'bottom center',
+                                                        zIndex: 2,
+                                                        
+                                                        // Применяем 3D трансформацию, которая слушает JS-переменные
+                                                        transform: 'perspective(1200px) rotateX(var(--c-rot-x, 0deg)) rotateY(var(--c-rot-y, 0deg)) rotateZ(var(--c-rot-z, 0deg))',
+                                                        transition: 'transform var(--trial-fade-duration, 0ms) ease',
+                                                    }}
+                                                >
+                                                    <Box
+                                                        width='20%'
+                                                        sx={{
+                                                            position: 'relative',
+                                                            aspectRatio: 1,
+                                                            background: index % 2 === 0 ? `linear-gradient(135deg, #9e3333 0%, #701a1a 100%)` : `linear-gradient(135deg, #368a59 0%, #17452b 100%)`,
+                                                            mask: index % 2 === 0 ? `url('${swordIcon}') center/contain no-repeat` : `url('${potionIcon}') center/contain no-repeat`,
+                                                            WebkitMask: index % 2 === 0 ? `url('${swordIcon}') center/contain no-repeat` : `url('${potionIcon}') center/contain no-repeat`,
+                                                            mixBlendMode: 'multiply',
+                                                        }}
+                                                    />
+                                                    <Typography 
+                                                        fontWeight={600} 
+                                                        fontStyle="italic"
+                                                        sx={{
+                                                            position: 'relative',
+                                                            color: '#1b1814',
+                                                            textShadow: '0 1px 1px rgba(255,255,255,0.4)',
+                                                            fontSize: 'clamp(12px, 1.2vw, 22px)'
+                                                        }}
+                                                    >
+                                                        Trial {trialNum}
+                                                    </Typography>
+                                                </Box>
+
+                                            
                                         </Box>
                                     </SwiperSlide>
                                 );
@@ -413,6 +474,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         alignItems='center'
                         justifyContent='center'
                         width='100%'
+                        zIndex={50}
 
                         sx={{
                             aspectRatio: '2400 / 954',
@@ -465,13 +527,15 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         flexDirection='column'
                         alignItems='center'
                         width='100%'
+                        zIndex={50}
 
                         sx={{
                             aspectRatio: '2346 / 1470',
                             backgroundImage: `url('${bigScroll}')`,
                             backgroundSize: '100% 100%',
                             backgroundPosition: 'center',
-                            overflow: 'hidden'
+                            overflow: 'hidden',
+                            pointerEvents: "all"
                         }}
                     >
                         <Typography 
@@ -552,13 +616,15 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         flexDirection='column'
                         alignItems='center'
                         width='100%'
-
+                        zIndex={50} 
+                        
                         sx={{
                             aspectRatio: '2346 / 1470',
                             backgroundImage: `url('${bigScroll}')`,
                             backgroundSize: '100% 100%',
                             backgroundPosition: 'center',
-                            overflow: 'hidden'
+                            overflow: 'hidden',
+                            pointerEvents: "all"
                         }}
                     >
                         <Typography 
@@ -604,239 +670,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                 </Box>
             </Box>
 
-            {/* <Box 
-                position="absolute" 
-                bottom="2%" 
-                left="0" 
-                width="100%" 
-                height="25%" 
-                display="flex"
-                justifyContent="center"
-                alignItems="flex-end"
-                zIndex={20}
-                sx={{
-                    // Небольшой padding снизу, чтобы сдвинутые вниз свитки не обрезались
-                    pb: '20px' 
-                }}
-            >
-                {trialsList.map((trialNum, index) => {
-                    // 1. Вычисляем позицию относительно выбранного элемента
-                    const offset = index - selectedTrialIndex;
-                    const distance = Math.abs(offset);
-                    const isSelected = offset === 0;
-
-                    // 2. Математика "Дуги" (Arc)
-                    // Чем дальше от центра, тем ниже опускается свиток (по 20px за каждый шаг)
-                    const translateY = isSelected ? 0 : distance * 20; 
-                    
-                    // Центральный 100% (1), соседние 85% (0.85), следующие 75% (0.75) и т.д.
-                    const scale = isSelected ? 1 : Math.max(0.6, 0.95 - (distance * 0.1));
-                    
-                    // Правильное наслаивание: центр всегда сверху
-                    const zIndex = 50 - distance;
-                    
-                    // Затенение для эффекта фокуса
-                    const brightness = isSelected ? 1 : 0.55;
-
-                    return (
-                        <Box
-                            key={trialNum}
-                            onClick={() => setSelectedTrialIndex(index)}
-                            sx={{
-                                position: 'relative',
-                                width: '12%', // Базовая ширина карточки
-                                aspectRatio: '1719 / 1861',
-                                backgroundImage: `url('${scroll}')`,
-                                backgroundSize: '100% 100%',
-                                backgroundPosition: 'center',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'flex-end',
-                                pb: '3%',
-                                cursor: 'pointer',
-                                
-                                // Сдвигаем все элементы влево, чтобы они наслаивались друг на друга
-                                // (кроме самого первого элемента в списке)
-                                ml: index === 0 ? 0 : '-4%', 
-                                
-                                // Плавная анимация всех изменений
-                                transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
-                                
-                                // Применяем плоские 2D трансформации
-                                transform: `translateY(${translateY}px) scale(${scale})`,
-                                zIndex: zIndex,
-                                filter: `brightness(${brightness}) drop-shadow(0px 10px 15px rgba(0,0,0,0.5))`,
-
-                                // Интерактивность при наведении (удобно для мыши и VR-указки)
-                                '&:hover': {
-                                    filter: `brightness(${isSelected ? 1 : 0.8}) drop-shadow(0px 15px 20px rgba(0,0,0,0.7))`,
-                                    // Слегка приподнимаем элемент при наведении
-                                    transform: `translateY(${translateY - 15}px) scale(${scale * 1.05})`,
-                                    zIndex: 60, // Выносим вперед при наведении
-                                }
-                            }}
-                        >
-                            {isSelected && (
-                                <Box
-                                    width='30px'
-                                    height='30px'
-                                    mb={0.5}
-                                    sx={{
-                                        background: `linear-gradient(135deg, #9e3333 0%, #701a1a 100%)`,
-                                        mask: `url('${swordIcon}') center/contain no-repeat`,
-                                        WebkitMask: `url('${swordIcon}') center/contain no-repeat`,
-                                        mixBlendMode: 'multiply',
-                                        // Легкая пульсация для привлечения внимания
-                                        animation: 'pulse 2s infinite',
-                                        '@keyframes pulse': {
-                                            '0%': { opacity: 0.8 },
-                                            '50%': { opacity: 1 },
-                                            '100%': { opacity: 0.8 },
-                                        }
-                                    }}
-                                />
-                            )}
-                            <Typography 
-                                fontWeight={600} 
-                                fontStyle="italic"
-                                sx={{ 
-                                    color: '#1b1814', 
-                                    textShadow: '0 1px 1px rgba(255,255,255,0.4)', 
-                                    fontSize: 'clamp(12px, 1.2vw, 22px)' 
-                                }}
-                            >
-                                Trial {trialNum}
-                            </Typography>
-                        </Box>
-                    );
-                })}
-            </Box> */}
-            
-            {/* <Box 
-                position="absolute" 
-                bottom="2%" 
-                left="50%" 
-                sx={{
-                    transform: 'translateX(-50%)',
-                    zIndex: 20,
-                    width: '70%', 
-                    // Глобальные стили для перезаписи поведения Swiper под наш дизайн
-                    '& .swiper': { 
-                        width: '100%', 
-                        height: '100%', 
-                        paddingTop: '30px', // Отступ сверху для анимации увеличения,
-                        overflow: 'visible'
-                    },
-                    '& .swiper-slide': { 
-                        width: '16%', // Размер одной карточки
-                        display: 'flex', 
-                        justifyContent: 'center' 
-                    }
-                }}
-            >
-                <Swiper
-                    // effect={'coverflow'}
-                    grabCursor={true}
-                    centeredSlides={true}
-                    slidesPerView={'auto'}
-                    initialSlide={3} // Начинаем с Trial 7
-                    mousewheel={true} // Поддержка колесика мыши
-                    slideToClickedSlide={true} // Автоматически прокручивает к свитку при клике на него
-                    onSlideChange={(swiper) => setSelectedTrialIndex(swiper.activeIndex)}
-
-                    spaceBetween={-20}
-
-                    // coverflowEffect={{
-                    //     rotate: 0,       // Угол поворота боковых элементов
-                    //     stretch: -20,       // Расстояние между слайдами
-                    //     depth: 80,       // Глубина перспективы (отдаление)
-                    //     modifier: 1,      // Множитель эффекта
-                    //     slideShadows: false, // Отключаем дефолтные тени
-                    //     scale: 0.9
-                    // }}
-                    modules={[Mousewheel]}
-                >
-                    {trialsList.map((trialNum, index) => {
-                        const offset = index - selectedTrialIndex;
-                        const isSelected = offset === 0;
-                        const isLeft = offset < 0;
-                        const isRight = offset > 0;
-                        
-                        // Вычисляем расстояние от центра (0, 1, 2, 3...)
-                        const distance = Math.abs(offset);
-
-                        // Жестко фиксируем угол: никаких умножений на расстояние!
-                        let rotateY = 0;
-                        if (isLeft) rotateY = -30;  // Все левые повернуты ровно на 20
-                        if (isRight) rotateY = 30; // Все правые повернуты ровно на -20
-
-                        // Жестко фиксируем размер: 100% для центра, 85% для всех остальных
-                        const scale = isSelected ? 1 : 0.85;
-
-                        return (
-                            <SwiperSlide key={trialNum} style={{ 
-                                    zIndex: 50 - distance,
-                                    transition: 'z-index 0.3s ease'
-                                }}>
-                                <Box
-                                    sx={{
-                                        width: '100%',
-                                        aspectRatio: '1719 / 1861',
-                                        backgroundImage: `url('${scroll}')`,
-                                        backgroundSize: '100% 100%',
-                                        backgroundPosition: 'center',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        justifyContent: 'flex-end',
-                                        pb: '10%',
-                                        // Затемняем невыбранные свитки для акцента на центральном
-                                        transition: 'all 0.4s ease',
-                                        transform: `perspective(1500px) rotateY(${rotateY}deg) scale(${scale})`,
-                                        filter: isSelected 
-                                            ? 'brightness(1) drop-shadow(0px 10px 15px rgba(0,0,0,0.5))' 
-                                            : 'brightness(0.6) drop-shadow(0px 5px 10px rgba(0,0,0,0.2))',
-                                            
-                                        '&:hover': {
-                                            filter: `brightness(${isSelected ? 1 : 0.8}) drop-shadow(0px 15px 20px rgba(0,0,0,0.6))`,
-                                            // При наведении немного приподнимаем и разворачиваем лицом к игроку
-                                            transform: `perspective(1500px) rotateY(${rotateY * 0.5}deg) scale(${scale * 1.05}) translateY(-10px)`,
-                                        }
-                                    }}
-                                >
-                                    {isSelected && (
-                                        <Box
-                                            width='30px'
-                                            height='30px'
-                                            mb={0.5}
-                                            sx={{
-                                                background: `linear-gradient(135deg, #9e3333 0%, #701a1a 100%)`,
-                                                mask: `url('${swordIcon}') center/contain no-repeat`,
-                                                WebkitMask: `url('${swordIcon}') center/contain no-repeat`,
-                                                mixBlendMode: 'multiply',
-                                            }}
-                                        />
-                                    )}
-                                    <Typography 
-                                        fontWeight={600} 
-                                        fontStyle="italic"
-                                        sx={{ 
-                                            color: '#1b1814', 
-                                            textShadow: '0 1px 1px rgba(255,255,255,0.4)', 
-                                            fontSize: 'clamp(12px, 1.2vw, 22px)' 
-                                        }}
-                                    >
-                                        Trial {trialNum}
-                                    </Typography>
-                                </Box>
-                            </SwiperSlide>
-                        );
-                    })}
-                </Swiper>
-            </Box>          */}
-
-            <Box position="absolute" width="100%" height="100%" display="flex" flexDirection="column">
+            <Box position="absolute" width="100%" height="100%" display="flex" flexDirection="column" sx={{ pointerEvents: "none", zIndex: 100 }}>
                 <Box flexGrow={1}/>
                 <Box display="flex">
                     <PlayerComponent/>
