@@ -1,6 +1,6 @@
 import { Avatar, Badge, Box, Typography } from "@mui/material";
-import { Buff, ModScreenFC } from "afnm-types";
-import bg from "../../../assets/BG.jpg"
+import { ModScreenFC } from "afnm-types";
+import bg from "../../../assets/ComfyBg2.png"
 import painting from "../../../assets/Painting.png"
 import smallScroll from "../../../assets/smallScroll3.png";
 import bigScroll from "../../../assets/bigScroll.png";
@@ -8,8 +8,8 @@ import swordIcon from "../../../assets/autobattleIcon.png";
 import potionIcon from "../../../assets/useItemIcon.png";
 import scroll from "../../../assets/scroll.png";
 import scrollSide from "../../../assets/sideScroll4.png";
+import scrollSide2 from "../../../assets/sideScroll7.png";
 import arrowIcon from "../../../assets/arrow.png";
-import { elGR } from "@mui/material/locale";
 import { useState } from "react";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -39,21 +39,22 @@ const applyEdgeFade = (swiper: SwiperClass) => {
         const fade = 1 - Math.min(Math.max(distance - FULLY_VISIBLE_EACH_SIDE, 0), 1);
         slideEl.style.setProperty('--trial-fade', String(fade));
 
-        const scaleX = progressRaw > 0 ? -1 : 1;
-        slideEl.style.setProperty('--trial-scale-x', String(scaleX));
+        const isLeft = progressRaw < 0;
+        slideEl.style.setProperty('--side-left-opacity', isLeft ? '0' : '1');
+        slideEl.style.setProperty('--side-right-opacity', isLeft ? '1' : '0');
 
         const clampedProgress = Math.min(Math.max(progressRaw, -1), 1);
         
-        // В центре (0) все углы будут = 0.
-        // Справа (1): X=12, Y=-15, Z=-6 (как на твоем скрине)
-        // Слева (-1): X=12, Y=15, Z=6 (симметричный поворот влево)
-        const rotX = 12 * Math.abs(clampedProgress);
-        const rotY = 10 * clampedProgress;
+        const rotX = 5 * Math.abs(clampedProgress);
+        const rotY = -8 * clampedProgress;
         const rotZ = 3 * clampedProgress;
         
         slideEl.style.setProperty('--c-rot-x', `${rotX}deg`);
         slideEl.style.setProperty('--c-rot-y', `${rotY}deg`);
         slideEl.style.setProperty('--c-rot-z', `${rotZ}deg`);
+
+        slideEl.style.setProperty('--side-padding-right', isLeft ? '0%' : '10%');
+        slideEl.style.setProperty('--side-padding-left', isLeft ? '10%' : '0%');
     });
 };
 
@@ -114,65 +115,190 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                         top='34%'
                         zIndex={3}
                         width='10%'
-                        component="img" 
-                        src={window.modAPI.gameData.monsters.find(m => m.name === 'Lingyu Lurker')?.image}
                         sx={{
                             transform: 'translate(-50%, -100%)',
-                            filter: 'sepia(40%) saturate(60%) contrast(85%) brightness(95%)',
                         }}
-                    />
+                    >
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '150%',
+                                aspectRatio: '1',
+                                zIndex: -1,
+
+                                background: 'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
+                                mixBlendMode: 'multiply', 
+                                
+                                backdropFilter: 'blur(2px)', 
+                            }}
+                        />
+
+                        <Box 
+                            component="img" 
+                            src={window.modAPI.gameData.monsters.find(m => m.name === 'Lingyu Lurker')?.image}
+                            sx={{
+                                width: '100%',
+                                display: 'block',
+                                
+                                filter: 'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
+                            }}
+                        />
+                    </Box>
                     <Box 
                         position="absolute"
                         left='73%'
                         top='40%'
                         zIndex={3}
-                        width='11%'
-                        component="img" 
-                        src={window.modAPI.gameData.monsters.find(m => m.name === 'Jurenzai Swarmhost')?.image} 
+                        width='10%'
                         sx={{
                             transform: 'translate(-50%, -100%)',
-                            filter: 'sepia(40%) saturate(60%) contrast(85%) brightness(95%)',
                         }}
-                    />
+                    >
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '150%',
+                                aspectRatio: '1',
+                                zIndex: -1,
+
+                                background: 'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
+                                mixBlendMode: 'multiply', 
+                                
+                                backdropFilter: 'blur(2px)', 
+                            }}
+                        />
+
+                        <Box 
+                            component="img" 
+                            src={window.modAPI.gameData.monsters.find(m => m.name === 'Jurenzai Swarmhost')?.image}
+                            sx={{
+                                width: '100%',
+                                display: 'block',
+                                
+                                filter: 'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
+                            }}
+                        />
+                    </Box>
                     <Box 
                         position="absolute"
                         left='86%'
                         top='54%'
                         zIndex={3}
-                        width='11%'
-                        component="img" 
-                        src={window.modAPI.gameData.monsters.find(m => m.name === 'Gorashi')?.image} 
+                        width='10%'
                         sx={{
                             transform: 'translate(-50%, -100%)',
-                            filter: 'sepia(40%) saturate(60%) contrast(85%) brightness(95%)',
                         }}
-                    />
+                    >
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '150%',
+                                aspectRatio: '1',
+                                zIndex: -1,
+
+                                background: 'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
+                                mixBlendMode: 'multiply', 
+                                
+                                backdropFilter: 'blur(2px)', 
+                            }}
+                        />
+
+                        <Box 
+                            component="img" 
+                            src={window.modAPI.gameData.monsters.find(m => m.name === 'Gorashi')?.image}
+                            sx={{
+                                width: '100%',
+                                display: 'block',
+                                
+                                filter: 'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
+                            }}
+                        />
+                    </Box>
                     <Box 
                         position="absolute"
                         left='74%'
                         top='71%'
                         zIndex={3}
                         width='10%'
-                        component="img" 
-                        src={window.modAPI.gameData.monsters.find(m => m.name === 'Ratascar')?.image} 
                         sx={{
                             transform: 'translate(-50%, -100%)',
-                            filter: 'sepia(40%) saturate(60%) contrast(85%) brightness(95%)',
                         }}
-                    />
+                    >
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '150%',
+                                aspectRatio: '1',
+                                zIndex: -1,
+
+                                background: 'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
+                                mixBlendMode: 'multiply', 
+                                
+                                backdropFilter: 'blur(2px)', 
+                            }}
+                        />
+
+                        <Box 
+                            component="img" 
+                            src={window.modAPI.gameData.monsters.find(m => m.name === 'Ratascar')?.image}
+                            sx={{
+                                width: '100%',
+                                display: 'block',
+                                
+                                filter: 'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
+                            }}
+                        />
+                    </Box>
                     <Box 
                         position="absolute"
                         left='39%'
                         top='56%'
                         zIndex={3}
-                        width='11%'
-                        component="img" 
-                        src={window.modAPI.gameData.monsters.find(m => m.name === 'Feathzui')?.image} 
+                        width='10%'
                         sx={{
                             transform: 'translate(-50%, -100%)',
-                            filter: 'sepia(40%) saturate(60%) contrast(85%) brightness(95%)',
                         }}
-                    />
+                    >
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '150%',
+                                aspectRatio: '1',
+                                zIndex: -1,
+
+                                background: 'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
+                                mixBlendMode: 'multiply', 
+                                
+                                backdropFilter: 'blur(2px)', 
+                            }}
+                        />
+
+                        <Box 
+                            component="img" 
+                            src={window.modAPI.gameData.monsters.find(m => m.name === 'Feathzui')?.image}
+                            sx={{
+                                width: '100%',
+                                display: 'block',
+                                
+                                filter: 'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
+                            }}
+                        />
+                    </Box>
 
                     <Typography
                         onClick={() => {
@@ -244,7 +370,16 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                     transform: 'translateY(-5%)',
                                 },
 
+                                '& .trial-name-and-icon': {
+                                    pr: 'var(--side-padding-right, 0%)',
+                                    pl: 'var(--side-padding-left, 0%)',
+                                },
+                                
+                                '& .trial-title': {
+                                    fontSize: 'clamp(12px, 1vw, 22px)',
+                                },
                             },
+
                             '& .swiper-slide-active': {
                                 filter: 'brightness(1)',
 
@@ -256,9 +391,19 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                     opacity: 1,
                                 },
 
-                                '& .trial-scroll-side': {
-                                    opacity: 0,
+                                '& .trial-scroll-side-left, & .trial-scroll-side-right': {
+                                    opacity: '0 !important',
                                 },
+
+                                '& .trial-name-and-icon': {
+                                    mb: '1%',
+                                    pr: '0%',
+                                    pl: '0%',
+                                },
+
+                                '& .trial-title': {
+                                    fontSize: 'clamp(12px, 1.2vw, 22px)',
+                                }
                             }
                         }}
                     >
@@ -330,7 +475,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                             sx={{
                                 position: 'absolute',
                                 top: '25%',
-                                right: '-5%',
+                                right: '-4.5%',
                                 transform: 'translateY(-50%)',
                                 zIndex: 40,
                                 cursor: 'pointer',
@@ -384,15 +529,29 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                         >
                                             {/* Base art, shown when the slide sits off to the side */}
                                             <Box
-                                                className="trial-scroll-side"
+                                                className="trial-scroll-side-left"
+                                                sx={{
+                                                    position: "absolute",
+                                                    inset: 0,
+                                                    backgroundImage: `url('${scrollSide2}')`,
+                                                    backgroundSize: '100% 100%',
+                                                    backgroundPosition: 'center',
+                                                    opacity: 'var(--side-left-opacity, 0)',
+                                                    // Подсказываем GPU заранее закэшировать этот слой для смены прозрачности
+                                                    willChange: 'opacity',
+                                                }}
+                                            />
+
+                                            <Box
+                                                className="trial-scroll-side-right"
                                                 sx={{
                                                     position: "absolute",
                                                     inset: 0,
                                                     backgroundImage: `url('${scrollSide}')`,
                                                     backgroundSize: '100% 100%',
                                                     backgroundPosition: 'center',
-                                                    transform: 'scaleX(var(--trial-scale-x, 1))',
-                                                    // transition: 'opacity 0.4s ease'
+                                                    opacity: 'var(--side-right-opacity, 1)',
+                                                    willChange: 'opacity',
                                                 }}
                                             />
                                             {/* Active art, faded in while the slide is centred */}
@@ -409,12 +568,13 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                             />
 
                                                 <Box
+                                                    className="trial-name-and-icon"
                                                     sx={{
                                                         display: 'flex',
                                                         flexDirection: 'column',
                                                         alignItems: 'center',
                                                         width: '100%',
-                                                        mb: '1%',
+                                                        mb: '-0.5%',
                                                         transformOrigin: 'bottom center',
                                                         zIndex: 2,
                                                         
@@ -427,6 +587,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                                         width='20%'
                                                         sx={{
                                                             position: 'relative',
+                                                            mb: '2px',
                                                             aspectRatio: 1,
                                                             background: index % 2 === 0 ? `linear-gradient(135deg, #9e3333 0%, #701a1a 100%)` : `linear-gradient(135deg, #368a59 0%, #17452b 100%)`,
                                                             mask: index % 2 === 0 ? `url('${swordIcon}') center/contain no-repeat` : `url('${potionIcon}') center/contain no-repeat`,
@@ -435,13 +596,13 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                                                         }}
                                                     />
                                                     <Typography 
+                                                        className="trial-title"
                                                         fontWeight={600} 
                                                         fontStyle="italic"
                                                         sx={{
                                                             position: 'relative',
                                                             color: '#1b1814',
                                                             textShadow: '0 1px 1px rgba(255,255,255,0.4)',
-                                                            fontSize: 'clamp(12px, 1.2vw, 22px)'
                                                         }}
                                                     >
                                                         Trial {trialNum}

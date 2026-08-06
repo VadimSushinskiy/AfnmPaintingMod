@@ -20,14 +20,8 @@
       "[aspectRatio] 1604 / 1052": "",
       "[aspectRatio] 1719 / 1861": "",
       "[aspectRatio] 2346 / 1470": "",
-      "[aspectRatio] 2400 / 954": ""
-    },
-    "screens/TestScreen:PaintingScreen": {
-      "[aspectRatio] 1 / 2": "",
-      "[aspectRatio] 1604 / 1052": "",
-      "[aspectRatio] 1719 / 1861": "",
-      "[aspectRatio] 2346 / 1470": "",
-      "[aspectRatio] 2400 / 954": ""
+      "[aspectRatio] 2400 / 954": "",
+      "[backdropFilter] blur(2px)": ""
     },
     "src/modContent:Painting": {
       "[displayName] Painting": ""
@@ -45,12 +39,6 @@
     },
     "screens/TestScreen/FloorItem": {
       "[string] Flesh Withering": ""
-    },
-    "screens/TestScreen/PaintingScreen": {
-      "[string] Effects": "",
-      "[string] Enter Painting": "",
-      "[string] Rewards": "",
-      "[string] Trial 7 ● Flesh Withering": ""
     },
     "screens/TestScreen/TestScreen": {
       "[string] BEGIN TRIAL": ""
