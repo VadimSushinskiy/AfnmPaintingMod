@@ -4,14 +4,6 @@
       "[string] -10%": "",
       "[string] -95%": "",
       "[string] 95%": ""
-    },
-    "screens/TestScreen/MonsterFormation": {
-      "[string] Feathzui": "",
-      "[string] Gorashi": "",
-      "[string] Jurenzai Swarmhost": "",
-      "[string] Lingyu Lurker": "",
-      "[string] Ratascar": "",
-      "[string] Taoheti": ""
     }
   },
   "data": {
@@ -25,9 +17,6 @@
     },
     "src/modContent:Painting": {
       "[displayName] Painting": ""
-    },
-    "src/modContent:Test Building Mod": {
-      "[displayName] Test Building Mod": ""
     }
   },
   "jsx": {
@@ -36,12 +25,6 @@
       "[string] Enter Painting": "",
       "[string] Rewards": "",
       "[string] Trial 7 ● Flesh Withering": ""
-    },
-    "screens/TestScreen/FloorItem": {
-      "[string] Flesh Withering": ""
-    },
-    "screens/TestScreen/TestScreen": {
-      "[string] BEGIN TRIAL": ""
     }
   }
 }
