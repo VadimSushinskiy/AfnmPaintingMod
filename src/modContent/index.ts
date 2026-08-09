@@ -1,9 +1,9 @@
 import icon from '../assets/image.png';
-import { PaintingScreen } from './screens/PaintingScreen/PaintingScreen';
+import { PaintingScreenBf } from './screens/PaintingScreen/PaintingScreenBf';
 
 window.modAPI.actions.addScreen({
   key: 'challengePaintingScreen',
-  component: PaintingScreen
+  component: PaintingScreenBf,
 });
 
 window.modAPI.actions.addBuildingsToLocation('Liang Tiao Village', [
@@ -13,6 +13,6 @@ window.modAPI.actions.addBuildingsToLocation('Liang Tiao Village', [
     displayName: 'Painting',
     icon: icon,
     screen: 'challengePaintingScreen',
-    position: 'belowtop'
+    position: 'belowtop',
   }
 ]);

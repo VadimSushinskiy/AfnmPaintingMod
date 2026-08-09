@@ -1,30 +1,63 @@
 {
   "arrays": {
-    "screens/PaintingScreen/PaintingScreen": {
+    "modContent/trials/trialListBf": {
+      "[string] Ratascar": ""
+    },
+    "screens/PaintingScreen/PaintingScreenBase": {
       "[string] -10%": "",
       "[string] -95%": "",
       "[string] 95%": ""
     }
   },
   "data": {
-    "screens/PaintingScreen:PaintingScreen": {
+    "modContent/trials:trialListBf": {
+      "[itemName] Spirit Fruit (Blood)": "",
+      "[itemName] Spirit Fruit (Blossom)": "",
+      "[itemName] Spirit Fruit (Celestial)": "",
+      "[itemName] Spirit Fruit (Cloud)": "",
+      "[itemName] Spirit Fruit (Fist)": "",
+      "[itemName] Spirit Fruit (Weapon)": ""
+    },
+    "screens/PaintingScreen:PaintingScreenBase": {
       "[aspectRatio] 1 / 2": "",
       "[aspectRatio] 1604 / 1052": "",
       "[aspectRatio] 1719 / 1861": "",
       "[aspectRatio] 2346 / 1470": "",
       "[aspectRatio] 2400 / 954": "",
-      "[backdropFilter] blur(2px)": ""
+      "[backdropFilter] blur(2px)": "",
+      "[text] After this, a portal to the real world manifests near you, absorbing the colors from everything around you. Upon exiting, the world blurs again, and you find yourself before the painting.": "",
+      "[text] You enter the painting, bracing yourself for the next trial. The world distorts and flattens, turning into paint and ink. When you come to, the enemies are already approaching, giving you no time to prepare.": "",
+      "[topCombat] 34%": "",
+      "[topCombat] 40%": "",
+      "[topCombat] 54%": "",
+      "[topCombat] 56%": "",
+      "[topCombat] 71%": "",
+      "[topCrafting] 35%": "",
+      "[topCrafting] 41%": "",
+      "[topCrafting] 55%": "",
+      "[topCrafting] 57%": "",
+      "[topCrafting] 71%": ""
+    },
+    "src/modContent:flags": {
+      "[bfTrialsNumer] paintingMod_bfTrialsNumber": ""
     },
     "src/modContent:Painting": {
       "[displayName] Painting": ""
     }
   },
+  "events": {
+    "screens/PaintingScreen:PaintingScreenBase": {
+      "[text] Despite all your efforts, you are unable to overcome the enemies and this trial, and you are forced to surrender. The painting erases the enemies and restores all injuries you received in this combat.": "",
+      "[text] Under your onslaught, all enemies become just spots of paint again and the painting rejoices in your victory, healing your injuries.": "",
+      "[text] Under your onslaught, all enemies become just spots of paint again and the painting rejoices in your victory, healing your injuries. Your hard-earned rewards are formed from the paint before you.": ""
+    }
+  },
   "jsx": {
-    "screens/PaintingScreen/PaintingScreen": {
+    "screens/PaintingScreen/PaintingScreenBase": {
       "[string] Effects": "",
       "[string] Enter Painting": "",
-      "[string] Rewards": "",
-      "[string] Trial 7 ● Flesh Withering": ""
+      "[string] No special effects": "",
+      "[string] Rewards": ""
     }
   }
 }

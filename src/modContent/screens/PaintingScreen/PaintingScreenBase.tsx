@@ -1,5 +1,5 @@
 import { Avatar, Badge, Box, Typography } from '@mui/material';
-import { ModScreenFC } from 'afnm-types';
+import { EventStep, GameEvent, ModReduxAPI } from 'afnm-types';
 import bg from '../../../assets/paintingRoom.png';
 import painting from '../../../assets/painting.png';
 import smallScroll from '../../../assets/smallScroll.png';
@@ -19,6 +19,7 @@ import { EffectCreative, Mousewheel, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import { Close } from '@mui/icons-material';
+import { Trial } from '../../types/Trial';
 
 const scrollActive = scroll;
 
@@ -26,6 +27,14 @@ const scrollActive = scroll;
 // visible), and only fade across the final step as they arrive from offscreen.
 const FULLY_VISIBLE_EACH_SIDE = 2;
 const EDGE_FADE_AT = FULLY_VISIBLE_EACH_SIDE + 1;
+
+const ENTITY_POSITIONS = [
+    { left: '25%', topCombat: '34%', topCrafting: '35%' },
+    { left: '73%', topCombat: '40%', topCrafting: '41%' },
+    { left: '86%', topCombat: '54%', topCrafting: '55%' },
+    { left: '74%', topCombat: '71%', topCrafting: '71%' },
+    { left: '39%', topCombat: '56%', topCrafting: '57%' },
+];
 
 // EffectCreative overwrites each slide's own opacity every frame, so the fade is
 // published as a custom property and consumed by a child element instead.
@@ -66,11 +75,17 @@ const syncEdgeFadeDuration = (swiper: SwiperClass, duration: number) => {
   });
 };
 
-export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
-  const { useSelector, usePlaySfx, actions, components } =
+interface PaintingScreenBaseProps {
+    screenAPI: ModReduxAPI;
+    trialsList: Trial[];
+    trialNumberFlag: string;
+}
+
+export const PaintingScreenBase = ({ screenAPI, trialsList, trialNumberFlag }: PaintingScreenBaseProps) => {
+  const { useSelector, usePlaySfx, actions, components, useGameFlags } =
     screenAPI;
+    
   const {
-    GameDialog,
     BackgroundImage,
     PlayerComponent,
     GameTooltip,
@@ -79,22 +94,138 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
     GameIconButton,
   } = components;
 
-  const player = useSelector((state) => state.player.player);
-  const breakthrough = useSelector((state) => state.breakthrough);
-
-  const [selectedTrialIndex, setSelectedTrialIndex] = useState(6);
-  const trialsList = Array.from({ length: 20 }, (_, i) => i + 1);
-
   const playSfx = usePlaySfx();
 
-  const buffs = Array.from(
-    { length: 5 },
-    () => window.modAPI.gameData.mysticalRegionBlessings[0].buff,
-  );
-  const items = Array.from(
-    { length: 5 },
-    () => window.modAPI.gameData.items['Eon Glass'],
-  );
+  const { flags } = useGameFlags();
+  const trialNumber = (flags[trialNumberFlag] || 0) < trialsList.length ? flags[trialNumberFlag] || 0 : trialsList.length - 1;
+
+  const player = useSelector((state) => state.player.player);
+  const breakthrough = useSelector((state) => state.breakthrough);
+  
+  const [selectedTrialIndex, setSelectedTrialIndex] = useState(trialNumber);
+  const [maxTrialIndex, setMaxTrialIndex] = useState(trialNumber);
+
+  const selectedTrial = trialsList[selectedTrialIndex] ?? null;
+  const isCombat = selectedTrial?.kind === 'combat';
+
+  const rewards = selectedTrial?.rewards ?? [];
+
+  const playerBuffs = (selectedTrial?.playerBuffs ?? []).map(buff => ({ 
+    buff, 
+    target: 'player' as const 
+  }));
+
+  const enemyBuffs = isCombat 
+    ? (selectedTrial.enemiesBuffs ?? []).map(buff => ({ buff, target: 'enemy' as const }))
+    : [];
+
+  const allBuffs = [...playerBuffs, ...enemyBuffs];
+
+  const entities = isCombat 
+    ? (selectedTrial?.enemies ?? []).slice(0, 5).map(enemy => enemy.image)
+    : (selectedTrial?.recipe?.ingredients ?? []).slice(0, 5).map(ingredient => ingredient.item.icon);
+
+  const startTrial = () => {
+    const steps: EventStep[] = [];
+
+    if (selectedTrial?.kind === 'combat') {
+      steps.push({
+        kind: 'text',
+        text: 'You enter the painting, bracing yourself for the next trial. The world distorts and flattens, turning into paint and ink. When you come to, the enemies are already approaching, giving you no time to prepare.'
+      });
+
+      if (selectedTrial?.additionalBeforeTrialSteps) {
+        steps.push(...selectedTrial.additionalBeforeTrialSteps);
+      }
+
+      const victorySteps: EventStep[] = [
+          {
+            kind: 'text',
+            condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+            text: 'Under your onslaught, all enemies become just spots of paint again and the painting rejoices in your victory, healing your injuries. Your hard-earned rewards are formed from the paint before you.'
+          },
+          {
+            kind: 'text',
+            condition: `${trialNumberFlag} > ${selectedTrialIndex}`,
+            text: 'Under your onslaught, all enemies become just spots of paint again and the painting rejoices in your victory, healing your injuries.'
+          },
+          {
+            kind: 'addMultipleItem',
+           condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+            items: (selectedTrial?.rewards ?? []).map(reward => {return {item: {name: reward.name}, amount: `${reward.stacks}`}})
+          },
+          {
+            kind: 'flag',
+            condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+            global: true,
+            flag: trialNumberFlag,
+            value: `${trialNumberFlag} + 1`
+          }
+        ];
+      
+      if (selectedTrial?.additionalAfterTrialSuccessSteps) {
+        victorySteps.push(...selectedTrial.additionalAfterTrialSuccessSteps);
+      }
+
+      victorySteps.push({
+        kind: 'text',
+        text: 'After this, a portal to the real world manifests near you, absorbing the colors from everything around you. Upon exiting, the world blurs again, and you find yourself before the painting.'
+      });
+
+      var defeatSteps: EventStep[] = [
+        {
+          kind: 'text',
+          text: 'Despite all your efforts, you are unable to overcome the enemies and this trial, and you are forced to surrender. The painting erases the enemies and restores all injuries you received in this combat.'
+        }
+      ];
+
+      if (selectedTrial?.additionalAfterTrialFailSteps) {
+        defeatSteps.push(...selectedTrial.additionalAfterTrialFailSteps);
+      }
+
+      defeatSteps.push({
+        kind: 'text',
+        text: 'After this, a portal to the real world manifests near you, absorbing the colors from everything around you. Upon exiting, the world blurs again, and you find yourself before the painting.'
+      });
+
+      steps.push({
+        kind: 'combat',
+        enemies: (selectedTrial?.enemies ?? []).map(enemy => {
+          const enemyCopy = {...enemy};
+
+          if (enemyCopy.spawnCondition) {
+            enemyCopy.spawnCondition.buffs.push(...(selectedTrial?.enemiesBuffs ?? []))
+          }
+          else {
+            enemyCopy.spawnCondition = {hpMult: 1, buffs: selectedTrial?.enemiesBuffs ?? []}
+          }
+
+          enemyCopy.drops = [];
+          enemyCopy.shardMult = 0;
+          enemyCopy.qiMult = 0;
+
+          return enemyCopy;
+        }),
+        playerBuffs: selectedTrial?.playerBuffs ?? [],
+        isSpar: true,
+        victory: victorySteps,
+        defeat: defeatSteps,
+      });
+    }
+
+    const event: GameEvent = {
+      location: 'Liang Tiao Village',
+      steps
+    };
+
+    actions.startEvent(event);
+
+    const { flags } = useGameFlags();
+    const newTrialNumber = flags[trialNumberFlag] || 0;
+    if (newTrialNumber > trialNumber) {
+      setMaxTrialIndex(newTrialNumber);
+    }
+  }
 
   return (
     <Box position="relative" flexGrow={1} display="flex" flexDirection="column">
@@ -141,245 +272,57 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
               backgroundPosition: 'center',
             }}
           >
-            <Box
-              position="absolute"
-              left="25%"
-              top={selectedTrialIndex % 2 === 0 ? '34%' : '35%'}
-              zIndex={3}
-              width="10%"
-              sx={{
-                transform: 'translate(-50%, -100%)',
-              }}
-            >
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: '150%',
-                  aspectRatio: '1',
-                  zIndex: -1,
+            {entities.map((imgSrc, index) => {
+              const pos = ENTITY_POSITIONS[index];
 
-                  background:
-                    'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
-                  mixBlendMode: 'multiply',
+              return (
+                <Box
+                  key={index}
+                  position="absolute"
+                  left={pos.left}
+                  top={isCombat ? pos.topCombat : pos.topCrafting}
+                  zIndex={3}
+                  width="10%"
+                  sx={{
+                    transform: 'translate(-50%, -100%)',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: '150%',
+                      aspectRatio: '1',
+                      zIndex: -1,
 
-                  backdropFilter: 'blur(2px)',
-                }}
-              />
+                      background:
+                        'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
+                      mixBlendMode: 'multiply',
 
-              <Box
-                component="img"
-                src={
-                  selectedTrialIndex % 2 === 0
-                    ? window.modAPI.gameData.monsters.find(
-                        (m) => m.name === 'Lingyu Lurker',
-                      )?.image
-                    : window.modAPI.gameData.items['Resonant Crystal Fragment']
-                        .icon
-                }
-                sx={{
-                  width: selectedTrialIndex % 2 === 0 ? '100%' : '65%',
-                  display: 'block',
-                  mx: selectedTrialIndex % 2 === 0 ? '0' : 'auto',
+                      backdropFilter: 'blur(2px)',
+                    }}
+                  />
 
-                  filter:
-                    'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
-                }}
-              />
-            </Box>
-            <Box
-              position="absolute"
-              left="73%"
-              top={selectedTrialIndex % 2 === 0 ? '40%' : '41%'}
-              zIndex={3}
-              width="10%"
-              sx={{
-                transform: 'translate(-50%, -100%)',
-              }}
-            >
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: '150%',
-                  aspectRatio: '1',
-                  zIndex: -1,
+                  <Box
+                    component="img"
+                    src={imgSrc}
+                    sx={{
+                      width: isCombat ? '100%' : '65%',
+                      display: 'block',
+                      mx: isCombat ? '0' : 'auto',
 
-                  background:
-                    'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
-                  mixBlendMode: 'multiply',
-
-                  backdropFilter: 'blur(2px)',
-                }}
-              />
-
-              <Box
-                component="img"
-                src={
-                  selectedTrialIndex % 2 === 0
-                    ? window.modAPI.gameData.monsters.find(
-                        (m) => m.name === 'Jurenzai Swarmhost',
-                      )?.image
-                    : window.modAPI.gameData.items['Artefact Blank (V)'].icon
-                }
-                sx={{
-                  width: selectedTrialIndex % 2 === 0 ? '100%' : '65%',
-                  display: 'block',
-                  mx: selectedTrialIndex % 2 === 0 ? '0' : 'auto',
-
-                  filter:
-                    'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
-                }}
-              />
-            </Box>
-            <Box
-              position="absolute"
-              left="86%"
-              top={selectedTrialIndex % 2 === 0 ? '54%' : '55%'}
-              zIndex={3}
-              width="10%"
-              sx={{
-                transform: 'translate(-50%, -100%)',
-              }}
-            >
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: '150%',
-                  aspectRatio: '1',
-                  zIndex: -1,
-
-                  background:
-                    'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
-                  mixBlendMode: 'multiply',
-
-                  backdropFilter: 'blur(2px)',
-                }}
-              />
-
-              <Box
-                component="img"
-                src={
-                  selectedTrialIndex % 2 === 0
-                    ? window.modAPI.gameData.monsters.find(
-                        (m) => m.name === 'Gorashi',
-                      )?.image
-                    : window.modAPI.gameData.items['Shadow Core (V)'].icon
-                }
-                sx={{
-                  width: selectedTrialIndex % 2 === 0 ? '100%' : '65%',
-                  display: 'block',
-                  mx: selectedTrialIndex % 2 === 0 ? '0' : 'auto',
-
-                  filter:
-                    'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
-                }}
-              />
-            </Box>
-            <Box
-              position="absolute"
-              left="74%"
-              top={selectedTrialIndex % 2 === 0 ? '71%' : '71%'}
-              zIndex={3}
-              width="10%"
-              sx={{
-                transform: 'translate(-50%, -100%)',
-              }}
-            >
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: '150%',
-                  aspectRatio: '1',
-                  zIndex: -1,
-
-                  background:
-                    'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
-                  mixBlendMode: 'multiply',
-
-                  backdropFilter: 'blur(2px)',
-                }}
-              />
-
-              <Box
-                component="img"
-                src={
-                  selectedTrialIndex % 2 === 0
-                    ? window.modAPI.gameData.monsters.find(
-                        (m) => m.name === 'Ratascar',
-                      )?.image
-                    : window.modAPI.gameData.items['Aegis Distillation'].icon
-                }
-                sx={{
-                  width: selectedTrialIndex % 2 === 0 ? '100%' : '65%',
-                  display: 'block',
-                  mx: selectedTrialIndex % 2 === 0 ? '0' : 'auto',
-
-                  filter:
-                    'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
-                }}
-              />
-            </Box>
-            <Box
-              position="absolute"
-              left="39%"
-              top={selectedTrialIndex % 2 === 0 ? '56%' : '57%'}
-              zIndex={3}
-              width="10%"
-              sx={{
-                transform: 'translate(-50%, -100%)',
-              }}
-            >
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: '150%',
-                  aspectRatio: '1',
-                  zIndex: -1,
-
-                  background:
-                    'radial-gradient(circle, rgba(20, 10, 5, 0.65) 0%, rgba(20, 10, 5, 0) 65%)',
-                  mixBlendMode: 'multiply',
-
-                  backdropFilter: 'blur(2px)',
-                }}
-              />
-
-              <Box
-                component="img"
-                src={
-                  selectedTrialIndex % 2 === 0
-                    ? window.modAPI.gameData.monsters.find(
-                        (m) => m.name === 'Feathzui',
-                      )?.image
-                    : window.modAPI.gameData.items['Blooming Brilliance'].icon
-                }
-                sx={{
-                  width: selectedTrialIndex % 2 === 0 ? '100%' : '65%',
-                  display: 'block',
-                  mx: selectedTrialIndex % 2 === 0 ? '0' : 'auto',
-
-                  filter:
-                    'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
-                }}
-              />
-            </Box>
+                      filter:
+                        'sepia(30%) saturate(70%) contrast(85%) brightness(95%)',
+                    }}
+                  />
+                </Box>
+              );
+            })}
 
             <Typography
-              onClick={() => {}}
+              onClick={startTrial}
               sx={{
                 position: 'absolute',
                 top: '96%',
@@ -417,6 +360,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
               Enter Painting
             </Typography>
           </Box>
+
           <Box
             sx={{
               flexGrow: 1,
@@ -568,10 +512,10 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                 }}
               ></Box>
 
-              {trialsList.map((trialNum, index) => {
+              {trialsList.slice(0, maxTrialIndex + 1).map((trial, index) => {
                 return (
                   <SwiperSlide
-                    key={trialNum}
+                    key={`trial${index}`}
                     style={{
                       transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
                       cursor: 'pointer',
@@ -656,15 +600,15 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                             mb: '2px',
                             aspectRatio: 1,
                             background:
-                              index % 2 === 0
+                              trial.kind === 'combat'
                                 ? `linear-gradient(135deg, #9e3333 0%, #701a1a 100%)`
                                 : `linear-gradient(135deg, #368a59 0%, #17452b 100%)`,
                             mask:
-                              index % 2 === 0
+                              trial.kind === 'combat'
                                 ? `url('${swordIcon}') center/contain no-repeat`
                                 : `url('${potionIcon}') center/contain no-repeat`,
                             WebkitMask:
-                              index % 2 === 0
+                              trial.kind === 'combat'
                                 ? `url('${swordIcon}') center/contain no-repeat`
                                 : `url('${potionIcon}') center/contain no-repeat`,
                             mixBlendMode: 'multiply',
@@ -680,7 +624,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                             textShadow: '0 1px 1px rgba(255,255,255,0.4)',
                           }}
                         >
-                          Trial {trialNum}
+                          Trial {index + 1}
                         </Typography>
                       </Box>
                     </Box>
@@ -722,9 +666,9 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
               height="50px"
               mb={0.5}
               sx={{
-                background: `linear-gradient(135deg, #9e3333 0%, #701a1a 100%)`,
-                mask: `url('${swordIcon}') center/contain no-repeat`,
-                WebkitMask: `url('${swordIcon}') center/contain no-repeat`,
+                background: selectedTrial?.kind === 'combat' ? `linear-gradient(135deg, #9e3333 0%, #701a1a 100%)` : `linear-gradient(135deg, #368a59 0%, #17452b 100%)`,
+                mask: selectedTrial?.kind === 'combat' ? `url('${swordIcon}') center/contain no-repeat` : `url('${potionIcon}') center/contain no-repeat`,
+                WebkitMask:selectedTrial?.kind === 'combat' ? `url('${swordIcon}') center/contain no-repeat` : `url('${potionIcon}') center/contain no-repeat`,
                 opacity: 0.9,
                 mixBlendMode: 'multiply',
                 filter:
@@ -748,7 +692,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                 opacity: 0.8,
               }}
             >
-              Trial 7 ● Flesh Withering
+              Trial {selectedTrialIndex + 1} ● {selectedTrial?.title ?? ''}
             </Typography>
           </Box>
 
@@ -789,70 +733,86 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
             </Typography>
 
             <Box
-              pl="10%"
+              pl={allBuffs.length > 0 ? "10%" : '0'}
               display="flex"
               gap="15px"
-              alignItems="flex-start"
-              justifyContent="flex-start"
+              alignItems={allBuffs.length > 0 ? 'flex-start' : 'center'} 
+              justifyContent={allBuffs.length > 0 ? 'flex-start' : 'center'}
               flexWrap="wrap"
               flexGrow={1}
               width="100%"
               sx={{ minHeight: 0 }}
             >
-              {buffs.map((el) => (
-                <Box
-                  key={el.name}
-                  sx={{ height: '45%', aspectRatio: '1', flexShrink: 0 }}
+              {allBuffs.length === 0 ? (
+                <Typography
+                  fontStyle="italic"
+                  fontWeight={500}
+                  sx={{
+                      color: '#1b1814', 
+                      opacity: 0.6,
+                      fontSize: 'clamp(16px, 1.5vw, 28px)',
+                      textAlign: 'center',
+                      textShadow: '0px 1px 1px rgba(255, 255, 255, 0.3)',
+                  }}
                 >
-                  <GameTooltip
-                    provider={() => (
-                      <tooltips.BuffTooltip
-                        buff={{ ...el }}
-                        entity={window.modAPI.utils.createPlayerCombatEntity(
-                          player,
-                          breakthrough,
-                        )}
-                      />
-                    )}
+                  No special effects
+                </Typography>
+                ) : (
+                  allBuffs.map((buff) => (
+                  <Box
+                    key={buff.buff.name}
+                    sx={{ height: '45%', aspectRatio: '1', flexShrink: 0 }}
                   >
-                    <Badge
-                      badgeContent={el.stacks}
-                      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                      sx={{
-                        width: '100%',
-                        height: '100%',
-
-                        '& .MuiBadge-badge': {
-                          backgroundColor: 'black',
-                          color: 'white',
-                          width: '35%',
-                          height: '35%',
-                          borderRadius: '50%',
-                          border: '1px outset gold',
-                          fontSize: 'clamp(10px, 1.2vw, 24px)',
-                          minWidth: 0,
-                          padding: 0,
-
-                          right: '20%',
-                          bottom: '21%',
-                          pr: '1px',
-                          pt: '5px',
-                        },
-                      }}
+                    <GameTooltip
+                      provider={() => (
+                        <tooltips.BuffTooltip
+                          buff={{ ...buff.buff }}
+                          entity={window.modAPI.utils.createPlayerCombatEntity(
+                            player,
+                            breakthrough,
+                          )}
+                        />
+                      )}
                     >
-                      <Avatar
+                      <Badge
+                        badgeContent={buff.buff.stacks}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                         sx={{
                           width: '100%',
                           height: '100%',
-                          border: '1px outset gold',
-                          background: el.colour ?? 'rgb(50,50,50)',
+
+                          '& .MuiBadge-badge': {
+                            backgroundColor: 'black',
+                            color: 'white',
+                            width: '35%',
+                            height: '35%',
+                            borderRadius: '50%',
+                            border: '1px outset gold',
+                            fontSize: 'clamp(10px, 1.2vw, 24px)',
+                            minWidth: 0,
+                            padding: 0,
+
+                            right: '20%',
+                            bottom: '21%',
+                            pr: '1px',
+                            pt: '5px',
+                          },
                         }}
-                        src={el.icon}
-                      />
-                    </Badge>
-                  </GameTooltip>
-                </Box>
-              ))}
+                      >
+                        <Avatar
+                          sx={{
+                            width: '100%',
+                            height: '100%',
+                            border: buff.target === 'player' ? '3px outset #368a59' : '3px outset #8b1a1a',
+                            background: buff.buff.colour ?? 'rgb(50,50,50)',
+                          }}
+                          src={buff.buff.icon}
+                        />
+                      </Badge>
+                    </GameTooltip>
+                  </Box>
+                ))
+              )}
             </Box>
           </Box>
 
@@ -903,13 +863,13 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
               width="100%"
               sx={{ minHeight: 0 }}
             >
-              {items.map((item) => (
+              {rewards.map((reward) => (
                 <Box sx={{ height: '45%', aspectRatio: '1', flexShrink: 0 }}>
                   <GameTooltip
-                    key={item.name}
+                    key={reward.name}
                     provider={() => (
                       <tooltips.ItemTooltip
-                        item={item}
+                        item={reward}
                         equipped={undefined}
                         entity={window.modAPI.utils.createPlayerCombatEntity(
                           player,
@@ -924,7 +884,7 @@ export const PaintingScreen: ModScreenFC = ({ screenAPI }) => {
                     )}
                   >
                     <Box width="100%" height="100%">
-                      <ItemComponent item={item} equipped={false} size="100%" />
+                      <ItemComponent item={reward} equipped={false} size="100%" />
                     </Box>
                   </GameTooltip>
                 </Box>
