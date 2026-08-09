@@ -1,7 +1,16 @@
 {
   "arrays": {
     "modContent/trials/trialListBf": {
-      "[string] Ratascar": ""
+      "[string] Feicuiman": "",
+      "[string] Gorashi": "",
+      "[string] Hungry Ghoul": "",
+      "[string] Ink Splashing": "",
+      "[string] Ink Wall": "",
+      "[string] Leachong": "",
+      "[string] Ratascar": "",
+      "[string] Restless Ancestor": "",
+      "[string] Wenziao": "",
+      "[string] Xiaobu": ""
     },
     "screens/PaintingScreen/PaintingScreenBase": {
       "[string] -10%": "",
@@ -9,14 +18,43 @@
       "[string] 95%": ""
     }
   },
+  "buffs": {
+    "modContent/techniques:buff:Inks": {
+      "[effectHint] Spent to activate certain Painting techniques": "",
+      "[name] Inks": ""
+    },
+    "modContent/trials:buff:Grave Stench": {
+      "[name] Grave Stench": ""
+    }
+  },
   "data": {
     "modContent/trials:trialListBf": {
+      "[itemName] Barrier Pill+ (I)": "",
+      "[itemName] Bottleneck Pill (I)": "",
+      "[itemName] Cold Iron": "",
+      "[itemName] Condensed Qi Elixir (I)": "",
+      "[itemName] Control Pill (I)": "",
+      "[itemName] Copperedge Pill+ (I)": "",
+      "[itemName] Feicuiman Chitin": "",
+      "[itemName] Flaring Yang Bud": "",
+      "[itemName] Healing Pill+ (I)": "",
+      "[itemName] Inner Fury Pill+ (I)": "",
+      "[itemName] Intensity Pill (I)": "",
+      "[itemName] Ironskin Pill+ (I)": "",
+      "[itemName] Leachong Leaf": "",
+      "[itemName] Lesser Shui Blossom": "",
+      "[itemName] Lesser Spirit Grass": "",
+      "[itemName] Lesser Yuhe Herb": "",
+      "[itemName] Qi Pool Pill (I)": "",
+      "[itemName] Recuperation Pill (I)": "",
+      "[itemName] Regeneration Pill+ (I)": "",
       "[itemName] Spirit Fruit (Blood)": "",
       "[itemName] Spirit Fruit (Blossom)": "",
       "[itemName] Spirit Fruit (Celestial)": "",
       "[itemName] Spirit Fruit (Cloud)": "",
       "[itemName] Spirit Fruit (Fist)": "",
-      "[itemName] Spirit Fruit (Weapon)": ""
+      "[itemName] Spirit Fruit (Weapon)": "",
+      "[itemName] Wenziao Proboscis": ""
     },
     "screens/PaintingScreen:PaintingScreenBase": {
       "[aspectRatio] 1 / 2": "",
@@ -26,6 +64,11 @@
       "[aspectRatio] 2400 / 954": "",
       "[backdropFilter] blur(2px)": "",
       "[text] After this, a portal to the real world manifests near you, absorbing the colors from everything around you. Upon exiting, the world blurs again, and you find yourself before the painting.": "",
+      "[text] Despite all your efforts, you failed to create required item and overcome the trial, and the painting reacts with disapproval.": "",
+      "[text] With a quiet pop, the result of your efforts flies out of the cauldron. Although you have succeeded in creating item, its quality doesn't meet the trial requirements and the painting reacts with disapproval.": "",
+      "[text] With a quiet pop, the result of your efforts flies out of the cauldron. The painting analyzes it and, deeming it worthy, rejoices in your success.": "",
+      "[text] With a quiet pop, the result of your efforts flies out of the cauldron. The painting analyzes it and, deeming it worthy, rejoices in your success. Your hard-earned rewards are formed from the paint before you.": "",
+      "[text] You enter the painting, bracing yourself for the next trial. The world distorts and flattens, turning into paint and ink. When you come to, ingredients are already floating in the air before you, as if hinting to begin.": "",
       "[text] You enter the painting, bracing yourself for the next trial. The world distorts and flattens, turning into paint and ink. When you come to, the enemies are already approaching, giving you no time to prepare.": "",
       "[topCombat] 34%": "",
       "[topCombat] 40%": "",
@@ -58,6 +101,16 @@
       "[string] Enter Painting": "",
       "[string] No special effects": "",
       "[string] Rewards": ""
+    }
+  },
+  "techniques": {
+    "techniques/1:technique:Ink Splashing": {
+      "[name] Ink Splashing": "",
+      "[noneType] Painting": ""
+    },
+    "techniques/1:technique:Ink Wall": {
+      "[name] Ink Wall": "",
+      "[noneType] Painting": ""
     }
   }
 }

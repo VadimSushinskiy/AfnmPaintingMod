@@ -1,5 +1,6 @@
-import { Buff, EnemyEntity, EventStep, Item, RecipeItem } from "afnm-types";
+import { Buff, CraftingBuff, EnemyEntity, EventStep, Item, RecipeItem, TechniqueItem } from "afnm-types";
 import { CombatTrial, CraftingTrial } from "../types/Trial";
+import { techniqueItems } from "../items/technique/technique";
 
 export const createCombat = (
     title: string, 
@@ -26,7 +27,9 @@ export const createCrafting = (
     title: string, 
     recipe: RecipeItem, 
     rewards: Item[],
-    buffs: Buff[] = [],
+    result: 'normal' | 'perfect' | 'sublime' = 'normal',
+    isSublime: boolean = false,
+    buffs: CraftingBuff[] = [],
     beforeTrial: EventStep[] = [],
     afterWin: EventStep[] = [],
     afterLose: EventStep[] = [],
@@ -34,6 +37,8 @@ export const createCrafting = (
     kind: 'crafting',
     title,
     recipe,
+    result,
+    isSublime,
     rewards,
     playerBuffs: buffs,
     additionalBeforeTrialSteps: beforeTrial,
@@ -48,6 +53,18 @@ export const getGameEnemies = (enemyNames: string[]): EnemyEntity[] => {
 export const getGameItems = (items: { itemName: string, itemStacks: number }[]): Item[] => {
     return items.map(item => {
         const gameItem = window.modAPI.gameData.items[item.itemName];
+        if (!gameItem) {
+            return window.modAPI.gameData.items['Healing Pill (-)'];
+        }
         return {...gameItem, stacks: item.itemStacks};
     });
+}
+
+export const getGameRecipe = (recipeName: string): RecipeItem => {
+    const item = window.modAPI.gameData.items[recipeName];
+    return item.kind === 'recipe' ? item : window.modAPI.gameData.items['Healing Pill (-) Recipe'] as RecipeItem;
+}
+
+export const getTechniquesItems = (techNames: string[]): TechniqueItem[] => {
+    return techniqueItems.filter(t => techNames.includes(t.name));
 }

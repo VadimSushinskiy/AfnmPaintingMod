@@ -1,15 +1,15 @@
 import { Avatar, Badge, Box, Typography } from '@mui/material';
 import { EventStep, GameEvent, ModReduxAPI } from 'afnm-types';
-import bg from '../../../assets/paintingRoom.png';
-import painting from '../../../assets/painting.png';
-import smallScroll from '../../../assets/smallScroll.png';
-import bigScroll from '../../../assets/bigScroll.png';
-import swordIcon from '../../../assets/autobattleIcon.png';
-import potionIcon from '../../../assets/useItemIcon.png';
-import scroll from '../../../assets/frontTrialScroll.png';
-import scrollSide from '../../../assets/rightTrialScroll.png';
-import scrollSide2 from '../../../assets/leftTrialScroll.png';
-import arrowIcon from '../../../assets/arrow.png';
+import bg from '../../../assets/paintingScreen/paintingRoom.png';
+import painting from '../../../assets/paintingScreen/painting.png';
+import smallScroll from '../../../assets/paintingScreen/smallScroll.png';
+import bigScroll from '../../../assets/paintingScreen/bigScroll.png';
+import swordIcon from '../../../assets/paintingScreen/autobattleIcon.png';
+import potionIcon from '../../../assets/paintingScreen/useItemIcon.png';
+import scroll from '../../../assets/paintingScreen/frontTrialScroll.png';
+import scrollSide from '../../../assets/paintingScreen/rightTrialScroll.png';
+import scrollSide2 from '../../../assets/paintingScreen/leftTrialScroll.png';
+import arrowIcon from '../../../assets/paintingScreen/arrow.png';
 import { useState } from 'react';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -81,7 +81,7 @@ interface PaintingScreenBaseProps {
     trialNumberFlag: string;
 }
 
-export const PaintingScreenBase = ({ screenAPI, trialsList, trialNumberFlag }: PaintingScreenBaseProps) => {
+export const PaintingScreenBase = ({ screenAPI, trialsList = [], trialNumberFlag }: PaintingScreenBaseProps) => {
   const { useSelector, usePlaySfx, actions, components, useGameFlags } =
     screenAPI;
     
@@ -110,20 +110,17 @@ export const PaintingScreenBase = ({ screenAPI, trialsList, trialNumberFlag }: P
 
   const rewards = selectedTrial?.rewards ?? [];
 
-  const playerBuffs = (selectedTrial?.playerBuffs ?? []).map(buff => ({ 
-    buff, 
-    target: 'player' as const 
-  }));
-
   const enemyBuffs = isCombat 
-    ? (selectedTrial.enemiesBuffs ?? []).map(buff => ({ buff, target: 'enemy' as const }))
+    ? (selectedTrial?.enemiesBuffs ?? []).map(buff => ({ buff, target: 'enemy' as const }))
     : [];
 
-  const allBuffs = [...playerBuffs, ...enemyBuffs];
+  const allBuffs = isCombat ? [...(selectedTrial?.playerBuffs ?? []).map(buff => ({buff, target: 'player' as const})), ...enemyBuffs] : [...(selectedTrial?.playerBuffs ?? []).map(buff => ({buff, target: 'player' as const}))];
 
   const entities = isCombat 
     ? (selectedTrial?.enemies ?? []).slice(0, 5).map(enemy => enemy.image)
     : (selectedTrial?.recipe?.ingredients ?? []).slice(0, 5).map(ingredient => ingredient.item.icon);
+
+  const titleText = `Trial ${selectedTrialIndex + 1} ● ${selectedTrial?.title ?? ''}`;
 
   const startTrial = () => {
     const steps: EventStep[] = [];
@@ -212,6 +209,122 @@ export const PaintingScreenBase = ({ screenAPI, trialsList, trialNumberFlag }: P
         defeat: defeatSteps,
       });
     }
+    else if (selectedTrial?.kind === 'crafting') {
+      steps.push({
+        kind: 'text',
+        text: 'You enter the painting, bracing yourself for the next trial. The world distorts and flattens, turning into paint and ink. When you come to, ingredients are already floating in the air before you, as if hinting to begin.'
+      });
+
+      if (selectedTrial?.additionalBeforeTrialSteps) {
+        steps.push(...selectedTrial.additionalBeforeTrialSteps);
+      }
+
+      const addFailCraftSteps = (steps: EventStep[]): void => {
+        steps.push({
+          kind: 'text',
+          text: 'With a quiet pop, the result of your efforts flies out of the cauldron. Although you have succeeded in creating item, its quality doesn\'t meet the trial requirements and the painting reacts with disapproval.'
+        });
+
+        if (selectedTrial?.additionalAfterTrialFailSteps) {
+          steps.push(...selectedTrial.additionalAfterTrialFailSteps);
+        }
+      }
+
+      const addWinCraftSteps = (steps: EventStep[]): void => {
+        steps.push({
+          kind: 'text',
+          condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+          text: 'With a quiet pop, the result of your efforts flies out of the cauldron. The painting analyzes it and, deeming it worthy, rejoices in your success. Your hard-earned rewards are formed from the paint before you.'
+        });
+
+        steps.push({
+          kind: 'text',
+          condition: `${trialNumberFlag} > ${selectedTrialIndex}`,
+          text: 'With a quiet pop, the result of your efforts flies out of the cauldron. The painting analyzes it and, deeming it worthy, rejoices in your success.'
+        });
+
+        steps.push({
+            kind: 'addMultipleItem',
+           condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+            items: (selectedTrial?.rewards ?? []).map(reward => {return {item: {name: reward.name}, amount: `${reward.stacks}`}})
+        });
+
+        steps.push({
+          kind: 'flag',
+          condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+          global: true,
+          flag: trialNumberFlag,
+          value: `${trialNumberFlag} + 1`
+        });
+
+        if (selectedTrial?.additionalAfterTrialSuccessSteps) {
+          steps.push(...selectedTrial.additionalAfterTrialSuccessSteps);
+        }
+      }
+
+      const basicSteps: EventStep[] = [];
+      if (selectedTrial?.result !== 'normal') {
+        addFailCraftSteps(basicSteps);
+      }
+      else {
+        addWinCraftSteps(basicSteps);
+      }
+
+      basicSteps.push({
+        kind: 'text',
+        text: 'After this, a portal to the real world manifests near you, absorbing the colors from everything around you. Upon exiting, the world blurs again, and you find yourself before the painting.'
+      });
+
+      const perfectSteps: EventStep[] = [];
+      if (selectedTrial?.result === 'sublime') {
+        addFailCraftSteps(perfectSteps);
+      }
+      else {
+        addWinCraftSteps(perfectSteps);
+      }
+
+      perfectSteps.push({
+        kind: 'text',
+        text: 'After this, a portal to the real world manifests near you, absorbing the colors from everything around you. Upon exiting, the world blurs again, and you find yourself before the painting.'
+      });
+
+      const sublimeSteps: EventStep[] = [];
+      addWinCraftSteps(sublimeSteps);
+
+      sublimeSteps.push({
+        kind: 'text',
+        text: 'After this, a portal to the real world manifests near you, absorbing the colors from everything around you. Upon exiting, the world blurs again, and you find yourself before the painting.'
+      });
+
+      const failSteps: EventStep[] = [];
+      failSteps.push({
+        kind: 'text',
+        text: 'Despite all your efforts, you failed to create required item and overcome the trial, and the painting reacts with disapproval.'
+      });
+
+      if (selectedTrial?.additionalAfterTrialFailSteps) {
+        failSteps.push(...selectedTrial.additionalAfterTrialFailSteps);
+      }
+
+      failSteps.push({
+        kind: 'text',
+        text: 'After this, a portal to the real world manifests near you, absorbing the colors from everything around you. Upon exiting, the world blurs again, and you find yourself before the painting.'
+      });
+
+      steps.push({
+        kind: 'crafting',
+        recipe: selectedTrial?.recipe?.name ?? 'Healing Pill (I) Recipe',
+        basicCraftSkill: 1,
+        perfectCraftSkill: 3,
+        sublimeCraftSkill: 7,
+        buffs: (selectedTrial?.playerBuffs ?? []).length > 0 ? selectedTrial?.playerBuffs : undefined,
+        forceSublimeCrafting: selectedTrial?.isSublime ?? false,
+        basic: basicSteps,
+        perfect: perfectSteps,
+        sublime: sublimeSteps,
+        failed: failSteps
+      })
+    }
 
     const event: GameEvent = {
       location: 'Liang Tiao Village',
@@ -243,7 +356,7 @@ export const PaintingScreenBase = ({ screenAPI, trialsList, trialNumberFlag }: P
           width: '50px',
           height: '50px',
         }}
-        aria-label="Close Pillar Grid"
+        aria-label="Close Painting Screen"
       >
         <Close fontSize="large" />
       </GameIconButton>
@@ -654,6 +767,7 @@ export const PaintingScreenBase = ({ screenAPI, trialsList, trialNumberFlag }: P
             width="100%"
             zIndex={50}
             sx={{
+              containerType: 'inline-size',
               aspectRatio: '2400 / 954',
               backgroundImage: `url('${smallScroll}')`,
               backgroundSize: '100% 100%',
@@ -687,12 +801,13 @@ export const PaintingScreenBase = ({ screenAPI, trialsList, trialNumberFlag }: P
                 width: '100%',
                 textAlign: 'center',
                 whiteSpace: 'nowrap',
-                fontSize: 'clamp(10px, 1.5vw, 30px)',
+                // fontSize: 'clamp(10px, 1.5vw, 30px)',
+                fontSize: `clamp(10px, calc(100cqi / ${titleText.length} * 1.9), 30px)`,
                 mixBlendMode: 'multiply',
                 opacity: 0.8,
               }}
             >
-              Trial {selectedTrialIndex + 1} ● {selectedTrial?.title ?? ''}
+              {titleText}
             </Typography>
           </Box>
 
@@ -733,17 +848,17 @@ export const PaintingScreenBase = ({ screenAPI, trialsList, trialNumberFlag }: P
             </Typography>
 
             <Box
-              pl={allBuffs.length > 0 ? "10%" : '0'}
+              pl={allBuffs?.length > 0 ? "10%" : '0'}
               display="flex"
               gap="15px"
-              alignItems={allBuffs.length > 0 ? 'flex-start' : 'center'} 
-              justifyContent={allBuffs.length > 0 ? 'flex-start' : 'center'}
+              alignItems={allBuffs?.length > 0 ? 'flex-start' : 'center'} 
+              justifyContent={allBuffs?.length > 0 ? 'flex-start' : 'center'}
               flexWrap="wrap"
               flexGrow={1}
               width="100%"
               sx={{ minHeight: 0 }}
             >
-              {allBuffs.length === 0 ? (
+              {allBuffs?.length === 0 ? (
                 <Typography
                   fontStyle="italic"
                   fontWeight={500}
@@ -804,7 +919,7 @@ export const PaintingScreenBase = ({ screenAPI, trialsList, trialNumberFlag }: P
                             width: '100%',
                             height: '100%',
                             border: buff.target === 'player' ? '3px outset #368a59' : '3px outset #8b1a1a',
-                            background: buff.buff.colour ?? 'rgb(50,50,50)',
+                            background: 'colour' in buff.buff ? buff.buff.colour ?? 'rgb(50,50,50)' : 'rgb(50,50,50)',
                           }}
                           src={buff.buff.icon}
                         />
