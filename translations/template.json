@@ -25,6 +25,19 @@
     },
     "modContent/trials:buff:Grave Stench": {
       "[name] Grave Stench": ""
+    },
+    "techniques/1:buff:Canvas": {
+      "[name] Canvas": ""
+    },
+    "techniques/1:buff:Canvas: Manifested Painting": {
+      "[name] Canvas: Manifested Painting": ""
+    },
+    "techniques/1:buff:Canvas: Manifested Painting(Enemy)": {
+      "[name] Canvas: Manifested Painting(Enemy)": ""
+    },
+    "techniques/1:buff:Ink Wall": {
+      "[additionalTooltip] Each time you receive damage to your <num>health</num>, lose a stack.": "",
+      "[name] Ink Wall": ""
     }
   },
   "data": {
@@ -106,11 +119,23 @@
   "techniques": {
     "techniques/1:technique:Ink Splashing": {
       "[name] Ink Splashing": "",
-      "[noneType] Painting": ""
+      "[noneType-resolved] Painting": ""
     },
     "techniques/1:technique:Ink Wall": {
       "[name] Ink Wall": "",
-      "[noneType] Painting": ""
+      "[noneType-resolved] Painting": ""
+    },
+    "techniques/1:technique:Manifest Canvas": {
+      "[name] Manifest Canvas": "",
+      "[noneType-resolved] Painting": ""
+    },
+    "techniques/1:technique:Paint Earthquake": {
+      "[name] Paint Earthquake": "",
+      "[noneType-resolved] Painting": ""
+    },
+    "techniques/1:technique:Paint Flood": {
+      "[name] Paint Flood": "",
+      "[noneType-resolved] Painting": ""
     }
   }
 }

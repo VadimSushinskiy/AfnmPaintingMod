@@ -1,6 +1,8 @@
 import { Buff } from "afnm-types";
 import iconAsset from '../../assets/techniques/Inks.png';
 
+export const paintingTechsType = 'Painting';
+
 export const inks: Buff = {
     name: 'Inks',
     icon: iconAsset,

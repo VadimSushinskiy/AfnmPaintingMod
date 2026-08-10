@@ -15,7 +15,7 @@
   "devDependencies": {
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "afnm-types": "0.7.7-2",
+    "afnm-types": "0.7.8",
     "css-loader": "^7.1.4",
     "file-loader": "^6.2.0",
     "prettier": "^3.7.4",

@@ -17,7 +17,7 @@ const graveStench: Buff = {
             kind: 'damageSelf',
             amount: {value: window.modAPI.utils.getExpectedHealth('bodyForging', 'Middle') * 0.01, stat: undefined}
         }
-    ]
+    ],
 }
 
 export const trialCombatBuffs = {

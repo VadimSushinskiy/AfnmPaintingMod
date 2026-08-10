@@ -1,12 +1,12 @@
 import { Technique } from "afnm-types";
-import { inks } from "../painting";
+import { inks, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/InkSplashing.png';
 
 export const inkSplashing: Technique = {
     name: 'Ink Splashing',
     icon: iconAsset,
     type: 'none',
-    noneType: 'Painting',
+    noneType: paintingTechsType,
     realm: 'bodyForging',
     effects: [
         {
