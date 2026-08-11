@@ -1,6 +1,6 @@
 import { Buff, Technique } from "afnm-types";
 import iconAsset from '../../../assets/techniques/ManifestCanvas.png';
-import { paintingTechsType } from "../painting";
+import { paintingSurfaceBuffType, paintingTechsType } from "../painting";
 import { paintFloodTrigger } from "./paintFlood";
 import { paintEarthquakeTrigger } from "./paintEarthquake";
 
@@ -12,27 +12,54 @@ const canvasActivatePlayerBuff: Buff = {
     canStack: true,
     stacks: 1,
     stats: {
-        power: { value: 0.01, stat: 'power', eqn: '20 * paintEarthquake'},
-        protection: {value: 1, stat: undefined, eqn: '20 * paintFlood'}
+        power: { value: 0.01, stat: 'power', eqn: 'paintPower', tooltipCondition: '0'},
+        protection: {value: 1, stat: undefined, eqn: 'paintProtection', tooltipCondition: '0'}
     },
+    afterTechniqueEffects: [
+        {
+            kind: 'damage',
+            amount: {value: 1, stat: 'power', eqn: 'paintDmgAfterTech' }
+        }
+    ],
     onRoundEffects: [
         {
             kind: 'add',
             amount: {value: -1, stat: undefined}
         }
     ],
+    tooltip: `Manifested painting.`,
+    tooltipFragments: {
+        fragments: [
+            {
+                tooltip: 'Power: <num>+{paintPower}%</num>',
+                condition: 'paintPower > 0'
+            },
+            {
+                tooltip: 'Protection: <num>+{paintProtection}</num>',
+                condition: 'paintProtection > 0'
+            },
+            {
+                tooltip: 'After each technique deal <num>{damage.amount}</num> damage.', // Wrong damage number, need to fix
+                condition: 'paintDmgAfterTech > 0'
+            },
+            {
+                tooltip: 'At the end of each round lose a stack.',
+                condition: '1'
+            },
+        ],
+        separator: '<br/>'
+    }
 }
 
 const canvasActivateEnemyBuff: Buff = {
-    name: 'Canvas: Manifested Painting(Enemy)',
+    name: 'Canvas: Manifested Painting (Enemy)',
     icon: iconAsset,
     allowMultipleInstances: true,
     maxInstances: 3,
     canStack: true,
     stacks: 1,
     stats: {
-        weakness: { value: 0, stat: undefined, additiveEqn: '20 * paintEarthquake'},
-        vulnerability: {value: 0, stat: undefined, additiveEqn: '20 * paintFlood'}
+        weakness: { value: 1, stat: undefined, additiveEqn: 'paintWeakness', tooltipCondition: '0'},
     },
     onRoundEffects: [
         {
@@ -40,6 +67,20 @@ const canvasActivateEnemyBuff: Buff = {
             amount: {value: -1, stat: undefined}
         }
     ],
+    tooltip: `Manifested painting.`,
+    tooltipFragments: {
+        fragments: [
+            {
+                tooltip: 'Weakness: <num>+{paintWeakness}%</num>',
+                condition: 'paintWeakness > 0'
+            },
+            {
+                tooltip: 'At the end of each round lose a stack.',
+                condition: '1'
+            },
+        ],
+        separator: '<br/>'
+    }
 }
 
 const canvasBuff: Buff = {
@@ -48,7 +89,7 @@ const canvasBuff: Buff = {
     canStack: false,
     stacks: 1,
     stats: {},
-    initialState: { freeSpace: '2', paintFlood: '0', paintEarthquake: '0' },
+    initialState: { freeSpace: '2', usedSpace: '0', paintFlood: '0', paintEarthquake: '0' },
     triggeredBuffEffects: [
         {
             trigger: paintFloodTrigger,
@@ -60,10 +101,16 @@ const canvasBuff: Buff = {
                     mode: 'add',
                 },
                 {
+                    kind: 'setState',
+                    key: 'usedSpace',
+                    value: { value: 1, stat: undefined },
+                    mode: 'add',
+                },
+                {
                     kind: 'negate',
                     condition: {
                         kind: 'condition',
-                        condition: 'paintFlood + paintEarthquake >= freeSpace'
+                        condition: 'usedSpace >= freeSpace'
                     }
                 },
                 {
@@ -72,20 +119,26 @@ const canvasBuff: Buff = {
                     amount: { value: 3, stat: undefined },
                     condition: {
                         kind: 'condition',
-                        condition: 'paintFlood + paintEarthquake >= freeSpace'
+                        condition: 'usedSpace >= freeSpace'
                     },
-                    initialState: { paintFlood: { value: 1, stat: undefined, eqn: 'paintFlood'}, paintEarthquake: { value: 1, stat: undefined, eqn: 'paintEarthquake'}, }
+                    hideBuff: true,
+                    initialState: { 
+                        paintProtection: { value: 1, stat: undefined, eqn: '20 * paintFlood'}, 
+                        paintPower: { value: 1, stat: undefined, eqn: '30 * paintEarthquake'},
+                        paintDmgAfterTech: {value: 1, stat: undefined, eqn: '0.3 * paintEarthquake'} 
+                    },
                 },
-                // {
-                //     kind: 'buffTarget',
-                //     buff: canvasActivateEnemyBuff,
-                //     amount: { value: 3, stat: undefined },
-                //     condition: {
-                //         kind: 'condition',
-                //         condition: 'paintFlood + paintEarthquake >= freeSpace'
-                //     },
-                //     initialState: { paintFlood: { value: 1, stat: undefined, eqn: 'paintFlood'}, paintEarthquake: { value: 1, stat: undefined, eqn: 'paintEarthquake'}, }
-                // }
+                {
+                    kind: 'buffTarget',
+                    buff: canvasActivateEnemyBuff,
+                    amount: { value: 3, stat: undefined },
+                    condition: {
+                        kind: 'condition',
+                        condition: 'usedSpace >= freeSpace'
+                    },
+                    hideBuff: true,
+                    initialState: { paintWeakness: { value: 1, stat: undefined, eqn: '20 * paintFlood'} }
+                }
             ],
         },
         {
@@ -98,10 +151,16 @@ const canvasBuff: Buff = {
                     mode: 'add',
                 },
                 {
+                    kind: 'setState',
+                    key: 'usedSpace',
+                    value: { value: 1, stat: undefined },
+                    mode: 'add',
+                },
+                {
                     kind: 'negate',
                     condition: {
                         kind: 'condition',
-                        condition: 'paintFlood + paintEarthquake >= freeSpace'
+                        condition: 'usedSpace >= freeSpace'
                     }
                 },
                 {
@@ -110,13 +169,47 @@ const canvasBuff: Buff = {
                     amount: { value: 3, stat: undefined },
                     condition: {
                         kind: 'condition',
-                        condition: 'paintFlood + paintEarthquake >= freeSpace'
+                        condition: 'usedSpace >= freeSpace'
                     },
-                    initialState: { paintFlood: { value: 1, stat: undefined, eqn: 'paintFlood'}, paintEarthquake: { value: 1, stat: undefined, eqn: 'paintEarthquake'}, }
+                    hideBuff: true,
+                    initialState: { 
+                        paintProtection: { value: 1, stat: undefined, eqn: '20 * paintFlood'}, 
+                        paintPower: { value: 1, stat: undefined, eqn: '30 * paintEarthquake'},
+                        paintDmgAfterTech: {value: 1, stat: undefined, eqn: '0.3 * paintEarthquake'} 
+                    }
+                },
+                {
+                    kind: 'buffTarget',
+                    buff: canvasActivateEnemyBuff,
+                    amount: { value: 3, stat: undefined },
+                    condition: {
+                        kind: 'condition',
+                        condition: 'usedSpace >= freeSpace'
+                    },
+                    hideBuff: true,
+                    initialState: { paintWeakness: { value: 1, stat: undefined, eqn: '20 * paintFlood'} }
                 }
             ],
         }
-    ]
+    ],
+    tooltip: 'Canvas for painting, use sketch techniques to add sketches on it.',
+    stateTooltip: `<br/>Spaces used: <num>{usedSpace}</num> / <num>{freeSpace}</num><br/>Current effects:`,
+    tooltipFragments: {
+        fragments: [
+            {
+                tooltip: '<name>Flood</name>',
+                condition: 'paintFlood > 0'
+            },
+            {
+                tooltip: '<name>Earthquake</name>',
+                condition: 'paintEarthquake > 0'
+            }
+        ],
+        separator: ', '
+    },
+    type: 'none',
+    noneType: paintingTechsType,
+    buffType: paintingSurfaceBuffType
 }
 
 export const manifestCanvas: Technique = {

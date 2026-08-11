@@ -27,13 +27,22 @@
       "[name] Grave Stench": ""
     },
     "techniques/1:buff:Canvas": {
-      "[name] Canvas": ""
+      "[buffType-resolved] Painting Surfaces": "",
+      "[name] Canvas": "",
+      "[noneType-resolved] Painting": "",
+      "[separator] , ": "",
+      "[stateTooltip] <br/>Spaces used: <num>{usedSpace}</num> / <num>{freeSpace}</num><br/>Current effects:": ""
     },
     "techniques/1:buff:Canvas: Manifested Painting": {
-      "[name] Canvas: Manifested Painting": ""
+      "[name] Canvas: Manifested Painting": "",
+      "[separator] <br/>": ""
     },
     "techniques/1:buff:Canvas: Manifested Painting(Enemy)": {
-      "[name] Canvas: Manifested Painting(Enemy)": ""
+      "[name] Canvas: Manifested Painting(Enemy)": "",
+      "[separator] <br/>": ""
+    },
+    "techniques/1:buff:Earthquake": {
+      "[name] Earthquake": ""
     },
     "techniques/1:buff:Ink Wall": {
       "[additionalTooltip] Each time you receive damage to your <num>health</num>, lose a stack.": "",
@@ -134,8 +143,10 @@
       "[noneType-resolved] Painting": ""
     },
     "techniques/1:technique:Paint Flood": {
+      "[body] When manifested:<br/>Give <num>+20</num> Protection<br/>Inflict <num>+20%</num> Weakness": "",
       "[name] Paint Flood": "",
-      "[noneType-resolved] Painting": ""
+      "[noneType-resolved] Painting": "",
+      "[title] Flood": ""
     }
   }
 }

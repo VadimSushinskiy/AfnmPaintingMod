@@ -31,4 +31,11 @@ export const paintFlood: Technique = {
         }
     ],
     disableCrystalDrop: true,
+    childTooltips: [
+        {
+            title: 'Flood',
+            body: 'When manifested:<br/>Give <num>+20</num> Protection<br/>Inflict <num>+20%</num> Weakness',
+            condition: '1',
+        }
+    ]
 }
