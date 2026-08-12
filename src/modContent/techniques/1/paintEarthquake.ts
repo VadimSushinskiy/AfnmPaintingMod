@@ -1,8 +1,9 @@
 import { Buff, Technique } from "afnm-types";
 import { inks, paintingTechsType } from "../painting";
-import iconAsset from '../../../assets/techniques/PaintEarthquake.png';
+import iconAsset from '../../../assets/techniques/1/PaintEarthquake.png';
 
-export const paintEarthquakeTrigger = 'paintEarthquake';
+export const paintEarthquakeTrigger = 'paintEarthquakeTrigger';
+export const paintEarthquakeState = 'paintEarthquake';
 
 export const paintEarthquakePreviewBuff: Buff = {
     name: 'Earthquake',
@@ -17,7 +18,8 @@ export const paintEarthquakePreviewBuff: Buff = {
             kind: 'damage',
             amount: { value: 0.3, stat: 'power' }
         }
-    ]
+    ],
+    buffType: 'Sketch',
 }
 
 export const paintEarthquake: Technique = {
@@ -56,5 +58,5 @@ export const paintEarthquake: Technique = {
         }
     ],
     disableCrystalDrop: true,
-    tooltip: `Deal {damage.amount} damage and add <name>Painting: Earthquake</name> to all your <name>Painting Surfaces</name>.<br/>`,
+    tooltip: `Deal {damage.amount} damage and add <name>Sketch: Earthquake</name> to all your <name>Painting Surfaces</name>.<br/>`,
 }

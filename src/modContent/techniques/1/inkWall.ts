@@ -1,5 +1,5 @@
 import { Buff, Technique } from "afnm-types";
-import iconAsset from '../../../assets/techniques/InkWall.png';
+import iconAsset from '../../../assets/techniques/1/InkWall.png';
 import { inks, paintingTechsType } from "../painting";
 
 const inkWallBuff: Buff = {
@@ -9,9 +9,9 @@ const inkWallBuff: Buff = {
     stacks: 1,
     stats: {
         protection: {
-            value: 50,
+            value: 40,
             stat: undefined,
-            // upgradeKey: 'protectionBuff'
+            upgradeKey: 'buff'
         }
     },
     triggeredBuffEffects: [
@@ -25,7 +25,9 @@ const inkWallBuff: Buff = {
             ]
         }
     ],
-    additionalTooltip: 'Each time you receive damage to your <num>health</num>, lose a stack.'
+    type: 'none',
+    noneType: paintingTechsType,
+    additionalTooltip: 'Each time you receive damage to your <name>health</name>, lose a stack.'
 }
 
 export const inkWall: Technique = {
@@ -37,7 +39,8 @@ export const inkWall: Technique = {
     costs: [
         {
             buff: inks,
-            amount: 3
+            amount: 3,
+            upgradeKey: 'cost',
         }
     ],
     effects: [
@@ -46,7 +49,7 @@ export const inkWall: Technique = {
             amount: {
                 value: 1.4,
                 stat: 'power',
-                // upgradeKey: 'power',
+                upgradeKey: 'power',
             }
         },
         {
@@ -55,12 +58,29 @@ export const inkWall: Technique = {
             amount: {
                 value: 5,
                 stat: undefined,
-                // upgradeKey: 'stacks'
+                upgradeKey: 'stacks'
             }
         }
     ],
-    // upgradeMasteries: {
-    //     basePower: createPowerUpgradeMap('power', 'empowered'),
-    // },
+    upgradeMasteries: {
+        power: window.modAPI.utils.createPowerUpgradeMap('power', 'empowered'),
+        stacks: window.modAPI.utils.createStacksUpgradeMap('stacks', 'empowered', inkWallBuff.name, 4),
+        buff: window.modAPI.utils.createUpgradeMapSimple(
+            'buff',
+            'empowered', 
+            `Increase protection buff by <num>{change}</num>.`, 
+            false,
+            {
+                mundane: 5,
+                qitouched: 10,
+                empowered: 15,
+                resplendent: 20,
+                incandescent: 25,
+                transcendent: 30,
+            },
+            (value: number) => Math.floor(value * 1),
+        ),
+        cost: window.modAPI.utils.createCostUpgradeMap('cost', 'empowered', inks.name, -1),
+    },
     disableCrystalDrop: true,
 }

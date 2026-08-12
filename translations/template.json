@@ -37,16 +37,30 @@
       "[name] Canvas: Manifested Painting": "",
       "[separator] <br/>": ""
     },
-    "techniques/1:buff:Canvas: Manifested Painting(Enemy)": {
-      "[name] Canvas: Manifested Painting(Enemy)": "",
+    "techniques/1:buff:Canvas: Manifested Painting (Enemy)": {
+      "[name] Canvas: Manifested Painting (Enemy)": "",
       "[separator] <br/>": ""
     },
     "techniques/1:buff:Earthquake": {
+      "[buffType] Sketch": "",
       "[name] Earthquake": ""
     },
+    "techniques/1:buff:Flood": {
+      "[buffType] Sketch": "",
+      "[name] Flood": ""
+    },
     "techniques/1:buff:Ink Wall": {
-      "[additionalTooltip] Each time you receive damage to your <num>health</num>, lose a stack.": "",
-      "[name] Ink Wall": ""
+      "[additionalTooltip] Each time you receive damage to your <name>health</name>, lose a stack.": "",
+      "[name] Ink Wall": "",
+      "[noneType-resolved] Painting": ""
+    },
+    "techniques/1:buff:Inky Corrosion": {
+      "[name] Inky Corrosion": "",
+      "[noneType-resolved] Painting": ""
+    },
+    "techniques/1:buff:Shield": {
+      "[buffType] Sketch": "",
+      "[name] Shield": ""
     }
   },
   "data": {
@@ -126,6 +140,10 @@
     }
   },
   "techniques": {
+    "techniques/1:technique:Ink Spear": {
+      "[name] Ink Spear": "",
+      "[noneType-resolved] Painting": ""
+    },
     "techniques/1:technique:Ink Splashing": {
       "[name] Ink Splashing": "",
       "[noneType-resolved] Painting": ""
@@ -143,10 +161,12 @@
       "[noneType-resolved] Painting": ""
     },
     "techniques/1:technique:Paint Flood": {
-      "[body] When manifested:<br/>Give <num>+20</num> Protection<br/>Inflict <num>+20%</num> Weakness": "",
       "[name] Paint Flood": "",
-      "[noneType-resolved] Painting": "",
-      "[title] Flood": ""
+      "[noneType-resolved] Painting": ""
+    },
+    "techniques/1:technique:Paint Shield": {
+      "[name] Paint Shield": "",
+      "[noneType-resolved] Painting": ""
     }
   }
 }

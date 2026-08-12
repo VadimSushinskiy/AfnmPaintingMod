@@ -1,6 +1,6 @@
 import { Technique } from "afnm-types";
 import { inks, paintingTechsType } from "../painting";
-import iconAsset from '../../../assets/techniques/InkSplashing.png';
+import iconAsset from '../../../assets/techniques/1/InkSplashing.png';
 
 export const inkSplashing: Technique = {
     name: 'Ink Splashing',
@@ -14,7 +14,7 @@ export const inkSplashing: Technique = {
             amount: {
                 value: 0.9,
                 stat: 'power',
-                // upgradeKey: 'power'
+                upgradeKey: 'power'
             }
         },
         {
@@ -23,12 +23,13 @@ export const inkSplashing: Technique = {
             amount: {
                 value: 5,
                 stat: undefined,
-                // upgradeKey: 'stacks'
+                upgradeKey: 'stacks'
             }
         },
     ],
-    // upgradeMasteries: {
-    //     stacks: window.modAPI.utils.createStacksUpgradeMap()
-    // },
+    upgradeMasteries: {
+        power: window.modAPI.utils.createPowerUpgradeMap('power', 'empowered'),
+        stacks: window.modAPI.utils.createStacksUpgradeMap('stacks', 'empowered', inks.name, 3),
+    },
     disableCrystalDrop: true,
 }
