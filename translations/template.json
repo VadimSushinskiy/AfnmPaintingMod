@@ -23,6 +23,13 @@
       "[effectHint] Spent to activate certain Painting techniques": "",
       "[name] Inks": ""
     },
+    "modContent/techniques:painting": {
+      "[buffType-resolved] Painting Surfaces": "",
+      "[noneType-resolved] Painting": "",
+      "[stateTooltip] <br/>Spaces used: <num>{usedSpace}</num> / <num>{freeSpace}</num><br/>Current effects:": "",
+      "[tooltipFragments/separator] , ": "",
+      "[tooltipFragments/separator] <br/>": ""
+    },
     "modContent/trials:buff:Grave Stench": {
       "[name] Grave Stench": ""
     },
@@ -137,6 +144,12 @@
       "[string] Enter Painting": "",
       "[string] No special effects": "",
       "[string] Rewards": ""
+    }
+  },
+  "pills": {
+    "src/modContent:pill:Vigor Pill": {
+      "[description] A carefully refined pill that restores health and grants temporary strength. Popular among cultivators entering combat.": "",
+      "[name] Vigor Pill": ""
     }
   },
   "techniques": {

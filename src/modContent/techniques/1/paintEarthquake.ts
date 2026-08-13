@@ -1,9 +1,22 @@
 import { Buff, Technique } from "afnm-types";
-import { inks, paintingTechsType } from "../painting";
+import { inks, paintingTechsType, SketchTechniqueSignature } from "../painting";
 import iconAsset from '../../../assets/techniques/1/PaintEarthquake.png';
 
 export const paintEarthquakeTrigger = 'paintEarthquakeTrigger';
 export const paintEarthquakeState = 'paintEarthquake';
+
+export const paintEarthquakeSignature: SketchTechniqueSignature = {
+    name: 'Earthquake',
+    stateKey: 'paintEarthquake',
+    trigger: 'paintEarthquakeTrigger',
+    playerManifestationEffects: {
+        power: 30,
+        afterTechEffects: {
+            damage: 0.3
+        }
+    },
+    enemyManifestationEffects: {},
+}
 
 export const paintEarthquakePreviewBuff: Buff = {
     name: 'Earthquake',
