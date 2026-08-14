@@ -1,9 +1,18 @@
 import { Buff, Technique } from "afnm-types";
 import { inks, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/1/PaintShield.png';
+import { SketchTechniqueSignature } from "../helpers/sketchTypes";
 
-export const paintShieldTrigger = 'paintShieldTrigger';
-export const paintShieldState = 'paintShield';
+export const paintShieldSignature: SketchTechniqueSignature = {
+    name: 'Shield',
+    stateKey: 'paintShield',
+    trigger: 'paintShieldTrigger',
+    playerManifestationEffects: {
+        maxBarrier: 10,
+        barrierEffectiveness: 10,
+    },
+    enemyManifestationEffects: {},
+}
 
 export const paintShieldPreviewBuff: Buff = {
     name: 'Shield',
@@ -37,7 +46,7 @@ export const paintShield: Technique = {
         },
         {
             kind: 'trigger',
-            triggerKey: paintShieldTrigger,
+            triggerKey: paintShieldSignature.trigger,
             amount: { value: 1, stat: undefined }
         },
         {

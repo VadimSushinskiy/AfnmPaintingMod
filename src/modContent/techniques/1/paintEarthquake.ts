@@ -1,9 +1,7 @@
 import { Buff, Technique } from "afnm-types";
-import { inks, paintingTechsType, SketchTechniqueSignature } from "../painting";
+import { inks, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/1/PaintEarthquake.png';
-
-export const paintEarthquakeTrigger = 'paintEarthquakeTrigger';
-export const paintEarthquakeState = 'paintEarthquake';
+import { SketchTechniqueSignature } from "../helpers/sketchTypes";
 
 export const paintEarthquakeSignature: SketchTechniqueSignature = {
     name: 'Earthquake',
@@ -57,7 +55,7 @@ export const paintEarthquake: Technique = {
         },
         {
             kind: 'trigger',
-            triggerKey: paintEarthquakeTrigger,
+            triggerKey: paintEarthquakeSignature.trigger,
             amount: { value: 1, stat: undefined }
         },
         {

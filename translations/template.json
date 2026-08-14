@@ -23,30 +23,8 @@
       "[effectHint] Spent to activate certain Painting techniques": "",
       "[name] Inks": ""
     },
-    "modContent/techniques:painting": {
-      "[buffType-resolved] Painting Surfaces": "",
-      "[noneType-resolved] Painting": "",
-      "[stateTooltip] <br/>Spaces used: <num>{usedSpace}</num> / <num>{freeSpace}</num><br/>Current effects:": "",
-      "[tooltipFragments/separator] , ": "",
-      "[tooltipFragments/separator] <br/>": ""
-    },
     "modContent/trials:buff:Grave Stench": {
       "[name] Grave Stench": ""
-    },
-    "techniques/1:buff:Canvas": {
-      "[buffType-resolved] Painting Surfaces": "",
-      "[name] Canvas": "",
-      "[noneType-resolved] Painting": "",
-      "[separator] , ": "",
-      "[stateTooltip] <br/>Spaces used: <num>{usedSpace}</num> / <num>{freeSpace}</num><br/>Current effects:": ""
-    },
-    "techniques/1:buff:Canvas: Manifested Painting": {
-      "[name] Canvas: Manifested Painting": "",
-      "[separator] <br/>": ""
-    },
-    "techniques/1:buff:Canvas: Manifested Painting (Enemy)": {
-      "[name] Canvas: Manifested Painting (Enemy)": "",
-      "[separator] <br/>": ""
     },
     "techniques/1:buff:Earthquake": {
       "[buffType] Sketch": "",
@@ -68,6 +46,13 @@
     "techniques/1:buff:Shield": {
       "[buffType] Sketch": "",
       "[name] Shield": ""
+    },
+    "techniques/helpers:createPaintingSurface": {
+      "[buffType-resolved] Painting Surfaces": "",
+      "[noneType-resolved] Painting": "",
+      "[stateTooltip] <br/>Spaces used: <num>{usedSpace}</num> / <num>{freeSpace}</num><br/>Current effects:": "",
+      "[tooltipFragments/separator] , ": "",
+      "[tooltipFragments/separator] <br/>": ""
     }
   },
   "data": {
@@ -146,13 +131,13 @@
       "[string] Rewards": ""
     }
   },
-  "pills": {
-    "src/modContent:pill:Vigor Pill": {
-      "[description] A carefully refined pill that restores health and grants temporary strength. Popular among cultivators entering combat.": "",
-      "[name] Vigor Pill": ""
-    }
-  },
   "techniques": {
+    "techniques/1:technique:Earthquake": {
+      "[name] Earthquake": ""
+    },
+    "techniques/1:technique:Flood": {
+      "[name] Flood": ""
+    },
     "techniques/1:technique:Ink Spear": {
       "[name] Ink Spear": "",
       "[noneType-resolved] Painting": ""
@@ -180,6 +165,27 @@
     "techniques/1:technique:Paint Shield": {
       "[name] Paint Shield": "",
       "[noneType-resolved] Painting": ""
+    },
+    "techniques/1:technique:Shield": {
+      "[name] Shield": ""
+    },
+    "techniques/helpers:createPaintingSurface": {
+      "[tooltip] After each technique deal <num>{damage.amount}</num> damage.": "",
+      "[tooltip] After each technique gain <num>{barrier.amount}</num> barrier.": "",
+      "[tooltip] After each technique gain <num>{temphp.amount}</num> temporary health.": "",
+      "[tooltip] After each technique heal <num>{healing.amount}</num> health.": "",
+      "[tooltip] At the end of each round deal <num>{damage.amount}</num> damage.": "",
+      "[tooltip] At the end of each round gain <num>{barrier.amount}</num> barrier.": "",
+      "[tooltip] At the end of each round gain <num>{temphp.amount}</num> temporary health.": "",
+      "[tooltip] At the end of each round heal <num>{healing.amount}</num> health.": "",
+      "[tooltip] At the start of each round deal <num>{damage.amount}</num> damage.": "",
+      "[tooltip] At the start of each round gain <num>{barrier.amount}</num> barrier.": "",
+      "[tooltip] At the start of each round gain <num>{temphp.amount}</num> temporary health.": "",
+      "[tooltip] At the start of each round heal <num>{healing.amount}</num> health.": "",
+      "[tooltip] Before each technique deal <num>{damage.amount}</num> damage.": "",
+      "[tooltip] Before each technique gain <num>{barrier.amount}</num> barrier.": "",
+      "[tooltip] Before each technique gain <num>{temphp.amount}</num> temporary health.": "",
+      "[tooltip] Before each technique heal <num>{healing.amount}</num> health.": ""
     }
   }
 }

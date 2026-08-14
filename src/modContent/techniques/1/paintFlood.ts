@@ -1,10 +1,19 @@
 import { Buff, Technique } from "afnm-types";
 import { inks, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/1/PaintFlood.png';
+import { SketchTechniqueSignature } from "../helpers/sketchTypes";
 
-export const paintFloodTrigger = 'paintFloodTrigger';
-export const paintFloodState = 'paintFlood';
-
+export const paintFloodSignature: SketchTechniqueSignature = {
+    name: 'Flood',
+    stateKey: 'paintFlood',
+    trigger: 'paintFloodTrigger',
+    playerManifestationEffects: {
+        protection: 20,
+    },
+    enemyManifestationEffects: {
+        weakness: 20,
+    },
+}
 export const paintFloodPreviewBuff: Buff = {
     name: 'Flood',
     icon: iconAsset,
@@ -38,7 +47,7 @@ export const paintFlood: Technique = {
         },
         {
             kind: 'trigger',
-            triggerKey: paintFloodTrigger,
+            triggerKey: paintFloodSignature.trigger,
             amount: { value: 1, stat: undefined }
         },
         {
