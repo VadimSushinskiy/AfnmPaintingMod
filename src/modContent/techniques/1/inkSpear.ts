@@ -1,5 +1,5 @@
 import { Buff, Technique } from "afnm-types";
-import { inks, paintingTechsType } from "../painting";
+import { ink, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/1/InkSpear.png';
 import buffIconAsset from '../../../assets/techniques/1/InkyCorrosion.png';
 
@@ -41,7 +41,7 @@ export const inkSpear: Technique = {
     realm: 'bodyForging',
     costs: [
         {
-            buff: inks,
+            buff: ink,
             amount: 2
         }
     ],

@@ -19,9 +19,21 @@
     }
   },
   "buffs": {
-    "modContent/techniques:buff:Inks": {
+    "items/pills:buff:Fantasy Zenith": {
+      "[buffType] Pill": "",
+      "[name] Fantasy Zenith": ""
+    },
+    "items/talismans:buff:Ink Recycling": {
+      "[buff/name] Ink Reinforcement": "",
+      "[name] Ink Recycling": ""
+    },
+    "items/talismans:buff:Ink Recycling+": {
+      "[buff/name] Ink Reinforcement+": "",
+      "[name] Ink Recycling+": ""
+    },
+    "modContent/techniques:buff:Ink": {
       "[effectHint] Spent to activate certain Painting techniques": "",
-      "[name] Inks": ""
+      "[name] Ink": ""
     },
     "modContent/trials:buff:Grave Stench": {
       "[name] Grave Stench": ""
@@ -123,12 +135,124 @@
       "[text] Under your onslaught, all enemies become just spots of paint again and the painting rejoices in your victory, healing your injuries. Your hard-earned rewards are formed from the paint before you.": ""
     }
   },
+  "items": {
+    "items/flames:item:Ink Flame": {
+      "[description] A weightless mass of grayish-black flame, devoid of the heat typical of fire. Its tongues flow upward like drops of ink, leaving slowly fading calligraphic strokes in the air. The light around it is hardly reflected, being absorbed by the flame itself.": "",
+      "[name] Ink Flame": ""
+    },
+    "items/materials:item:Spirit Ink": {
+      "[description] This spirit ink is one of the fundamental components from which Painted Worlds is created. It's unknown why this material possesses such properties or whether they can be replicated in other materials, but in the hands of a talented craftsmen, this essence of creation can be used to craft ink items imbued with a glimmer of the power of the Painted Worlds themselves.": "",
+      "[name] Spirit Ink": ""
+    },
+    "items/mounts:item:Ink Brush": {
+      "[description] A giant brush crafted from the ink essence of the Painted Worlds. The formations on it can slightly enhance the cultivator's comprehension, thereby increasing the speed of technique mastery.": "",
+      "[name] Ink Brush": ""
+    },
+    "items/mounts:item:Ink Brush+": {
+      "[description] A giant brush crafted from the ink essence of the Painted Worlds. The formations on it can slightly enhance the cultivator's comprehension, thereby increasing the speed of technique mastery.": "",
+      "[name] Ink Brush+": ""
+    },
+    "items/pills:fantasyZenithPill": {
+      "[name] Fantasy Zenith Pill (-)": "",
+      "[name] Fantasy Zenith Pill (I)": "",
+      "[name] Fantasy Zenith Pill (II)": "",
+      "[name] Fantasy Zenith Pill (III)": "",
+      "[name] Fantasy Zenith Pill (IV)": "",
+      "[name] Fantasy Zenith Pill (IX)": "",
+      "[name] Fantasy Zenith Pill (V)": "",
+      "[name] Fantasy Zenith Pill (VI)": "",
+      "[name] Fantasy Zenith Pill (VII)": "",
+      "[name] Fantasy Zenith Pill (VIII)": "",
+      "[name] Fantasy Zenith Pill S (-)": "",
+      "[name] Fantasy Zenith Pill S (I)": "",
+      "[name] Fantasy Zenith Pill S (II)": "",
+      "[name] Fantasy Zenith Pill S (III)": "",
+      "[name] Fantasy Zenith Pill S (IV)": "",
+      "[name] Fantasy Zenith Pill S (IX)": "",
+      "[name] Fantasy Zenith Pill S (V)": "",
+      "[name] Fantasy Zenith Pill S (VI)": "",
+      "[name] Fantasy Zenith Pill S (VII)": "",
+      "[name] Fantasy Zenith Pill S (VIII)": "",
+      "[name] Fantasy Zenith Pill+ (-)": "",
+      "[name] Fantasy Zenith Pill+ (I)": "",
+      "[name] Fantasy Zenith Pill+ (II)": "",
+      "[name] Fantasy Zenith Pill+ (III)": "",
+      "[name] Fantasy Zenith Pill+ (IV)": "",
+      "[name] Fantasy Zenith Pill+ (IX)": "",
+      "[name] Fantasy Zenith Pill+ (V)": "",
+      "[name] Fantasy Zenith Pill+ (VI)": "",
+      "[name] Fantasy Zenith Pill+ (VII)": "",
+      "[name] Fantasy Zenith Pill+ (VIII)": ""
+    }
+  },
   "jsx": {
     "screens/PaintingScreen/PaintingScreenBase": {
       "[string] Effects": "",
       "[string] Enter Painting": "",
       "[string] No special effects": "",
       "[string] Rewards": ""
+    }
+  },
+  "pills": {
+    "items/pills:fantasyZenithPill": {
+      "[description] One of the strangest pills, knowledge of which comes from the Painted Worlds. When consumed, the connection with the physical world weakens, but instead, the connection with a mysterious world of fantasy, dreams, and imagination greatly increases. Understanding this world eludes even the most powerful cultivators and there is no known case of anyone successfully entering this world completely, but it's said that if someone succeeds in reaching this place and leaving the physical world, they will immediately achieve immortality. However, no one has ever been able to confirm these rumors.": "",
+      "[name] Fantasy Zenith Pill (-)": "",
+      "[name] Fantasy Zenith Pill (I)": "",
+      "[name] Fantasy Zenith Pill (II)": "",
+      "[name] Fantasy Zenith Pill (III)": "",
+      "[name] Fantasy Zenith Pill (IV)": "",
+      "[name] Fantasy Zenith Pill (IX)": "",
+      "[name] Fantasy Zenith Pill (V)": "",
+      "[name] Fantasy Zenith Pill (VI)": "",
+      "[name] Fantasy Zenith Pill (VII)": "",
+      "[name] Fantasy Zenith Pill (VIII)": "",
+      "[name] Fantasy Zenith Pill S (-)": "",
+      "[name] Fantasy Zenith Pill S (I)": "",
+      "[name] Fantasy Zenith Pill S (II)": "",
+      "[name] Fantasy Zenith Pill S (III)": "",
+      "[name] Fantasy Zenith Pill S (IV)": "",
+      "[name] Fantasy Zenith Pill S (IX)": "",
+      "[name] Fantasy Zenith Pill S (V)": "",
+      "[name] Fantasy Zenith Pill S (VI)": "",
+      "[name] Fantasy Zenith Pill S (VII)": "",
+      "[name] Fantasy Zenith Pill S (VIII)": "",
+      "[name] Fantasy Zenith Pill+ (-)": "",
+      "[name] Fantasy Zenith Pill+ (I)": "",
+      "[name] Fantasy Zenith Pill+ (II)": "",
+      "[name] Fantasy Zenith Pill+ (III)": "",
+      "[name] Fantasy Zenith Pill+ (IV)": "",
+      "[name] Fantasy Zenith Pill+ (IX)": "",
+      "[name] Fantasy Zenith Pill+ (V)": "",
+      "[name] Fantasy Zenith Pill+ (VI)": "",
+      "[name] Fantasy Zenith Pill+ (VII)": "",
+      "[name] Fantasy Zenith Pill+ (VIII)": ""
+    }
+  },
+  "recipes": {
+    "recipes/mounts:recipe:Ink Brush Recipe": {
+      "[description] A recipe for an Ink Brush.": "",
+      "[name] Ink Brush": "",
+      "[name] Ink Brush Recipe": ""
+    },
+    "recipes/pills:recipe:Fantasy Zenith Pill (I) Recipe": {
+      "[description] A recipe for a Fantasy Zenith Pill (I).": "",
+      "[name] Fantasy Zenith Pill (I)": "",
+      "[name] Fantasy Zenith Pill (I) Recipe": ""
+    },
+    "recipes/talismans:recipe:Ink Recycling Talisman Recipe": {
+      "[description] A recipe for an Ink Recycling Talisman.": "",
+      "[name] Ink Recycling Talisman": "",
+      "[name] Ink Recycling Talisman Recipe": ""
+    }
+  },
+  "talismans": {
+    "items/talismans:talisman:Ink Recycling Talisman": {
+      "[description] Talisman made from compressed ink according to mysterious recipes. The formations inscribed on it allow the remnants of used ink to be recycled into a short-term boost for cultivator's body.": "",
+      "[name] Ink Recycling Talisman": ""
+    },
+    "items/talismans:talisman:Ink Recycling Talisman+": {
+      "[description] Talisman made from compressed ink according to mysterious recipes. The formations inscribed on it allow the remnants of used ink to be recycled into a short-term boost for cultivator's body.": "",
+      "[name] Ink Recycling Talisman+": ""
     }
   },
   "techniques": {

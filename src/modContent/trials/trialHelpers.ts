@@ -1,6 +1,6 @@
 import { Buff, CraftingBuff, EnemyEntity, EventStep, Item, RecipeItem, TechniqueItem } from "afnm-types";
 import { CombatTrial, CraftingTrial } from "../types/Trial";
-import { techniqueItems } from "../items/technique/technique";
+import { techniqueItems } from "../items/techniques/technique";
 
 export const createCombat = (
     title: string, 

@@ -1,6 +1,6 @@
 import { Buff, Technique } from "afnm-types";
 import iconAsset from '../../../assets/techniques/1/InkWall.png';
-import { inks, paintingTechsType } from "../painting";
+import { ink, paintingTechsType } from "../painting";
 
 const inkWallBuff: Buff = {
     name: 'Ink Wall',
@@ -38,7 +38,7 @@ export const inkWall: Technique = {
     realm: 'bodyForging',
     costs: [
         {
-            buff: inks,
+            buff: ink,
             amount: 3,
             upgradeKey: 'cost',
         }
@@ -80,7 +80,7 @@ export const inkWall: Technique = {
             },
             (value: number) => Math.floor(value * 1),
         ),
-        cost: window.modAPI.utils.createCostUpgradeMap('cost', 'empowered', inks.name, -1),
+        cost: window.modAPI.utils.createCostUpgradeMap('cost', 'empowered', ink.name, -1),
     },
     disableCrystalDrop: true,
 }

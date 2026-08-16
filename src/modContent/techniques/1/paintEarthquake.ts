@@ -1,5 +1,5 @@
 import { Buff, Technique } from "afnm-types";
-import { inks, paintingTechsType } from "../painting";
+import { ink, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/1/PaintEarthquake.png';
 import { SketchTechniqueSignature } from "../helpers/sketchTypes";
 
@@ -41,7 +41,7 @@ export const paintEarthquake: Technique = {
     realm: 'bodyForging',
     costs: [
         {
-            buff: inks,
+            buff: ink,
             amount: 2,
         }
     ],

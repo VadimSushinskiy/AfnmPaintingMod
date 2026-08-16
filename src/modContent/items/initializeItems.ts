@@ -1,7 +1,7 @@
-import { techniqueItems } from "./technique/technique";
+import { items } from "./items";
 
 export function initializeItems() {
-    techniqueItems.forEach((techniqueItem) => {
+    items.forEach((techniqueItem) => {
         window.modAPI.actions.addItem(techniqueItem);
     });
 }

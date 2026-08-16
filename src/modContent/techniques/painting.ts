@@ -4,8 +4,8 @@ import iconAsset from '../../assets/techniques/Inks.png';
 export const paintingTechsType = 'Painting';
 export const paintingSurfaceBuffType = 'Painting Surfaces';
 
-export const inks: Buff = {
-    name: 'Inks',
+export const ink: Buff = {
+    name: 'Ink',
     icon: iconAsset,
     canStack: true,
     stats: undefined,

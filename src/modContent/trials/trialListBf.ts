@@ -1,4 +1,4 @@
-import { techniqueItems } from "../items/technique/technique";
+import { techniqueItems } from "../items/techniques/technique";
 import { Trial } from "../types/Trial";
 import { createCombat, createCrafting, getGameEnemies, getGameItems, getGameRecipe, getTechniquesItems } from "./trialHelpers";
 import { trialCombatBuffs } from "./trialsCombatBuffs";
