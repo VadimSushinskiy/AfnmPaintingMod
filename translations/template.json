@@ -67,6 +67,11 @@
       "[tooltipFragments/separator] <br/>": ""
     }
   },
+  "craftingBuffs": {
+    "items/pills:craftingBuff:Unity Pill": {
+      "[name] Unity Pill": ""
+    }
+  },
   "data": {
     "modContent/trials:trialListBf": {
       "[itemName] Barrier Pill+ (I)": "",
@@ -183,6 +188,66 @@
       "[name] Fantasy Zenith Pill+ (VI)": "",
       "[name] Fantasy Zenith Pill+ (VII)": "",
       "[name] Fantasy Zenith Pill+ (VIII)": ""
+    },
+    "items/pills:unityPill": {
+      "[name] Unity Pill (-)": "",
+      "[name] Unity Pill (I)": "",
+      "[name] Unity Pill (II)": "",
+      "[name] Unity Pill (III)": "",
+      "[name] Unity Pill (IV)": "",
+      "[name] Unity Pill (IX)": "",
+      "[name] Unity Pill (V)": "",
+      "[name] Unity Pill (VI)": "",
+      "[name] Unity Pill (VII)": "",
+      "[name] Unity Pill (VIII)": "",
+      "[name] Unity Pill S (-)": "",
+      "[name] Unity Pill S (I)": "",
+      "[name] Unity Pill S (II)": "",
+      "[name] Unity Pill S (III)": "",
+      "[name] Unity Pill S (IV)": "",
+      "[name] Unity Pill S (IX)": "",
+      "[name] Unity Pill S (V)": "",
+      "[name] Unity Pill S (VI)": "",
+      "[name] Unity Pill S (VII)": "",
+      "[name] Unity Pill S (VIII)": "",
+      "[name] Unity Pill+ (-)": "",
+      "[name] Unity Pill+ (I)": "",
+      "[name] Unity Pill+ (II)": "",
+      "[name] Unity Pill+ (III)": "",
+      "[name] Unity Pill+ (IV)": "",
+      "[name] Unity Pill+ (IX)": "",
+      "[name] Unity Pill+ (V)": "",
+      "[name] Unity Pill+ (VI)": "",
+      "[name] Unity Pill+ (VII)": "",
+      "[name] Unity Pill+ (VIII)": ""
+    },
+    "pills/craftingReagents:etherealQiReagent": {
+      "[buff/name] Ethereal Qi Reagent": "",
+      "[description] A blended powder reagent to be applied at the start of an alchemist's craft. When applied to the lining of the cauldron it sometimes redirects energetic influences from the crafting process into some unseen dimension without affecting Qi Pool of the craftsman himself.": "",
+      "[name] Ethereal Qi Reagent (-)": "",
+      "[name] Ethereal Qi Reagent (I)": "",
+      "[name] Ethereal Qi Reagent (II)": "",
+      "[name] Ethereal Qi Reagent (III)": "",
+      "[name] Ethereal Qi Reagent (IV)": "",
+      "[name] Ethereal Qi Reagent (IX)": "",
+      "[name] Ethereal Qi Reagent (V)": "",
+      "[name] Ethereal Qi Reagent (VI)": "",
+      "[name] Ethereal Qi Reagent (VII)": "",
+      "[name] Ethereal Qi Reagent (VIII)": ""
+    },
+    "pills/craftingReagents:etherealStabilityReagent": {
+      "[buff/name] Ethereal Stability Reagent": "",
+      "[description] A blended powder reagent to be applied at the start of an alchemist's craft. When applied to the lining of the cauldron it sometimes redirects physical influences from the crafting process into some unseen dimension without affecting stability of the cauldron itself.": "",
+      "[name] Ethereal Stability Reagent (-)": "",
+      "[name] Ethereal Stability Reagent (I)": "",
+      "[name] Ethereal Stability Reagent (II)": "",
+      "[name] Ethereal Stability Reagent (III)": "",
+      "[name] Ethereal Stability Reagent (IV)": "",
+      "[name] Ethereal Stability Reagent (IX)": "",
+      "[name] Ethereal Stability Reagent (V)": "",
+      "[name] Ethereal Stability Reagent (VI)": "",
+      "[name] Ethereal Stability Reagent (VII)": "",
+      "[name] Ethereal Stability Reagent (VIII)": ""
     }
   },
   "jsx": {
@@ -226,6 +291,39 @@
       "[name] Fantasy Zenith Pill+ (VI)": "",
       "[name] Fantasy Zenith Pill+ (VII)": "",
       "[name] Fantasy Zenith Pill+ (VIII)": ""
+    },
+    "items/pills:unityPill": {
+      "[description] This pill is a practical application of the philosophy of the unity of material and spiritual. This teaching asserts that matter and energy are one and the same, and only we, with our minds and consciousness, distinguish between these concepts. Like most similar schools of thought, it only became widespread after Ying Meihua brought the \"Painted Worlds\" paintings to her sect and is considered heretical and delusional by most cultivators.": "",
+      "[name] Unity Pill (-)": "",
+      "[name] Unity Pill (I)": "",
+      "[name] Unity Pill (II)": "",
+      "[name] Unity Pill (III)": "",
+      "[name] Unity Pill (IV)": "",
+      "[name] Unity Pill (IX)": "",
+      "[name] Unity Pill (V)": "",
+      "[name] Unity Pill (VI)": "",
+      "[name] Unity Pill (VII)": "",
+      "[name] Unity Pill (VIII)": "",
+      "[name] Unity Pill S (-)": "",
+      "[name] Unity Pill S (I)": "",
+      "[name] Unity Pill S (II)": "",
+      "[name] Unity Pill S (III)": "",
+      "[name] Unity Pill S (IV)": "",
+      "[name] Unity Pill S (IX)": "",
+      "[name] Unity Pill S (V)": "",
+      "[name] Unity Pill S (VI)": "",
+      "[name] Unity Pill S (VII)": "",
+      "[name] Unity Pill S (VIII)": "",
+      "[name] Unity Pill+ (-)": "",
+      "[name] Unity Pill+ (I)": "",
+      "[name] Unity Pill+ (II)": "",
+      "[name] Unity Pill+ (III)": "",
+      "[name] Unity Pill+ (IV)": "",
+      "[name] Unity Pill+ (IX)": "",
+      "[name] Unity Pill+ (V)": "",
+      "[name] Unity Pill+ (VI)": "",
+      "[name] Unity Pill+ (VII)": "",
+      "[name] Unity Pill+ (VIII)": ""
     }
   },
   "recipes": {
@@ -234,10 +332,25 @@
       "[name] Ink Brush": "",
       "[name] Ink Brush Recipe": ""
     },
+    "recipes/pills:recipe:Ethereal Qi Reagent (I) Recipe": {
+      "[description] A recipe for an Ethereal Qi Reagent (I).": "",
+      "[name] Ethereal Qi Reagent (I)": "",
+      "[name] Ethereal Qi Reagent (I) Recipe": ""
+    },
+    "recipes/pills:recipe:Ethereal Stability Reagent (I) Recipe": {
+      "[description] A recipe for an Ethereal Stability Reagent (I).": "",
+      "[name] Ethereal Stability Reagent (I)": "",
+      "[name] Ethereal Stability Reagent (I) Recipe": ""
+    },
     "recipes/pills:recipe:Fantasy Zenith Pill (I) Recipe": {
       "[description] A recipe for a Fantasy Zenith Pill (I).": "",
       "[name] Fantasy Zenith Pill (I)": "",
       "[name] Fantasy Zenith Pill (I) Recipe": ""
+    },
+    "recipes/pills:recipe:Unity Pill (I) Recipe": {
+      "[description] A recipe for an Unity Pill (I).": "",
+      "[name] Unity Pill (I)": "",
+      "[name] Unity Pill (I) Recipe": ""
     },
     "recipes/talismans:recipe:Ink Recycling Talisman Recipe": {
       "[description] A recipe for an Ink Recycling Talisman.": "",
