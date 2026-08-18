@@ -1,6 +1,6 @@
 import { RecipeItem } from "afnm-types";
 import { recipeIcons } from "../recipeIcons";
-import { fantasyZenithPillMap, fantasyZenithPillPlusMap } from "../../pills/fantasyZenithPill";
+import { fantasyZenithPillMap, fantasyZenithPillPlusMap } from "../../pills/combatPills/fantasyZenithPill";
 import { spiritInk } from "../../materials/spiritInk";
 
 export const fantasyZenithPillIRecipe: RecipeItem = {

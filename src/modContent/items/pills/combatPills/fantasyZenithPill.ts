@@ -1,5 +1,5 @@
 import { Buff, CombatPillItem, Realm, realms, realmToTier } from "afnm-types";
-import iconAsset from '../../../assets/item/pill/FantasyZenithPill.png';
+import iconAsset from '../../../../assets/item/pill/FantasyZenithPill.png';
 
 const createBuff = (e: Realm): Buff => {
     return {
