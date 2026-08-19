@@ -97,19 +97,23 @@ const createAdditionalBuffEffects = (phase: PhaseKey): BuffEffect[] => {
     return [
         {
             kind: 'damage',
-            amount: {value: 1, stat: 'power', eqn: `${prefix}Damage` },
+            amount: {value: prefix === "AET" ? 2 : 1, stat: 'power', eqn: `${prefix}Damage` },
+            condition: {kind: 'condition', condition: `${prefix}Damage > 0`}
         },
         {
             kind: 'barrier',
-            amount: {value: 1, stat: 'power', eqn: `${prefix}Barrier` }
+            amount: {value: 1, stat: 'power', eqn: `${prefix}Barrier` },
+            condition: {kind: 'condition', condition: `${prefix}Barrier > 0`}
         },
         {
             kind: 'heal',
-            amount: {value: 1, stat: 'power', eqn: `${prefix}Heal` }
+            amount: {value: 1, stat: 'power', eqn: `${prefix}Heal` },
+            condition: {kind: 'condition', condition: `${prefix}Heal > 0`}
         },
         {
             kind: 'temporaryHealth',
-            amount: {value: 1, stat: 'power', eqn: `${prefix}Temphp` }
+            amount: {value: 1, stat: 'power', eqn: `${prefix}Temphp` },
+            condition: {kind: 'condition', condition: `${prefix}Temphp > 0`}
         },
     ]
 }
@@ -329,7 +333,7 @@ const buffBaseTooltipFragments: TooltipFragment[] = [
         condition: 'BETTemphp > 0'
     },
     {
-        tooltip: 'After each technique deal <num>{damage.amount}</num> damage.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'After each technique deal <num>{afterTechnique.[0].amount}</num> damage.', // Wrong numberы, need to fix!!!!!!!!
         condition: 'AETDamage > 0'
     },
     {
@@ -632,7 +636,7 @@ export const createPaintingSurface = (name: string, icon: string, freeSpace: num
         },
         type: 'none',
         noneType: paintingTechsType,
-        buffType: paintingSurfaceBuffType
+        buffType: paintingSurfaceBuffType,
     }
 
     return paintingSurfaceBuff;

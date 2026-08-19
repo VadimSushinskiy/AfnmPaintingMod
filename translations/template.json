@@ -556,7 +556,7 @@
       "[name] Shield": ""
     },
     "techniques/helpers:createPaintingSurface": {
-      "[tooltip] After each technique deal <num>{damage.amount}</num> damage.": "",
+      "[tooltip] After each technique deal <num>{afterTechnique.[0].amount}</num> damage.": "",
       "[tooltip] After each technique gain <num>{barrier.amount}</num> barrier.": "",
       "[tooltip] After each technique gain <num>{temphp.amount}</num> temporary health.": "",
       "[tooltip] After each technique heal <num>{healing.amount}</num> health.": "",
