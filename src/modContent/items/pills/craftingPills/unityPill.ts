@@ -1,5 +1,5 @@
 import { CraftingBuff, CraftingPillItem, Realm, realms, realmToTier } from "afnm-types";
-import iconAsset from '../../../assets/item/pill/UnityPill.png';
+import iconAsset from '../../../../assets/item/pill/UnityPill.png';
 
 const createBuff = (e: Realm, additionalMult: number = 0): CraftingBuff => {
     return {

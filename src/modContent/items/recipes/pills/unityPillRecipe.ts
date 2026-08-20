@@ -1,6 +1,6 @@
 import { RecipeItem } from "afnm-types";
 import { recipeIcons } from "../recipeIcons";
-import { unityPillMap, unityPillPlusMap } from "../../pills/unityPill";
+import { unityPillMap, unityPillPlusMap } from "../../pills/craftingPills/unityPill";
 import { spiritInk } from "../../materials/spiritInk";
 
 export const unityPillIRecipe: RecipeItem = {

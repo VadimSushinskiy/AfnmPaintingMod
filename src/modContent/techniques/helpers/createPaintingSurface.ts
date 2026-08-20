@@ -97,13 +97,14 @@ const createAdditionalBuffEffects = (phase: PhaseKey): BuffEffect[] => {
     return [
         {
             kind: 'damage',
-            amount: {value: prefix === "AET" ? 2 : 1, stat: 'power', eqn: `${prefix}Damage` },
+            amount: {value: 1, stat: 'power', eqn: `${prefix}Damage` },
             condition: {kind: 'condition', condition: `${prefix}Damage > 0`}
         },
         {
             kind: 'barrier',
             amount: {value: 1, stat: 'power', eqn: `${prefix}Barrier` },
-            condition: {kind: 'condition', condition: `${prefix}Barrier > 0`}
+            condition: {kind: 'condition', condition: `${prefix}Barrier > 0`},
+            hideAuxTooltip: `${prefix}Barrier <= 0`
         },
         {
             kind: 'heal',
@@ -113,7 +114,8 @@ const createAdditionalBuffEffects = (phase: PhaseKey): BuffEffect[] => {
         {
             kind: 'temporaryHealth',
             amount: {value: 1, stat: 'power', eqn: `${prefix}Temphp` },
-            condition: {kind: 'condition', condition: `${prefix}Temphp > 0`}
+            condition: {kind: 'condition', condition: `${prefix}Temphp > 0`},
+            hideAuxTooltip: `${prefix}Temphp <= 0`
         },
     ]
 }
@@ -433,7 +435,7 @@ export const createPaintingSurface = (name: string, icon: string, freeSpace: num
                 amount: {value: -1, stat: undefined}
             }
         ],
-        tooltip: `Manifested painting.`,
+        tooltip: `Manifested painting. Test<br/>`,
         tooltipFragments: {
             fragments: [
                 ...buffBaseTooltipFragments,
@@ -510,7 +512,7 @@ export const createPaintingSurface = (name: string, icon: string, freeSpace: num
             amount: {value: -1, stat: undefined}
         }
     ],
-    tooltip: `Manifested painting.`,
+    tooltip: `Manifested painting. Test<br/>`,
     tooltipFragments: {
         fragments: [
                 ...buffBaseTooltipFragments,
@@ -552,7 +554,8 @@ export const createPaintingSurface = (name: string, icon: string, freeSpace: num
                 },
             ],
         separator: '<br/>'
-    }
+    },
+    transferOnTargetDeath: true,
 }
 
     const createTriggeredBuffEffect = (trigger: string, stateKey: string): 

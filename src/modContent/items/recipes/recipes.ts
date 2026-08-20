@@ -7,6 +7,8 @@ import { etherealQiReagentRecipe } from "./pills/etherealQiReagentRecipe";
 import { etherealStabilityReagentRecipe } from "./pills/etherealStabilityReagentRecipe";
 import { energyResonancePillIRecipe } from "./pills/energyResonancePillRecipe";
 import { bindingAgonyPillIRecipe } from "./pills/bindingAgonyPillRecipe";
+import { blindPrecisionPillIRecipe } from "./pills/blindPrecisionPillRecipe";
+import { stabilityConversionPillIRecipe } from "./pills/stabilityConversionPillRecipe";
 
 export const recipes: RecipeItem[] = [
     inkRecyclingTalismanRecipe,
@@ -14,6 +16,8 @@ export const recipes: RecipeItem[] = [
     fantasyZenithPillIRecipe,
     energyResonancePillIRecipe,
     bindingAgonyPillIRecipe,
+    blindPrecisionPillIRecipe,
+    stabilityConversionPillIRecipe,
     unityPillIRecipe,
     etherealQiReagentRecipe,
     etherealStabilityReagentRecipe,
