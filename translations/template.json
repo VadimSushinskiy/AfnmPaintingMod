@@ -83,8 +83,28 @@
     }
   },
   "craftingBuffs": {
+    "craftingActions/1:craftingBuff:Four-color Array": {
+      "[name] Four-color Array": ""
+    },
+    "modContent/craftingActions:craftingBuff:Blue Paint": {
+      "[name] Blue Paint": ""
+    },
+    "modContent/craftingActions:craftingBuff:Green Paint": {
+      "[name] Green Paint": ""
+    },
+    "modContent/craftingActions:craftingBuff:Purple Paint": {
+      "[name] Purple Paint": ""
+    },
+    "modContent/craftingActions:craftingBuff:Yellow Paint": {
+      "[name] Yellow Paint": ""
+    },
     "pills/craftingPills:craftingBuff:Unity Pill": {
       "[name] Unity Pill": ""
+    }
+  },
+  "craftingTechniques": {
+    "craftingActions/1:craftingTechnique:Four-color Array": {
+      "[name] Four-color Array": ""
     }
   },
   "data": {

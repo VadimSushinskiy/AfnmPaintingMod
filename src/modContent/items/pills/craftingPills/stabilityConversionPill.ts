@@ -1,5 +1,5 @@
 import { CraftingPillItem, Realm, realms, realmToTier } from "afnm-types";
-import iconAsset from '../../../../assets/item/pill/artgen-item-stabilityConversionPill-3_00010__upscaled (1).png';
+import iconAsset from '../../../../assets/item/pill/StabilityConversionPill.png';
 
 export const stabilityConversionPills: CraftingPillItem[] = realms.map((e) => ({
     kind: 'pill',
