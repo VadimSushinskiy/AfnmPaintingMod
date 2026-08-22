@@ -9,7 +9,7 @@ const bluePaint: CraftingBuff = {
     icon:bluePaintIcon,
     canStack: true,
     stats: {
-        control: { value: 0.01, stat: 'control', scaling: 'stacks' }
+        control: { value: 0.03, stat: 'control', scaling: 'stacks' }
     },
     effects: [],
     stacks: 1,
@@ -21,7 +21,7 @@ const greenPaint: CraftingBuff = {
     icon:greenPaintIcon,
     canStack: true,
     stats: {
-        intensity: { value: 0.01, stat: 'intensity', scaling: 'stacks' },
+        intensity: { value: 0.03, stat: 'intensity', scaling: 'stacks' },
         
     },
     effects: [],

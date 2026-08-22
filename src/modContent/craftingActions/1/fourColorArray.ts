@@ -67,7 +67,7 @@ const fourColorArrayBuff: CraftingBuff = {
 }
 
 export const fourColorArray: CraftingTechnique = {
-    name: 'Four-color Array',
+    name: 'Four-Colour Array',
     icon: iconAsset,
     poolCost: 50,
     stabilityCost: 0,

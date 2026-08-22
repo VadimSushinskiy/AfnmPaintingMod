@@ -83,8 +83,8 @@
     }
   },
   "craftingBuffs": {
-    "craftingActions/1:craftingBuff:Four-color Array": {
-      "[name] Four-color Array": ""
+    "craftingActions/1:craftingBuff:Four-Colour Array": {
+      "[name] Four-Colour Array": ""
     },
     "modContent/craftingActions:craftingBuff:Blue Paint": {
       "[name] Blue Paint": ""
@@ -103,8 +103,23 @@
     }
   },
   "craftingTechniques": {
-    "craftingActions/1:craftingTechnique:Four-color Array": {
-      "[name] Four-color Array": ""
+    "craftingActions/1:craftingTechnique:Colour Blur": {
+      "[name] Colour Blur": ""
+    },
+    "craftingActions/1:craftingTechnique:Four-Colour Array": {
+      "[name] Four-Colour Array": ""
+    },
+    "craftingActions/1:craftingTechnique:Painted Completion": {
+      "[name] Painted Completion": ""
+    },
+    "craftingActions/1:craftingTechnique:Painted Perfection": {
+      "[name] Painted Perfection": ""
+    },
+    "craftingActions/1:craftingTechnique:Painted Restoration": {
+      "[name] Painted Restoration": ""
+    },
+    "craftingActions/1:craftingTechnique:Painted Stabilization": {
+      "[name] Painted Stabilization": ""
     }
   },
   "data": {
