@@ -2,6 +2,8 @@ import { Breakthrough, ModOptionsFC } from "afnm-types";
 import { ink, paintingColor } from "../../techniques/painting";
 import iconAsset from '../../../assets/breakthrough/PrimordialInkBody.png';
 import { fleshObliterationPill } from "../../items/breakthrough/fleshObliterationPill";
+import { inkIron } from "../../items/materials/inkIron";
+import { fantasyOfPower } from "../../items/breakthrough/fantasyOfPower";
 
 export const primordialInkBody: Breakthrough = {
     name: 'Primordial Ink Body',
@@ -46,8 +48,8 @@ export const primordialInkBody: Breakthrough = {
         }
     ],
     allowedSlotItems: {
-        brain: ['Remembrance of Power'],
-        heart: ['Ocean Nephrite'],
+        brain: ['Remembrance of Power', fantasyOfPower.name],
+        heart: ['Ocean Nephrite', inkIron.name],
         pill: ['Flesh Annihilation Pill', fleshObliterationPill.name],
         groin: ['Spirit Core (I)'],
     },

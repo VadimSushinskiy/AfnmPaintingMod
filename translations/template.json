@@ -29,6 +29,10 @@
       "[description] Discard your mortal form via the obliteration pill, and perfect it using ink as a medium to become incarnation of the most primordial creation. This is the beginning of the Path of Creation.": "",
       "[name] Primordial Ink Body": ""
     },
+    "items/breakthrough:breakthrough:Fantasy of Power": {
+      "[description] A fantasy of never-existent power, distorted from the memories of a powerful cultivator. When absorbed as part of a breakthrough, can impart a small measure of that power to the user.": "",
+      "[name] Fantasy of Power": ""
+    },
     "items/breakthrough:breakthrough:Flesh Obliteration Pill": {
       "[description] A pill that causes the flesh of the consumer to be obliterated. The energy sealed within is virtually invisible, but one can feel it trying furiously to break out.": "",
       "[name] Flesh Obliteration Pill": ""
@@ -244,6 +248,10 @@
     "items/flames:item:Ink Flame": {
       "[description] A weightless mass of grayish-black flame, devoid of the heat typical of fire. Its tongues flow upward like drops of ink, leaving slowly fading calligraphic strokes in the air. The light around it is hardly reflected, being absorbed by the flame itself.": "",
       "[name] Ink Flame": ""
+    },
+    "items/materials:item:Ink Iron": {
+      "[description] A dark, inky ore that doesn't form naturally, but can be created using recipes from the Painted Worlds. It's infused with the essence of spirit ink and inherits some of its mysterious effects. This material is both hard and surprisingly pliable, easily molded into any shape the crafter desires.": "",
+      "[name] Ink Iron": ""
     },
     "items/materials:item:Spirit Ink": {
       "[description] This spirit ink is one of the fundamental components from which Painted Worlds is created. It's unknown why this material possesses such properties or whether they can be replicated in other materials, but in the hands of a talented craftsmen, this essence of creation can be used to craft ink items imbued with a glimmer of the power of the Painted Worlds themselves.": "",
@@ -724,10 +732,20 @@
       "[name] Ink Bath (I)": "",
       "[name] Ink Bath (I) Recipe": ""
     },
+    "recipes/breakthrough:recipe:Fantasy of Power Recipe": {
+      "[description] A recipe for a Fantasy of Power.": "",
+      "[name] Fantasy of Power": "",
+      "[name] Fantasy of Power Recipe": ""
+    },
     "recipes/breakthrough:recipe:Flesh Obliteration Pill Recipe": {
       "[description] A recipe for a Flesh Obliteration Pill.": "",
       "[name] Flesh Obliteration Pill": "",
       "[name] Flesh Obliteration Pill Recipe": ""
+    },
+    "recipes/materials:recipe:Ink Iron Recipe": {
+      "[description] A recipe for an Ink Iron.": "",
+      "[name] Ink Iron": "",
+      "[name] Ink Iron Recipe": ""
     },
     "recipes/mounts:recipe:Ink Brush Recipe": {
       "[description] A recipe for an Ink Brush.": "",

@@ -11,8 +11,11 @@ import { blindPrecisionPillIRecipe } from "./pills/blindPrecisionPillRecipe";
 import { stabilityConversionPillIRecipe } from "./pills/stabilityConversionPillRecipe";
 import { inkBathIRecipe } from "./blueprints/inkBathRecipe";
 import { fleshObliterationPillRecipe } from "./breakthrough/fleshObliterationPillRecipe";
+import { inkIronRecipe } from "./materials/inkIronRecipe";
+import { fantasyOfPowerRecipe } from "./breakthrough/fantasyOfPowerRecipe";
 
 export const recipes: RecipeItem[] = [
+    inkIronRecipe,
     inkRecyclingTalismanRecipe,
     inkBrushRecipe,
     fantasyZenithPillIRecipe,
@@ -25,4 +28,5 @@ export const recipes: RecipeItem[] = [
     etherealStabilityReagentRecipe,
     inkBathIRecipe,
     fleshObliterationPillRecipe,
+    fantasyOfPowerRecipe,
 ]

@@ -1,22 +1,22 @@
 import { RecipeItem } from "afnm-types";
 import { recipeIcons } from "../recipeIcons";
-import { fleshObliterationPill } from "../../breakthrough/fleshObliterationPill";
+import { fantasyOfPower } from "../../breakthrough/fantasyOfPower";
 import { spiritInk } from "../../materials/spiritInk";
 
-export const fleshObliterationPillRecipe: RecipeItem = {
+export const fantasyOfPowerRecipe: RecipeItem = {
     kind: 'recipe',
-    name: 'Flesh Obliteration Pill Recipe',
-    description: 'A recipe for a Flesh Obliteration Pill.',
+    name: 'Fantasy of Power Recipe',
+    description: 'A recipe for a Fantasy of Power.',
     icon: recipeIcons.breakthrough,
     stacks: 1,
     rarity: 'empowered',
     realm: 'bodyForging',
-    baseItem: window.modAPI.gameData.items['Flesh Annihilation Pill'],
-    perfectItem: fleshObliterationPill,
+    baseItem: window.modAPI.gameData.items['Remembrance of Power'],
+    perfectItem: fantasyOfPower,
     displayPerfect: true,
     ingredients: [
         {
-            item: window.modAPI.gameData.items['Flesh Annihilation Pill'],
+            item: window.modAPI.gameData.items['Remembrance of Power'],
             quantity: 1
         },
         {

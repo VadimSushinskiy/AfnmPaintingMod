@@ -3,6 +3,7 @@ import { recipeIcons } from "../recipeIcons";
 import { blueprintMap } from "../../blueprints/blueprints";
 import { inkBathPlusRoomMap, inkBathRoomMap } from "../../../house/inkBathRoom";
 import { spiritInk } from "../../materials/spiritInk";
+import { inkIron } from "../../materials/inkIron";
 
 export const inkBathIRecipe: RecipeItem = {
     kind: 'recipe',
@@ -16,7 +17,7 @@ export const inkBathIRecipe: RecipeItem = {
     perfectItem: blueprintMap[inkBathPlusRoomMap.bodyForging.name],
     ingredients: [
         {
-            item: window.modAPI.gameData.items['Cold Iron'],
+            item: inkIron,
             quantity: 3
         },
         {

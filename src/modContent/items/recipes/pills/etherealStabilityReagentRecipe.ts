@@ -2,6 +2,7 @@ import { RecipeItem } from "afnm-types";
 import { recipeIcons } from "../recipeIcons";
 import { etherealStabilityReagentMap } from "../../pills/craftingReagents/etherealStabilityReagent";
 import { spiritInk } from "../../materials/spiritInk";
+import { inkIron } from "../../materials/inkIron";
 
 export const etherealStabilityReagentRecipe: RecipeItem = {
     kind: 'recipe',
@@ -19,7 +20,7 @@ export const etherealStabilityReagentRecipe: RecipeItem = {
             quantity: 2
         },
         {
-            item: window.modAPI.gameData.items['Cold Iron'],
+            item: inkIron,
             quantity: 1
         },
         {

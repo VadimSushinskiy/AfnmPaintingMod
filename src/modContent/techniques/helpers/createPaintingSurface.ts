@@ -440,35 +440,35 @@ export const createPaintingSurface = (name: string, icon: string, freeSpace: num
             fragments: [
                 ...buffBaseTooltipFragments,
                 ...playerBeforeTechSelf.filter(b => b.kind === 'buffSelf').map(b => ({
-                    tooltip: `Before each technique gain 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `Before each technique gain <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...playerBeforeTechTarget.filter(b => b.kind === 'buffTarget').map(b => ({
-                    tooltip: `Before each technique inflict 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `Before each technique inflict <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...playerAfterTechSelf.filter(b => b.kind === 'buffSelf').map(b => ({
-                    tooltip: `After each technique gain 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `After each technique gain <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...playerAfterTechTarget.filter(b => b.kind === 'buffTarget').map(b => ({
-                    tooltip: `After each technique inflict 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `After each technique inflict <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...playerRoundStartSelf.filter(b => b.kind === 'buffSelf').map(b => ({
-                    tooltip: `At the start of each round gain 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `At the start of each round gain <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...playerRoundStartTarget.filter(b => b.kind === 'buffTarget').map(b => ({
-                    tooltip: `At the start of each round inflict 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `At the start of each round inflict <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...playerRoundEndSelf.filter(b => b.kind === 'buffSelf').map(b => ({
-                    tooltip: `At the end of each round gain 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `At the end of each round gain <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...playerRoundEndTarget.filter(b => b.kind === 'buffTarget').map(b => ({
-                    tooltip: `At the end of each round inflict 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `At the end of each round inflict <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 {
@@ -518,35 +518,35 @@ export const createPaintingSurface = (name: string, icon: string, freeSpace: num
         fragments: [
                 ...buffBaseTooltipFragments,
                 ...enemyBeforeTechSelf.filter(b => b.kind === 'buffSelf').map(b => ({
-                    tooltip: `Before each technique gain 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `Before each technique gain <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...enemyBeforeTechTarget.filter(b => b.kind === 'buffTarget').map(b => ({
-                    tooltip: `Before each technique inflict 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `Before each technique inflict <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...enemyAfterTechSelf.filter(b => b.kind === 'buffSelf').map(b => ({
-                    tooltip: `After each technique gain 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `After each technique gain <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...enemyAfterTechTarget.filter(b => b.kind === 'buffTarget').map(b => ({
-                    tooltip: `After each technique inflict 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `After each technique inflict <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...enemyRoundStartSelf.filter(b => b.kind === 'buffSelf').map(b => ({
-                    tooltip: `At the start of each round gain 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `At the start of each round gain <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...enemyRoundStartTarget.filter(b => b.kind === 'buffTarget').map(b => ({
-                    tooltip: `At the start of each round inflict 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `At the start of each round inflict <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...enemyRoundEndSelf.filter(b => b.kind === 'buffSelf').map(b => ({
-                    tooltip: `At the end of each round gain 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `At the end of each round gain <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 ...enemyRoundEndTarget.filter(b => b.kind === 'buffTarget').map(b => ({
-                    tooltip: `At the end of each round inflict 1 stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
+                    tooltip: `At the end of each round inflict <num>1</num> stack of <name>${b.buff.displayName ?? b.buff.name}</name>.`,
                     condition: ''
                 })),
                 {

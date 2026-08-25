@@ -2,6 +2,7 @@ import { RecipeItem } from "afnm-types";
 import { recipeIcons } from "../recipeIcons";
 import { inkBrush, inkBrushPlus } from "../../mounts/inkBrush";
 import { spiritInk } from "../../materials/spiritInk";
+import { inkIron } from "../../materials/inkIron";
 
 export const inkBrushRecipe: RecipeItem = {
     kind: 'recipe',
@@ -15,8 +16,8 @@ export const inkBrushRecipe: RecipeItem = {
     perfectItem: inkBrushPlus,
     ingredients: [
         {
-            item: window.modAPI.gameData.items['Nether Jade'],
-            quantity: 2
+            item: inkIron,
+            quantity: 1
         },
         {
             item: spiritInk,
