@@ -4,5 +4,5 @@ import { trialListBf } from "../../trials/trialListBf";
 import { modFlags } from "../../flags";
 
 export const PaintingScreenBf: ModScreenFC = ({ screenAPI }) => {
-    return <PaintingScreenBase screenAPI={screenAPI} trialsList={trialListBf} trialNumberFlag={modFlags.bfTrialsNumer}/>
+    return <PaintingScreenBase screenAPI={screenAPI} trialsList={trialListBf} trialNumberFlag={modFlags.bfTrialsNumber}/>
 }

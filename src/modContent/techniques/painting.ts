@@ -3,6 +3,7 @@ import iconAsset from '../../assets/techniques/Inks.png';
 
 export const paintingTechsType = 'Painting';
 export const paintingSurfaceBuffType = 'Painting Surfaces';
+export const paintingColor = 'rgb(100, 100, 100)';
 
 export const ink: Buff = {
     name: 'Ink',
@@ -11,5 +12,6 @@ export const ink: Buff = {
     stats: undefined,
     effectHint: 'Spent to activate certain Painting techniques',
     stacks: 1,
-    cantUpgrade: true
+    cantUpgrade: true,
+    colour: paintingColor,
 }

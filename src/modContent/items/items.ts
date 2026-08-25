@@ -6,6 +6,8 @@ import { materials } from "./materials/materials";
 import { recipes } from "./recipes/recipes";
 import { mounts } from "./mounts/mounts";
 import { pills } from "./pills/pills";
+import { blueprints } from "./blueprints/blueprints";
+import { breakthrough } from "./breakthrough/breakthrough";
 
 export const items: Item[] = [
     ...materials,
@@ -14,5 +16,7 @@ export const items: Item[] = [
     ...mounts,
     ...flames,
     ...pills,
+    ...blueprints,
+    ...breakthrough,
     ...recipes,
 ]

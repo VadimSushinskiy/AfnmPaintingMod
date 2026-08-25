@@ -91,7 +91,7 @@ export const PaintingScreenBase = ({ screenAPI, trialsList = [], trialNumberFlag
     GameTooltip,
     tooltips,
     ItemComponent,
-    GameIconButton,
+    GameIconButton
   } = components;
 
   const playSfx = usePlaySfx();

@@ -1,5 +1,11 @@
 {
   "arrays": {
+    "breakthroughs/bodyForging/primordialInkBody": {
+      "[string] Flesh Annihilation Pill": "",
+      "[string] Ocean Nephrite": "",
+      "[string] Remembrance of Power": "",
+      "[string] Spirit Core (I)": ""
+    },
     "modContent/trials/trialListBf": {
       "[string] Feicuiman": "",
       "[string] Gorashi": "",
@@ -18,6 +24,16 @@
       "[string] 95%": ""
     }
   },
+  "breakthroughs": {
+    "breakthroughs/bodyForging:breakthrough:Primordial Ink Body": {
+      "[description] Discard your mortal form via the obliteration pill, and perfect it using ink as a medium to become incarnation of the most primordial creation. This is the beginning of the Path of Creation.": "",
+      "[name] Primordial Ink Body": ""
+    },
+    "items/breakthrough:breakthrough:Flesh Obliteration Pill": {
+      "[description] A pill that causes the flesh of the consumer to be obliterated. The energy sealed within is virtually invisible, but one can feel it trying furiously to break out.": "",
+      "[name] Flesh Obliteration Pill": ""
+    }
+  },
   "buffs": {
     "items/talismans:buff:Ink Recycling": {
       "[buff/name] Ink Reinforcement": "",
@@ -26,6 +42,40 @@
     "items/talismans:buff:Ink Recycling+": {
       "[buff/name] Ink Reinforcement+": "",
       "[name] Ink Recycling+": ""
+    },
+    "modContent/house:inkBathRoom": {
+      "[buffs/name] Ink Infusion": "",
+      "[description] A room filled to the brim with black spirit ink. By infusing cultivator's body and blood, it allows them to create a small amount of ink at any time and instantly use powerful painting techniques.": "",
+      "[name] Ink Bath (-)": "",
+      "[name] Ink Bath (I)": "",
+      "[name] Ink Bath (II)": "",
+      "[name] Ink Bath (III)": "",
+      "[name] Ink Bath (IV)": "",
+      "[name] Ink Bath (IX)": "",
+      "[name] Ink Bath (V)": "",
+      "[name] Ink Bath (VI)": "",
+      "[name] Ink Bath (VII)": "",
+      "[name] Ink Bath (VIII)": "",
+      "[name] Ink Bath S (-)": "",
+      "[name] Ink Bath S (I)": "",
+      "[name] Ink Bath S (II)": "",
+      "[name] Ink Bath S (III)": "",
+      "[name] Ink Bath S (IV)": "",
+      "[name] Ink Bath S (IX)": "",
+      "[name] Ink Bath S (V)": "",
+      "[name] Ink Bath S (VI)": "",
+      "[name] Ink Bath S (VII)": "",
+      "[name] Ink Bath S (VIII)": "",
+      "[name] Ink Bath+ (-)": "",
+      "[name] Ink Bath+ (I)": "",
+      "[name] Ink Bath+ (II)": "",
+      "[name] Ink Bath+ (III)": "",
+      "[name] Ink Bath+ (IV)": "",
+      "[name] Ink Bath+ (IX)": "",
+      "[name] Ink Bath+ (V)": "",
+      "[name] Ink Bath+ (VI)": "",
+      "[name] Ink Bath+ (VII)": "",
+      "[name] Ink Bath+ (VIII)": ""
     },
     "modContent/techniques:buff:Ink": {
       "[effectHint] Spent to activate certain Painting techniques": "",
@@ -177,7 +227,7 @@
       "[topCrafting] 71%": ""
     },
     "src/modContent:flags": {
-      "[bfTrialsNumer] paintingMod_bfTrialsNumber": ""
+      "[bfTrialsNumber] paintingMod_bfTrialsNumber": ""
     },
     "src/modContent:Painting": {
       "[displayName] Painting": ""
@@ -206,6 +256,38 @@
     "items/mounts:item:Ink Brush+": {
       "[description] A giant brush crafted from the ink essence of the Painted Worlds. The formations on it can slightly enhance the cultivator's comprehension, thereby increasing the speed of technique mastery.": "",
       "[name] Ink Brush+": ""
+    },
+    "modContent/house:inkBathRoom": {
+      "[name] Ink Bath (-)": "",
+      "[name] Ink Bath (I)": "",
+      "[name] Ink Bath (II)": "",
+      "[name] Ink Bath (III)": "",
+      "[name] Ink Bath (IV)": "",
+      "[name] Ink Bath (IX)": "",
+      "[name] Ink Bath (V)": "",
+      "[name] Ink Bath (VI)": "",
+      "[name] Ink Bath (VII)": "",
+      "[name] Ink Bath (VIII)": "",
+      "[name] Ink Bath S (-)": "",
+      "[name] Ink Bath S (I)": "",
+      "[name] Ink Bath S (II)": "",
+      "[name] Ink Bath S (III)": "",
+      "[name] Ink Bath S (IV)": "",
+      "[name] Ink Bath S (IX)": "",
+      "[name] Ink Bath S (V)": "",
+      "[name] Ink Bath S (VI)": "",
+      "[name] Ink Bath S (VII)": "",
+      "[name] Ink Bath S (VIII)": "",
+      "[name] Ink Bath+ (-)": "",
+      "[name] Ink Bath+ (I)": "",
+      "[name] Ink Bath+ (II)": "",
+      "[name] Ink Bath+ (III)": "",
+      "[name] Ink Bath+ (IV)": "",
+      "[name] Ink Bath+ (IX)": "",
+      "[name] Ink Bath+ (V)": "",
+      "[name] Ink Bath+ (VI)": "",
+      "[name] Ink Bath+ (VII)": "",
+      "[name] Ink Bath+ (VIII)": ""
     },
     "pills/combatPills:bindingAgonyPill": {
       "[name] Binding Agony Pill (-)": "",
@@ -637,6 +719,16 @@
     }
   },
   "recipes": {
+    "recipes/blueprints:recipe:Ink Bath (I) Recipe": {
+      "[description] A recipe for an Ink Bath (I).": "",
+      "[name] Ink Bath (I)": "",
+      "[name] Ink Bath (I) Recipe": ""
+    },
+    "recipes/breakthrough:recipe:Flesh Obliteration Pill Recipe": {
+      "[description] A recipe for a Flesh Obliteration Pill.": "",
+      "[name] Flesh Obliteration Pill": "",
+      "[name] Flesh Obliteration Pill Recipe": ""
+    },
     "recipes/mounts:recipe:Ink Brush Recipe": {
       "[description] A recipe for an Ink Brush.": "",
       "[name] Ink Brush": "",
@@ -738,21 +830,21 @@
     },
     "techniques/helpers:createPaintingSurface": {
       "[tooltip] After each technique deal <num>{afterTechnique.[0].amount}</num> damage.": "",
-      "[tooltip] After each technique gain <num>{barrier.amount}</num> barrier.": "",
-      "[tooltip] After each technique gain <num>{temphp.amount}</num> temporary health.": "",
-      "[tooltip] After each technique heal <num>{healing.amount}</num> health.": "",
-      "[tooltip] At the end of each round deal <num>{damage.amount}</num> damage.": "",
-      "[tooltip] At the end of each round gain <num>{barrier.amount}</num> barrier.": "",
-      "[tooltip] At the end of each round gain <num>{temphp.amount}</num> temporary health.": "",
-      "[tooltip] At the end of each round heal <num>{healing.amount}</num> health.": "",
-      "[tooltip] At the start of each round deal <num>{damage.amount}</num> damage.": "",
-      "[tooltip] At the start of each round gain <num>{barrier.amount}</num> barrier.": "",
-      "[tooltip] At the start of each round gain <num>{temphp.amount}</num> temporary health.": "",
-      "[tooltip] At the start of each round heal <num>{healing.amount}</num> health.": "",
-      "[tooltip] Before each technique deal <num>{damage.amount}</num> damage.": "",
-      "[tooltip] Before each technique gain <num>{barrier.amount}</num> barrier.": "",
-      "[tooltip] Before each technique gain <num>{temphp.amount}</num> temporary health.": "",
-      "[tooltip] Before each technique heal <num>{healing.amount}</num> health.": ""
+      "[tooltip] After each technique gain <num>{afterTechnique.[1].amount}</num> barrier.": "",
+      "[tooltip] After each technique gain <num>{afterTechnique.[3].amount}</num> temporary health.": "",
+      "[tooltip] After each technique heal <num>{afterTechnique.[2].amount}</num> health.": "",
+      "[tooltip] At the end of each round deal <num>{round.[0].amount}</num> damage.": "",
+      "[tooltip] At the end of each round gain <num>{round.[1].amount}</num> barrier.": "",
+      "[tooltip] At the end of each round gain <num>{round.[3].amount}</num> temporary health.": "",
+      "[tooltip] At the end of each round heal <num>{round.[2].amount}</num> health.": "",
+      "[tooltip] At the start of each round deal <num>{roundStart.[0].amount}</num> damage.": "",
+      "[tooltip] At the start of each round gain <num>{roundStart.[1].amount}</num> barrier.": "",
+      "[tooltip] At the start of each round gain <num>{roundStart.[3].amount}</num> temporary health.": "",
+      "[tooltip] At the start of each round heal <num>{roundStart.[2].amount}</num> health.": "",
+      "[tooltip] Before each technique deal <num>{beforeTechnique.[0].amount}</num> damage.": "",
+      "[tooltip] Before each technique gain <num>{beforeTechnique.[1].amount}</num> barrier.": "",
+      "[tooltip] Before each technique gain <num>{beforeTechnique.[3].amount}</num> temporary health.": "",
+      "[tooltip] Before each technique heal <num>{beforeTechnique.[2].amount}</num> health.": ""
     }
   }
 }

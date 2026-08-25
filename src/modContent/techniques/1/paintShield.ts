@@ -1,5 +1,5 @@
 import { Buff, Technique } from "afnm-types";
-import { ink, paintingTechsType } from "../painting";
+import { ink, paintingColor, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/1/PaintShield.png';
 import { SketchTechniqueSignature } from "../helpers/sketchTypes";
 
@@ -22,6 +22,7 @@ export const paintShieldPreviewBuff: Buff = {
     stats: {},
     tooltip: 'When manifested:<br/>Gain <num>+10%</num> Max Barrier<br/>Gain <num>+10%</num> Barrier Effectiveness',
     buffType: 'Sketch',
+    colour: paintingColor,
 }
 
 export const paintShield: Technique = {

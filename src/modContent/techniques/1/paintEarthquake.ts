@@ -1,5 +1,5 @@
 import { Buff, Technique } from "afnm-types";
-import { ink, paintingTechsType } from "../painting";
+import { ink, paintingColor, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/1/PaintEarthquake.png';
 import { SketchTechniqueSignature } from "../helpers/sketchTypes";
 
@@ -31,6 +31,7 @@ export const paintEarthquakePreviewBuff: Buff = {
         }
     ],
     buffType: 'Sketch',
+    colour: paintingColor,
 }
 
 export const paintEarthquake: Technique = {

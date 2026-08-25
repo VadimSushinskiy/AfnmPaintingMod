@@ -2,7 +2,7 @@ import { Buff, BuffEffect, Scaling, TooltipFragment } from "afnm-types";
 import { ManifestationSource, PHASE_PREFIXES, PhaseKey, PREFIX_MAP, SketchTechniqueActiveEffect, SketchTechniqueEffect, SketchTechniqueSignature, TargetKind, TimingPhase } from "./sketchTypes";
 import { createStateKey, createStateKeyWithoutTypeCheck } from "./createStateKey";
 import { sketchTechniquesSignatures } from "../sketchTechniquesSignatures";
-import { paintingSurfaceBuffType, paintingTechsType } from "../painting";
+import { paintingColor, paintingSurfaceBuffType, paintingTechsType } from "../painting";
 
 function buildBuffInitialState(signatures: SketchTechniqueSignature[], isPlayer: boolean): Record<string, Scaling> {
     const formulasMap: Record<string, string[]> = {};
@@ -319,67 +319,67 @@ const buffBaseTooltipFragments: TooltipFragment[] = [
         condition: `${createStateKey('finisherBoost')} > 0`
     },
     {
-        tooltip: 'Before each technique deal <num>{damage.amount}</num> damage.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'Before each technique deal <num>{beforeTechnique.[0].amount}</num> damage.',
         condition: 'BETDamage > 0'
     },
     {
-        tooltip: 'Before each technique gain <num>{barrier.amount}</num> barrier.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'Before each technique gain <num>{beforeTechnique.[1].amount}</num> barrier.',  
         condition: 'BETBarrier > 0'
     },
     {
-        tooltip: 'Before each technique heal <num>{healing.amount}</num> health.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'Before each technique heal <num>{beforeTechnique.[2].amount}</num> health.',  
         condition: 'BETHeal > 0'
     },
     {
-        tooltip: 'Before each technique gain <num>{temphp.amount}</num> temporary health.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'Before each technique gain <num>{beforeTechnique.[3].amount}</num> temporary health.',  
         condition: 'BETTemphp > 0'
     },
     {
-        tooltip: 'After each technique deal <num>{afterTechnique.[0].amount}</num> damage.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'After each technique deal <num>{afterTechnique.[0].amount}</num> damage.',  
         condition: 'AETDamage > 0'
     },
     {
-        tooltip: 'After each technique gain <num>{barrier.amount}</num> barrier.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'After each technique gain <num>{afterTechnique.[1].amount}</num> barrier.',  
         condition: 'AETBarrier > 0'
     },
     {
-        tooltip: 'After each technique heal <num>{healing.amount}</num> health.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'After each technique heal <num>{afterTechnique.[2].amount}</num> health.',  
         condition: 'AETHeal > 0'
     },
     {
-        tooltip: 'After each technique gain <num>{temphp.amount}</num> temporary health.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'After each technique gain <num>{afterTechnique.[3].amount}</num> temporary health.',  
         condition: 'AETTemphp > 0'
     },
     {
-        tooltip: 'At the start of each round deal <num>{damage.amount}</num> damage.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'At the start of each round deal <num>{roundStart.[0].amount}</num> damage.',  
         condition: 'RSEDamage > 0'
     },
     {
-        tooltip: 'At the start of each round gain <num>{barrier.amount}</num> barrier.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'At the start of each round gain <num>{roundStart.[1].amount}</num> barrier.',  
         condition: 'RSEBarrier > 0'
     },
     {
-        tooltip: 'At the start of each round heal <num>{healing.amount}</num> health.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'At the start of each round heal <num>{roundStart.[2].amount}</num> health.',  
         condition: 'RSEHeal > 0'
     },
     {
-        tooltip: 'At the start of each round gain <num>{temphp.amount}</num> temporary health.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'At the start of each round gain <num>{roundStart.[3].amount}</num> temporary health.',  
         condition: 'RSETemphp > 0'
     },
     {
-        tooltip: 'At the end of each round deal <num>{damage.amount}</num> damage.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'At the end of each round deal <num>{round.[0].amount}</num> damage.',  
         condition: 'REEDamage > 0'
     },
     {
-        tooltip: 'At the end of each round gain <num>{barrier.amount}</num> barrier.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'At the end of each round gain <num>{round.[1].amount}</num> barrier.',  
         condition: 'REEBarrier > 0'
     },
     {
-        tooltip: 'At the end of each round heal <num>{healing.amount}</num> health.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'At the end of each round heal <num>{round.[2].amount}</num> health.',  
         condition: 'REEHeal > 0'
     },
     {
-        tooltip: 'At the end of each round gain <num>{temphp.amount}</num> temporary health.', // Wrong numberы, need to fix!!!!!!!!
+        tooltip: 'At the end of each round gain <num>{round.[3].amount}</num> temporary health.',  
         condition: 'REETemphp > 0'
     },
 ]
@@ -477,7 +477,8 @@ export const createPaintingSurface = (name: string, icon: string, freeSpace: num
                 },
             ],
             separator: '<br/>'
-        }
+        },
+        colour: paintingColor,
     }
 
     const paintingSurfaceActivateEnemyBuff: Buff = {
@@ -556,6 +557,7 @@ export const createPaintingSurface = (name: string, icon: string, freeSpace: num
         separator: '<br/>'
     },
     transferOnTargetDeath: true,
+    colour: paintingColor,
 }
 
     const createTriggeredBuffEffect = (trigger: string, stateKey: string): 
@@ -640,6 +642,7 @@ export const createPaintingSurface = (name: string, icon: string, freeSpace: num
         type: 'none',
         noneType: paintingTechsType,
         buffType: paintingSurfaceBuffType,
+        colour: paintingColor,
     }
 
     return paintingSurfaceBuff;

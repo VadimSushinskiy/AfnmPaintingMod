@@ -1,6 +1,6 @@
 import { CraftingTechnique } from "afnm-types";
 import { craftingActions1 } from "./1/craftingActions1";
 
-export const crfatingActions: CraftingTechnique[] = [
+export const craftingActions: CraftingTechnique[] = [
     ...craftingActions1,
 ]

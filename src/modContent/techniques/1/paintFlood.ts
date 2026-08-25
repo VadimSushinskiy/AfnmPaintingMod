@@ -1,5 +1,5 @@
 import { Buff, Technique } from "afnm-types";
-import { ink, paintingTechsType } from "../painting";
+import { ink, paintingColor, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/1/PaintFlood.png';
 import { SketchTechniqueSignature } from "../helpers/sketchTypes";
 
@@ -22,6 +22,7 @@ export const paintFloodPreviewBuff: Buff = {
     stats: {},
     tooltip: 'When manifested:<br/>Gain <num>+20</num> Protection<br/>Inflict <num>+20%</num> Weakness',
     buffType: 'Sketch',
+    colour: paintingColor,
 }
 
 // Add correct weakness calculation!!

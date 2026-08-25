@@ -1,3 +1,3 @@
 export const modFlags = {
-    bfTrialsNumer: 'paintingMod_bfTrialsNumber'
+    bfTrialsNumber: 'paintingMod_bfTrialsNumber'
 }

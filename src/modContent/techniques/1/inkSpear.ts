@@ -1,5 +1,5 @@
 import { Buff, Technique } from "afnm-types";
-import { ink, paintingTechsType } from "../painting";
+import { ink, paintingColor, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/1/InkSpear.png';
 import buffIconAsset from '../../../assets/techniques/1/InkyCorrosion.png';
 
@@ -31,6 +31,7 @@ const inkyCorrosionBuff: Buff = {
     ],
     type: 'none',
     noneType: paintingTechsType,
+    colour: paintingColor,
 }
 
 export const inkSpear: Technique = {

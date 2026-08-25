@@ -1,6 +1,6 @@
 import { Buff, Technique } from "afnm-types";
 import iconAsset from '../../../assets/techniques/1/InkWall.png';
-import { ink, paintingTechsType } from "../painting";
+import { ink, paintingColor, paintingTechsType } from "../painting";
 
 const inkWallBuff: Buff = {
     name: 'Ink Wall',
@@ -27,7 +27,8 @@ const inkWallBuff: Buff = {
     ],
     type: 'none',
     noneType: paintingTechsType,
-    additionalTooltip: 'Each time you receive damage to your <name>health</name>, lose a stack.'
+    additionalTooltip: 'Each time you receive damage to your <name>health</name>, lose a stack.',
+    colour: paintingColor,
 }
 
 export const inkWall: Technique = {

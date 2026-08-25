@@ -1,7 +1,7 @@
-import { crfatingActions } from "./craftingActions";
+import { craftingActions } from "./craftingActions";
 
 export function initializeCraftingActions() {
-    crfatingActions.forEach((action) => {
+    craftingActions.forEach((action) => {
         window.modAPI.actions.addCraftingTechnique(action);
     });
 }

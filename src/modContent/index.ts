@@ -1,4 +1,5 @@
 import icon from '../assets/image.png';
+import { initializeBreakthroughs } from './breakthroughs/initializeBreakthroughs';
 import { initializeCraftingActions } from './craftingActions/initializeCraftingActions';
 import { initializeItems } from './items/initializeItems';
 import { PaintingScreenBf } from './screens/PaintingScreen/PaintingScreenBf';
@@ -7,6 +8,7 @@ import { initializeTechniques } from './techniques/initializeTechniques';
 initializeTechniques();
 initializeCraftingActions();
 initializeItems();
+initializeBreakthroughs();
 
 window.modAPI.actions.addScreen({
   key: 'challengePaintingScreen',

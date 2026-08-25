@@ -9,6 +9,8 @@ import { energyResonancePillIRecipe } from "./pills/energyResonancePillRecipe";
 import { bindingAgonyPillIRecipe } from "./pills/bindingAgonyPillRecipe";
 import { blindPrecisionPillIRecipe } from "./pills/blindPrecisionPillRecipe";
 import { stabilityConversionPillIRecipe } from "./pills/stabilityConversionPillRecipe";
+import { inkBathIRecipe } from "./blueprints/inkBathRecipe";
+import { fleshObliterationPillRecipe } from "./breakthrough/fleshObliterationPillRecipe";
 
 export const recipes: RecipeItem[] = [
     inkRecyclingTalismanRecipe,
@@ -21,4 +23,6 @@ export const recipes: RecipeItem[] = [
     unityPillIRecipe,
     etherealQiReagentRecipe,
     etherealStabilityReagentRecipe,
+    inkBathIRecipe,
+    fleshObliterationPillRecipe,
 ]
