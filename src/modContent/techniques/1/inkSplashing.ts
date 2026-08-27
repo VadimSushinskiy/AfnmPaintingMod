@@ -1,5 +1,5 @@
 import { Technique } from "afnm-types";
-import { ink, paintingTechsType } from "../painting";
+import { ink, paintingColor, paintingTechsType } from "../painting";
 import iconAsset from '../../../assets/techniques/1/InkSplashing.png';
 
 export const inkSplashing: Technique = {
@@ -32,4 +32,5 @@ export const inkSplashing: Technique = {
         stacks: window.modAPI.utils.createStacksUpgradeMap('stacks', 'empowered', ink.name, 3),
     },
     disableCrystalDrop: true,
+    colour: paintingColor,
 }

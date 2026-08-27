@@ -1,11 +1,5 @@
 {
   "arrays": {
-    "breakthroughs/bodyForging/primordialInkBody": {
-      "[string] Flesh Annihilation Pill": "",
-      "[string] Ocean Nephrite": "",
-      "[string] Remembrance of Power": "",
-      "[string] Spirit Core (I)": ""
-    },
     "modContent/trials/trialListBf": {
       "[string] Feicuiman": "",
       "[string] Gorashi": "",
@@ -26,8 +20,12 @@
   },
   "breakthroughs": {
     "breakthroughs/bodyForging:breakthrough:Primordial Ink Body": {
-      "[description] Discard your mortal form via the obliteration pill, and perfect it using ink as a medium to become incarnation of the most primordial creation. This is the beginning of the Path of Creation.": "",
+      "[description] Discard your mortal form via the obliteration pill, and perfect it using ink as a medium to become incarnation of the most primordial creation.": "",
       "[name] Primordial Ink Body": ""
+    },
+    "breakthroughs/bodyForging:breakthrough:Unfathomable Fantasy Body": {
+      "[description] Discard your mortal form via the obliteration pill, and perfect it, reducing its attachment to the physical world and strengthening its connection to the world of fantasy.": "",
+      "[name] Unfathomable Fantasy Body": ""
     },
     "items/breakthrough:breakthrough:Fantasy of Power": {
       "[description] A fantasy of never-existent power, distorted from the memories of a powerful cultivator. When absorbed as part of a breakthrough, can impart a small measure of that power to the user.": "",

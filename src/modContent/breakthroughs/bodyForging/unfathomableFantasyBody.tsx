@@ -1,9 +1,9 @@
 import { Breakthrough } from "afnm-types";
+import iconAsset from '../../../assets/breakthrough/UnfathomableFantasyBody.png';
 import { paintingColor } from "../../techniques/painting";
-import iconAsset from '../../../assets/breakthrough/PrimordialInkBody.png';
-import { fleshObliterationPill } from "../../items/breakthrough/fleshObliterationPill";
-import { inkIron } from "../../items/materials/inkIron";
 import { fantasyOfPower } from "../../items/breakthrough/fantasyOfPower";
+import { inkIron } from "../../items/materials/inkIron";
+import { fleshObliterationPill } from "../../items/breakthrough/fleshObliterationPill";
 import { Box, Typography } from "@mui/material";
 import { inkIronRecipe } from "../../items/recipes/materials/inkIronRecipe";
 import { fleshObliterationPillRecipe } from "../../items/recipes/breakthrough/fleshObliterationPillRecipe";
@@ -11,15 +11,15 @@ import { fleshObliterationPillRecipe } from "../../items/recipes/breakthrough/fl
 const {TooltipLine, GameTooltip, tooltips } = window.modAPI.components;
 const spiritCore = window.modAPI.gameData.items['Spirit Core (I)'];
 
-export const primordialInkBody: Breakthrough = {
-    name: 'Primordial Ink Body',
-    description: `Discard your mortal form via the obliteration pill, and perfect it using ink as a medium to become incarnation of the most primordial creation.`,
+export const unfathomableFantasyBody: Breakthrough = {
+    name: 'Unfathomable Fantasy Body',
+    description: `Discard your mortal form via the obliteration pill, and perfect it, reducing its attachment to the physical world and strengthening its connection to the world of fantasy.`,
     physicalStats: {
-        eyes: 1,
+        eyes: 2,
         meridians: 1,
-        dantian: 1,
+        dantian: 2,
         muscles: 1,
-        flesh: 1,
+        flesh: -1,
         digestion: 1,
     },
     socialStats: {
@@ -29,20 +29,16 @@ export const primordialInkBody: Breakthrough = {
     combatBuffs: [
         {
             buff: {
-                name: 'Primordial Ink Body',
-                icon:iconAsset,
+                name: 'Unfathomable Fantasy Body',
+                icon: iconAsset,
                 canStack: false,
                 stacks: 1,
-                stats: undefined,
-                onRoundEffects: [
-                    {
-                        kind: 'heal',
-                        amount: {
-                            value: 0.15,
-                            stat: 'maxhp',
-                        }
+                stats: {
+                    dr: {
+                        value: 10,
+                        stat: undefined,
                     }
-                ],
+                },
                 colour: paintingColor,
                 type: 'none',
             },
@@ -50,7 +46,7 @@ export const primordialInkBody: Breakthrough = {
                 value: 1,
                 stat: undefined,
             }
-        }
+        },
     ],
     allowedSlotItems: {
         brain: [fantasyOfPower.name],

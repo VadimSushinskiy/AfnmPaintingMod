@@ -62,4 +62,5 @@ export const paintShield: Technique = {
     ],
     tooltip: `Gain {barrier.amount} barrier and add <name>Sketch: Shield</name> to all your <name>Painting Surfaces</name>.<br/>`,
     disableCrystalDrop: true,
+    colour: paintingColor,
 }

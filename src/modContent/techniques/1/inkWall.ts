@@ -84,4 +84,5 @@ export const inkWall: Technique = {
         cost: window.modAPI.utils.createCostUpgradeMap('cost', 'empowered', ink.name, -1),
     },
     disableCrystalDrop: true,
+    colour: paintingColor,
 }

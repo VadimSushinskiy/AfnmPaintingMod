@@ -1,6 +1,6 @@
 import { Technique } from "afnm-types";
 import iconAsset from '../../../assets/techniques/1/ManifestCanvas.png';
-import { paintingTechsType } from "../painting";
+import { paintingColor, paintingTechsType } from "../painting";
 import { createPaintingSurface } from "../helpers/createPaintingSurface";
 
 const canvasBuff = createPaintingSurface('Canvas', iconAsset, 2, 2);
@@ -29,4 +29,5 @@ export const manifestCanvas: Technique = {
         }
     ],
     disableCrystalDrop: true,
+    colour: paintingColor,
 }

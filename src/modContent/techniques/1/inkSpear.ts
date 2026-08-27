@@ -99,5 +99,6 @@ export const inkSpear: Technique = {
             },
             (value: number) => Math.floor(value * 1),
         ),
-    }
+    },
+    colour: paintingColor,
 }

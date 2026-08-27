@@ -97,23 +97,23 @@ const createAdditionalBuffEffects = (phase: PhaseKey): BuffEffect[] => {
     return [
         {
             kind: 'damage',
-            amount: {value: 1, stat: 'power', eqn: `${prefix}Damage` },
-            condition: {kind: 'condition', condition: `${prefix}Damage > 0`}
+            amount: {value: 1, stat: 'power', eqn: `${prefix}Damage`, keepEqnForTooltip: true },
+            condition: {kind: 'condition', condition: `${prefix}Damage > 0`},
         },
         {
             kind: 'barrier',
-            amount: {value: 1, stat: 'power', eqn: `${prefix}Barrier` },
+            amount: {value: 1, stat: 'power', eqn: `${prefix}Barrier`, keepEqnForTooltip: true },
             condition: {kind: 'condition', condition: `${prefix}Barrier > 0`},
             hideAuxTooltip: `${prefix}Barrier <= 0`
         },
         {
             kind: 'heal',
-            amount: {value: 1, stat: 'power', eqn: `${prefix}Heal` },
+            amount: {value: 1, stat: 'power', eqn: `${prefix}Heal`, keepEqnForTooltip: true },
             condition: {kind: 'condition', condition: `${prefix}Heal > 0`}
         },
         {
             kind: 'temporaryHealth',
-            amount: {value: 1, stat: 'power', eqn: `${prefix}Temphp` },
+            amount: {value: 1, stat: 'power', eqn: `${prefix}Temphp`, keepEqnForTooltip: true },
             condition: {kind: 'condition', condition: `${prefix}Temphp > 0`},
             hideAuxTooltip: `${prefix}Temphp <= 0`
         },

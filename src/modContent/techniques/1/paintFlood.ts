@@ -69,5 +69,6 @@ export const paintFlood: Technique = {
     //         body: 'When manifested:<br/>Gain <num>+20</num> Protection<br/>Inflict <num>+20%</num> Weakness',
     //         condition: '1',
     //     }
-    // ]
+    // ],
+    colour: paintingColor,
 }

@@ -71,4 +71,5 @@ export const paintEarthquake: Technique = {
     ],
     disableCrystalDrop: true,
     tooltip: `Deal {damage.amount} damage and add <name>Sketch: Earthquake</name> to all your <name>Painting Surfaces</name>.<br/>`,
+    colour: paintingColor,
 }
