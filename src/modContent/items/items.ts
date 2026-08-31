@@ -8,10 +8,14 @@ import { mounts } from "./mounts/mounts";
 import { pills } from "./pills/pills";
 import { blueprints } from "./blueprints/blueprints";
 import { breakthrough } from "./breakthrough/breakthrough";
+import { craftingActionItems } from "./techniques/craftingAction";
+import { treasures } from "./treasures/treasures";
 
 export const items: Item[] = [
     ...materials,
+    ...treasures,
     ...techniqueItems,
+    ...craftingActionItems,
     ...talismans,
     ...mounts,
     ...flames,

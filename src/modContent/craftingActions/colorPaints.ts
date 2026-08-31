@@ -4,6 +4,8 @@ import greenPaintIcon from '../../assets/techniques/craftingPaints/GreenPaint.pn
 import yellowPaintIcon from '../../assets/techniques/craftingPaints/YellowPaint.png';
 import purplePaintIcon from '../../assets/techniques/craftingPaints/PurplePaint.png';
 
+export const colorPaintsBuffType = 'Paint';
+
 const bluePaint: CraftingBuff = {
     name: 'Blue Paint',
     icon:bluePaintIcon,
@@ -14,6 +16,7 @@ const bluePaint: CraftingBuff = {
     effects: [],
     stacks: 1,
     displayLocation: 'none',
+    buffType: colorPaintsBuffType,
 }
 
 const greenPaint: CraftingBuff = {
@@ -27,6 +30,7 @@ const greenPaint: CraftingBuff = {
     effects: [],
     stacks: 1,
     displayLocation: 'none',
+    buffType: colorPaintsBuffType,
 }
 
 const yellowPaint: CraftingBuff = {
@@ -40,6 +44,7 @@ const yellowPaint: CraftingBuff = {
     effects: [],
     stacks: 1,
     displayLocation: 'none',
+    buffType: colorPaintsBuffType,
 }
 
 const purplePaint: CraftingBuff = {
@@ -53,6 +58,7 @@ const purplePaint: CraftingBuff = {
     effects: [],
     stacks: 1,
     displayLocation: 'none',
+    buffType: colorPaintsBuffType,
 }
 
 export const colorPaints = {

@@ -1,9 +1,10 @@
-import { Buff } from "afnm-types";
-import iconAsset from '../../assets/trialsBuffs/GraveStench.png';
+import { Buff, CraftingBuff } from "afnm-types";
+import graveStenchIcon from '../../assets/trialsBuffs/GraveStench.png';
+import naughtyCauldronIcon from '../../assets/item/item/NaughtyCauldron.png';
 
 const graveStench: Buff = {
     name: 'Grave Stench',
-    icon: iconAsset,
+    icon: graveStenchIcon,
     canStack: false,
     stacks: 1,
     stats: {
@@ -22,4 +23,25 @@ const graveStench: Buff = {
 
 export const trialCombatBuffs = {
     graveStench: graveStench
+};
+
+const naughtyCauldron: CraftingBuff = {
+    name: 'Naughty Cauldron',
+    icon:naughtyCauldronIcon ,
+    canStack: false,
+    stacks: 1,
+    stats: {
+        control: {
+            value: -0.2, stat: 'control',
+        },
+        intensity: {
+            value: -0.2, stat: 'intensity',
+        }
+    },
+    effects: [],
+    displayLocation: 'none',
+}
+
+export const trialCraftingBuffs = {
+    naughtyCauldron: naughtyCauldron,
 };

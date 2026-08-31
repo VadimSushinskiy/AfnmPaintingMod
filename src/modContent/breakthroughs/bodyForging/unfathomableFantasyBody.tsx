@@ -7,6 +7,7 @@ import { fleshObliterationPill } from "../../items/breakthrough/fleshObliteratio
 import { Box, Typography } from "@mui/material";
 import { inkIronRecipe } from "../../items/recipes/materials/inkIronRecipe";
 import { fleshObliterationPillRecipe } from "../../items/recipes/breakthrough/fleshObliterationPillRecipe";
+import { modFlags } from "../../flags";
 
 const {TooltipLine, GameTooltip, tooltips } = window.modAPI.components;
 const spiritCore = window.modAPI.gameData.items['Spirit Core (I)'];
@@ -54,7 +55,7 @@ export const unfathomableFantasyBody: Breakthrough = {
         pill: [fleshObliterationPill.name],
         groin: [spiritCore.name],
     },
-    unlocked: (flags) => true,
+    unlocked: (flags) => Boolean(flags[modFlags.bfBreakthroughsUnlocked]),
     hint: () => (
         <TooltipLine>{window.modAPI.utils.t('Complete enough Painted Trials to unlock.')}</TooltipLine>
     ),
@@ -73,7 +74,7 @@ export const unfathomableFantasyBody: Breakthrough = {
                     <Box display="flex">
                         <Typography fontSize="120%">
                             {
-                                window.modAPI.utils.t('<itm>{itemName}</itm> in the Brain slot', { itemName: fantasyOfPower.name })
+                                window.modAPI.utils.parseTooltipLine(window.modAPI.utils.t('<itm>{itemName}</itm> in the Brain slot', { itemName: fantasyOfPower.name }))
                             }
                         </Typography>
                     </Box>
@@ -94,7 +95,7 @@ export const unfathomableFantasyBody: Breakthrough = {
                     <Box display="flex">
                         <Typography fontSize="120%">
                             {
-                                window.modAPI.utils.t('<itm>{itemName}</itm> in the Heart slot', { itemName: inkIron.name })
+                                window.modAPI.utils.parseTooltipLine(window.modAPI.utils.t('<itm>{itemName}</itm> in the Heart slot', { itemName: inkIron.name }))
                             }
                         </Typography>
                     </Box>
@@ -115,7 +116,7 @@ export const unfathomableFantasyBody: Breakthrough = {
                     <Box display="flex">
                         <Typography fontSize="120%">
                             {
-                                window.modAPI.utils.t('<itm>{itemName}</itm> in the Pill slot', { itemName: fleshObliterationPill.name })
+                                window.modAPI.utils.parseTooltipLine(window.modAPI.utils.t('<itm>{itemName}</itm> in the Pill slot', { itemName: fleshObliterationPill.name }))
                             }
                         </Typography>
                     </Box>
@@ -136,7 +137,7 @@ export const unfathomableFantasyBody: Breakthrough = {
                     <Box display="flex">
                         <Typography fontSize="120%">
                             {
-                                window.modAPI.utils.t('<itm>{itemName}</itm> in the Groin slot', { itemName: spiritCore.name })
+                                window.modAPI.utils.parseTooltipLine(window.modAPI.utils.t('<itm>{itemName}</itm> in the Groin slot', { itemName: spiritCore.name }))
                             }
                         </Typography>
                     </Box>

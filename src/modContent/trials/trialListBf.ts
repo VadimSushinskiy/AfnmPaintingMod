@@ -1,7 +1,12 @@
-import { techniqueItems } from "../items/techniques/technique";
+import { fourColorArray } from "../craftingActions/1/fourColorArray";
+import { spiritInk } from "../items/materials/spiritInk";
+import { craftingActionItemsMap } from "../items/techniques/craftingAction";
+import { techniqueItemsMap } from "../items/techniques/technique";
+import { inkSplashing } from "../techniques/1/inkSplashing";
+import { inkWall } from "../techniques/1/inkWall";
 import { Trial } from "../types/Trial";
-import { createCombat, createCrafting, getGameEnemies, getGameItems, getGameRecipe, getTechniquesItems } from "./trialHelpers";
-import { trialCombatBuffs } from "./trialsCombatBuffs";
+import { createCombat, createCrafting, getGameEnemies, getGameItems, getGameRecipe, getTechniquesItems, getTrialRecipe } from "./trialHelpers";
+import { trialCombatBuffs, trialCraftingBuffs } from "./trialsCombatBuffs";
 
 const trial1Enemies = getGameEnemies(['Ratascar']);
 const trial1Rewards = getGameItems([
@@ -50,14 +55,19 @@ const trial5Rewards = getGameItems([
 ]);
 
 const trial6Enemies = getGameEnemies(['Hungry Ghoul', 'Restless Ancestor']);
-const trial6PlayerBuffs = [trialCombatBuffs.graveStench]
-const trial6Rewards = getTechniquesItems(['Ink Splashing', 'Ink Wall']);
+const trial6PlayerBuffs = [trialCombatBuffs.graveStench];
+const trial6Rewards = [techniqueItemsMap[inkSplashing.name], techniqueItemsMap[inkWall.name], {...spiritInk, stacks: 1}];
+
+const trial7Recipe = getTrialRecipe('bodyForging', 'Middle', 'hard', 'normal');
+const trial7Buffs = [trialCraftingBuffs.naughtyCauldron];
+const trial7Rewards = [craftingActionItemsMap[fourColorArray.name], {...spiritInk, stacks: 3}];
 
 export const trialListBf: Trial[] = [
     createCombat('First Steps', trial1Enemies, trial1Rewards),
-    createCrafting('Crafting Basics', trial2Recipe, trial2Rewards),
+    createCrafting('Crafting Basics', trial2Recipe, trial2Rewards, 'normal'),
     createCombat('Real First Steps', trial3Enemies, trial3Rewards),
     createCombat('Forest Brawl', trial4Enemies, trial4Rewards),
-    createCrafting('Minimum Qualifications', trial5Recipe, trial5Rewards),
+    createCrafting('Minimum Qualifications', trial5Recipe, trial5Rewards, 'normal'),
     createCombat('Walking Corpses', trial6Enemies, trial6Rewards, trial6PlayerBuffs),
+    createCrafting('Naughty Cauldron', trial7Recipe, trial7Rewards, 'normal', false, trial7Buffs)
 ];

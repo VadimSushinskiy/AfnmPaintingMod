@@ -15,3 +15,10 @@ export const techniqueItems: TechniqueItem[] = paintingTechniques
         rarity: 'mundane',
         realm: e.realm!,
     }));
+
+export const techniqueItemsMap: Record<string, TechniqueItem> =
+    techniqueItems.reduce((map, e) => {
+        map[e.name as string] = e;
+        return map;
+    }, 
+{} as Record<string, TechniqueItem>);

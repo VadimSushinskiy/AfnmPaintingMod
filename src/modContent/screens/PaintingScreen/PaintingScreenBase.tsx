@@ -1,5 +1,5 @@
 import { Avatar, Badge, Box, Typography } from '@mui/material';
-import { EventStep, GameEvent, ModReduxAPI } from 'afnm-types';
+import { CraftingBuff, CraftingRecipeStats, EventStep, GameEvent, ModReduxAPI, ProgressState } from 'afnm-types';
 import bg from '../../../assets/paintingScreen/paintingRoom.png';
 import painting from '../../../assets/paintingScreen/painting.png';
 import smallScroll from '../../../assets/paintingScreen/smallScroll.png';
@@ -20,6 +20,28 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import { Close } from '@mui/icons-material';
 import { Trial } from '../../types/Trial';
+
+export const defaultRecipeStats: CraftingRecipeStats = {
+  completion: 10,
+  perfection: 10,
+  stability: 10,
+  conditionType: window.modAPI.gameData.recipeConditionEffects[0],
+  harmonyType: 'forge',
+};
+
+export const defaultProgressState: ProgressState = {
+  completion: 0,
+  perfection: 0,
+  stability: 10,
+  harmony: 0,
+  condition: 'neutral',
+  nextConditions: ['neutral'],
+  step: 0,
+  effectTracking: {},
+  actionTracking: {},
+  pillTracking: {},
+  stabilityPenalty: 0,
+};
 
 const scrollActive = scroll;
 
@@ -125,6 +147,88 @@ export const PaintingScreenBase = ({ screenAPI, trialsList = [], trialNumberFlag
   const startTrial = () => {
     const steps: EventStep[] = [];
 
+    const rewards = (selectedTrial?.rewards ?? []);
+
+    const itemRewards = rewards
+      .filter(reward => (reward.kind !== 'technique' || reward.subKind !== 'technique') && reward.kind !== 'action' && reward.kind !== 'recipe' && reward.kind !== 'manual')
+      .map(reward => {return {item: {name: reward.name}, amount: `${reward.stacks}`}});
+
+    const techniqueRewards = rewards
+      .filter(reward => reward.kind === 'technique' && reward.subKind === 'technique')
+      .map(reward => reward.name);
+
+    const manualRewards = rewards
+      .filter(reward => reward.kind === 'manual')
+      .map(reward => reward.name);
+
+    const actionRewards = rewards
+      .filter(reward => reward.kind === 'action')
+      .map(reward => reward.name);
+
+    const recipeRewards = rewards
+      .filter(reward => reward.kind === 'recipe')
+      .map(reward => reward.name);
+
+    const addRewards = (steps: EventStep[]) => {
+      if (itemRewards.length > 0) {
+        steps.push(
+          {
+            kind: 'addMultipleItem',
+            condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+            items: itemRewards,
+          },
+        );
+      }
+
+      if (techniqueRewards.length > 0) {
+        techniqueRewards.forEach(techniqueName => {
+          steps.push(
+            {
+              kind: 'unlockTechnique',
+              condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+              technique: techniqueName,
+            },
+          );
+        });
+      }
+
+      if (manualRewards.length > 0) {
+        manualRewards.forEach(manualName => {
+          steps.push(
+            {
+              kind: 'addManual',
+              condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+              manual: manualName,
+            },
+          );
+        });
+      }
+
+      if (actionRewards.length > 0) {
+        actionRewards.forEach(actionName => {
+          steps.push(
+            {
+              kind: 'unlockCraftingTechnique',
+              condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+              craftingTechnique: actionName,
+            },
+          );
+        });
+      }
+
+      if (recipeRewards.length > 0) {
+        recipeRewards.forEach(recipeName => {
+          steps.push(
+            {
+              kind: 'addRecipe',
+              condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+              recipe: recipeName,
+            },
+          );
+        });
+      }
+    }
+
     if (selectedTrial?.kind === 'combat') {
       steps.push({
         kind: 'text',
@@ -136,29 +240,28 @@ export const PaintingScreenBase = ({ screenAPI, trialsList = [], trialNumberFlag
       }
 
       const victorySteps: EventStep[] = [
-          {
-            kind: 'text',
-            condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
-            text: 'Under your onslaught, all enemies become just spots of paint again and the painting rejoices in your victory, healing your injuries. Your hard-earned rewards are formed from the paint before you.'
-          },
-          {
-            kind: 'text',
-            condition: `${trialNumberFlag} > ${selectedTrialIndex}`,
-            text: 'Under your onslaught, all enemies become just spots of paint again and the painting rejoices in your victory, healing your injuries.'
-          },
-          {
-            kind: 'addMultipleItem',
-           condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
-            items: (selectedTrial?.rewards ?? []).map(reward => {return {item: {name: reward.name}, amount: `${reward.stacks}`}})
-          },
-          {
-            kind: 'flag',
-            condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
-            global: true,
-            flag: trialNumberFlag,
-            value: `${trialNumberFlag} + 1`
-          }
-        ];
+        {
+          kind: 'text',
+          condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+          text: 'Under your onslaught, all enemies become just spots of paint again and the painting rejoices in your victory, healing your injuries. Your hard-earned rewards are formed from the paint before you.'
+        },
+        {
+          kind: 'text',
+          condition: `${trialNumberFlag} > ${selectedTrialIndex}`,
+          text: 'Under your onslaught, all enemies become just spots of paint again and the painting rejoices in your victory, healing your injuries.'
+        },
+      ];
+
+      addRewards(victorySteps);
+
+      victorySteps.push({
+        kind: 'flag',
+        condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
+        global: true,
+        flag: trialNumberFlag,
+        value: `${trialNumberFlag} + 1`
+      });
+
       
       if (selectedTrial?.additionalAfterTrialSuccessSteps) {
         victorySteps.push(...selectedTrial.additionalAfterTrialSuccessSteps);
@@ -243,11 +346,7 @@ export const PaintingScreenBase = ({ screenAPI, trialsList = [], trialNumberFlag
           text: 'With a quiet pop, the result of your efforts flies out of the cauldron. The painting analyzes it and, deeming it worthy, rejoices in your success.'
         });
 
-        steps.push({
-            kind: 'addMultipleItem',
-           condition: `${trialNumberFlag} <= ${selectedTrialIndex}`,
-            items: (selectedTrial?.rewards ?? []).map(reward => {return {item: {name: reward.name}, amount: `${reward.stacks}`}})
-        });
+        addRewards(steps);
 
         steps.push({
           kind: 'flag',
@@ -880,13 +979,25 @@ export const PaintingScreenBase = ({ screenAPI, trialsList = [], trialNumberFlag
                   >
                     <GameTooltip
                       provider={() => (
-                        <tooltips.BuffTooltip
-                          buff={{ ...buff.buff }}
-                          entity={window.modAPI.utils.createPlayerCombatEntity(
-                            player,
-                            breakthrough,
-                          )}
-                        />
+                        selectedTrial?.kind === 'combat' 
+                        ?
+                          <tooltips.BuffTooltip
+                            buff={{ ...buff.buff }}
+                            entity={window.modAPI.utils.createPlayerCombatEntity(
+                              player,
+                              breakthrough,
+                            )}
+                          />
+                        :
+                          <tooltips.CraftingBuffTooltip
+                            buff={{...buff.buff as CraftingBuff}}
+                            entity={window.modAPI.utils.createPlayerCraftingEntity(
+                              player,
+                              breakthrough,
+                            )}
+                            recipe={defaultRecipeStats}
+                            progressState={defaultProgressState}
+                          />
                       )}
                     >
                       <Badge

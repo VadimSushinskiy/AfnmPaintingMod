@@ -1,6 +1,12 @@
-import { Buff, CraftingBuff, EnemyEntity, EventStep, Item, RecipeItem, TechniqueItem } from "afnm-types";
+import { Buff, CraftingBuff, EnemyEntity, EventStep, Item, Realm, RealmProgress, RecipeDifficulty, RecipeItem, TechniqueItem } from "afnm-types";
 import { CombatTrial, CraftingTrial } from "../types/Trial";
 import { techniqueItems } from "../items/techniques/technique";
+import { trialRecipe } from "../items/recipes/treasure/trialRecipe";
+import { successfulTrialResult } from "../items/treasures/successfulTrialResult";
+import { failedTrialResult } from "../items/treasures/failedTrialResult";
+
+export type CraftingResult = 'normal' | 'perfect' | 'sublime';
+export type CraftingConditionName  = 'Inert' | 'Perfectable' | 'Fuseable' | 'Flowing' | 'Energised' | 'Stable' | 'Fortuitous' | 'None';
 
 export const createCombat = (
     title: string, 
@@ -27,7 +33,7 @@ export const createCrafting = (
     title: string, 
     recipe: RecipeItem, 
     rewards: Item[],
-    result: 'normal' | 'perfect' | 'sublime' = 'normal',
+    result: CraftingResult = 'perfect',
     isSublime: boolean = false,
     buffs: CraftingBuff[] = [],
     beforeTrial: EventStep[] = [],
@@ -67,4 +73,35 @@ export const getGameRecipe = (recipeName: string): RecipeItem => {
 
 export const getTechniquesItems = (techNames: string[]): TechniqueItem[] => {
     return techniqueItems.filter(t => techNames.includes(t.name));
+}
+
+export const getTrialRecipe = (
+    realm: Realm, 
+    realmProgress: RealmProgress, 
+    difficulty: RecipeDifficulty, 
+    result: CraftingResult = 'perfect',
+    conditionOverride: CraftingConditionName = 'None',
+    ingredients: RecipeItem["ingredients"] = []
+): RecipeItem => {
+    const recipe = {...trialRecipe, realm, realmProgress, difficulty};
+
+    if (result === 'normal') {
+        recipe.baseItem = successfulTrialResult;
+    }
+    else if (result === 'sublime') {
+        recipe.perfectItem = failedTrialResult;
+        recipe.sublimeItem = successfulTrialResult;
+        recipe.isSublimeCraft = true;
+        recipe.forceSublimeCrafting = true;
+    }
+
+    if (conditionOverride !== 'None') {
+        recipe.conditionEffectOverride = window.modAPI.gameData.recipeConditionEffects.find(cond => cond.name === conditionOverride);
+    }
+
+    if (ingredients && ingredients.length > 0) {
+        recipe.ingredients = ingredients;
+    }
+
+    return recipe;
 }

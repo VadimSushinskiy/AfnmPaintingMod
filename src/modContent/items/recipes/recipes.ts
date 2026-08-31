@@ -13,6 +13,7 @@ import { inkBathIRecipe } from "./blueprints/inkBathRecipe";
 import { fleshObliterationPillRecipe } from "./breakthrough/fleshObliterationPillRecipe";
 import { inkIronRecipe } from "./materials/inkIronRecipe";
 import { fantasyOfPowerRecipe } from "./breakthrough/fantasyOfPowerRecipe";
+import { trialRecipe } from "./treasure/trialRecipe";
 
 export const recipes: RecipeItem[] = [
     inkIronRecipe,
@@ -29,4 +30,5 @@ export const recipes: RecipeItem[] = [
     inkBathIRecipe,
     fleshObliterationPillRecipe,
     fantasyOfPowerRecipe,
+    trialRecipe,
 ]

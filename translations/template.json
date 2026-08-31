@@ -4,8 +4,6 @@
       "[string] Feicuiman": "",
       "[string] Gorashi": "",
       "[string] Hungry Ghoul": "",
-      "[string] Ink Splashing": "",
-      "[string] Ink Wall": "",
       "[string] Leachong": "",
       "[string] Ratascar": "",
       "[string] Restless Ancestor": "",
@@ -139,16 +137,23 @@
       "[name] Four-Colour Array": ""
     },
     "modContent/craftingActions:craftingBuff:Blue Paint": {
+      "[buffType-resolved] Paint": "",
       "[name] Blue Paint": ""
     },
     "modContent/craftingActions:craftingBuff:Green Paint": {
+      "[buffType-resolved] Paint": "",
       "[name] Green Paint": ""
     },
     "modContent/craftingActions:craftingBuff:Purple Paint": {
+      "[buffType-resolved] Paint": "",
       "[name] Purple Paint": ""
     },
     "modContent/craftingActions:craftingBuff:Yellow Paint": {
+      "[buffType-resolved] Paint": "",
       "[name] Yellow Paint": ""
+    },
+    "modContent/trials:craftingBuff:Naughty Cauldron": {
+      "[name] Naughty Cauldron": ""
     },
     "pills/craftingPills:craftingBuff:Unity Pill": {
       "[name] Unity Pill": ""
@@ -229,7 +234,13 @@
       "[topCrafting] 71%": ""
     },
     "src/modContent:flags": {
-      "[bfTrialsNumber] paintingMod_bfTrialsNumber": ""
+      "[bfBreakthroughsUnlocked] paintingMod_bfBreakthroughsUnlocked": "",
+      "[bfTrialsNumber] paintingMod_bfTrialsNumber": "",
+      "[cfTrialsNumber] paintingMod_cfTrialsNumber": "",
+      "[lfTrialsNumber] paintingMod_lfTrialsNumber": "",
+      "[moTrialsNumber] paintingMod_moTrialsNumber": "",
+      "[pcTrialsNumber] paintingMod_pcTrialsNumber": "",
+      "[qcTrialsNumber] paintingMod_qcTrialsNumber": ""
     },
     "src/modContent:Painting": {
       "[displayName] Painting": ""
@@ -262,6 +273,14 @@
     "items/mounts:item:Ink Brush+": {
       "[description] A giant brush crafted from the ink essence of the Painted Worlds. The formations on it can slightly enhance the cultivator's comprehension, thereby increasing the speed of technique mastery.": "",
       "[name] Ink Brush+": ""
+    },
+    "items/treasures:item:Failed Trial Result": {
+      "[description] A failed attempt to overcome crafting trial.": "",
+      "[name] Failed Trial Result": ""
+    },
+    "items/treasures:item:Successful Trial Result": {
+      "[description] A successful attempt to overcome crafting trial.": "",
+      "[name] Successful Trial Result": ""
     },
     "modContent/house:inkBathRoom": {
       "[name] Ink Bath (-)": "",
@@ -794,6 +813,11 @@
       "[description] A recipe for an Ink Recycling Talisman.": "",
       "[name] Ink Recycling Talisman": "",
       "[name] Ink Recycling Talisman Recipe": ""
+    },
+    "recipes/treasure:recipe:Trial Recipe": {
+      "[description] A recipe for crafting trial.": "",
+      "[name] Trial": "",
+      "[name] Trial Recipe": ""
     }
   },
   "talismans": {
