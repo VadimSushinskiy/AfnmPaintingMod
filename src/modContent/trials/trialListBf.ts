@@ -5,7 +5,7 @@ import { techniqueItemsMap } from "../items/techniques/technique";
 import { inkSplashing } from "../techniques/1/inkSplashing";
 import { inkWall } from "../techniques/1/inkWall";
 import { Trial } from "../types/Trial";
-import { createCombat, createCrafting, getGameEnemies, getGameItems, getGameRecipe, getTechniquesItems, getTrialRecipe } from "./trialHelpers";
+import { createCombat, createCrafting, getGameEnemies, getGameItems, getGameRecipe, getTrialRecipe } from "./trialHelpers";
 import { trialCombatBuffs, trialCraftingBuffs } from "./trialsCombatBuffs";
 
 const trial1Enemies = getGameEnemies(['Ratascar']);
@@ -58,7 +58,7 @@ const trial6Enemies = getGameEnemies(['Hungry Ghoul', 'Restless Ancestor']);
 const trial6PlayerBuffs = [trialCombatBuffs.graveStench];
 const trial6Rewards = [techniqueItemsMap[inkSplashing.name], techniqueItemsMap[inkWall.name], {...spiritInk, stacks: 1}];
 
-const trial7Recipe = getTrialRecipe('bodyForging', 'Middle', 'hard', 'normal');
+const trial7Recipe = getTrialRecipe('bodyForging', 'Middle', 'hard', 'Trial 7 Recipe', 'normal');
 const trial7Buffs = [trialCraftingBuffs.naughtyCauldron];
 const trial7Rewards = [craftingActionItemsMap[fourColorArray.name], {...spiritInk, stacks: 3}];
 

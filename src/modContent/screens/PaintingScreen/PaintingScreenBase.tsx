@@ -20,6 +20,7 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import { Close } from '@mui/icons-material';
 import { Trial } from '../../types/Trial';
+import { createTrialRecipe } from '../../trials/trialHelpers';
 
 export const defaultRecipeStats: CraftingRecipeStats = {
   completion: 10,
@@ -423,6 +424,8 @@ export const PaintingScreenBase = ({ screenAPI, trialsList = [], trialNumberFlag
         sublime: sublimeSteps,
         failed: failSteps
       })
+
+      createTrialRecipe(selectedTrial.recipe);
     }
 
     const event: GameEvent = {

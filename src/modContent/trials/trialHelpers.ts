@@ -79,11 +79,12 @@ export const getTrialRecipe = (
     realm: Realm, 
     realmProgress: RealmProgress, 
     difficulty: RecipeDifficulty, 
+    name: string,
     result: CraftingResult = 'perfect',
     conditionOverride: CraftingConditionName = 'None',
     ingredients: RecipeItem["ingredients"] = []
 ): RecipeItem => {
-    const recipe = {...trialRecipe, realm, realmProgress, difficulty};
+    const recipe = {...trialRecipe, realm, realmProgress, difficulty, displayName: name};
 
     if (result === 'normal') {
         recipe.baseItem = successfulTrialResult;
@@ -104,4 +105,10 @@ export const getTrialRecipe = (
     }
 
     return recipe;
+}
+
+export const createTrialRecipe = (recipe: RecipeItem): void => {
+    if (recipe) {
+        window.modAPI.gameData.items[recipe.name] = recipe;
+    }
 }
