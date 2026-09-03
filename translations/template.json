@@ -5,6 +5,8 @@
       "[string] Gorashi": "",
       "[string] Hungry Ghoul": "",
       "[string] Leachong": "",
+      "[string] Lingyu Lurker": "",
+      "[string] Poeyu": "",
       "[string] Ratascar": "",
       "[string] Restless Ancestor": "",
       "[string] Wenziao": "",
@@ -81,8 +83,17 @@
       "[effectHint] Spent to activate certain Painting techniques": "",
       "[name] Ink": ""
     },
+    "modContent/trials:buff:Elite Power": {
+      "[name] Elite Power": ""
+    },
     "modContent/trials:buff:Grave Stench": {
       "[name] Grave Stench": ""
+    },
+    "modContent/trials:buff:Phoenix Blessing": {
+      "[name] Phoenix Blessing": ""
+    },
+    "modContent/trials:buff:Sea ​​of F​ire": {
+      "[name] Sea ​​of F​ire": ""
     },
     "pills/combatPills:buff:Binding Agony": {
       "[buffType] Pill": "",
@@ -151,6 +162,9 @@
     "modContent/craftingActions:craftingBuff:Yellow Paint": {
       "[buffType-resolved] Paint": "",
       "[name] Yellow Paint": ""
+    },
+    "modContent/trials:craftingBuff:Misfortune": {
+      "[name] Misfortune": ""
     },
     "modContent/trials:craftingBuff:Naughty Cauldron": {
       "[name] Naughty Cauldron": ""

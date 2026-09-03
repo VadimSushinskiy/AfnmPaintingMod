@@ -7,13 +7,14 @@ import { failedTrialResult } from "../items/treasures/failedTrialResult";
 
 export type CraftingResult = 'normal' | 'perfect' | 'sublime';
 export type CraftingConditionName  = 'Inert' | 'Perfectable' | 'Fuseable' | 'Flowing' | 'Energised' | 'Stable' | 'Fortuitous' | 'None';
+export type CombatEnemyType = 'none' | 'alpha' | 'alphaPlus' | 'realmbreaker';
 
 export const createCombat = (
     title: string, 
     enemies: EnemyEntity[], 
     rewards: Item[],
     buffs: Buff[] = [],
-    enemiesBuffs = [],
+    enemiesBuffs: Buff[] = [],
     beforeTrial: EventStep[] = [],
     afterWin: EventStep[] = [],
     afterLose: EventStep[] = [],
@@ -52,8 +53,22 @@ export const createCrafting = (
     additionalAfterTrialFailSteps: afterLose,
 });
 
-export const getGameEnemies = (enemyNames: string[]): EnemyEntity[] => {
-    return enemyNames.map(enemyName => window.modAPI.gameData.monsters.find(monster => monster.name === enemyName) ?? window.modAPI.gameData.monsters[0]);
+export const getGameEnemies = (enemyNames: string[], enemyType: CombatEnemyType = 'none'): EnemyEntity[] => {
+    return enemyNames.map(enemyName => {
+        const enemy = window.modAPI.gameData.monsters.find(monster => monster.name === enemyName) ?? window.modAPI.gameData.monsters[0];
+
+        switch (enemyType) {
+            case "none":
+                return enemy;
+            case "alpha":
+                return window.modAPI.utils.alpha(enemy);
+            case "alphaPlus":
+                return window.modAPI.utils.alphaPlus(enemy);
+            case "realmbreaker":
+                const realmbreakers = window.modAPI.utils.realmbreaker(enemy);
+                return realmbreakers[Math.floor(Math.random() * realmbreakers.length)];
+        }
+    });
 }
 
 export const getGameItems = (items: { itemName: string, itemStacks: number }[]): Item[] => {

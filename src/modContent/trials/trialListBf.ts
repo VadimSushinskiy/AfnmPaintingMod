@@ -1,5 +1,9 @@
 import { fourColorArray } from "../craftingActions/1/fourColorArray";
+import { inkIron } from "../items/materials/inkIron";
 import { spiritInk } from "../items/materials/spiritInk";
+import { inkBrushRecipe } from "../items/recipes/mounts/inkBrushRecipe";
+import { bindingAgonyPillIRecipe } from "../items/recipes/pills/bindingAgonyPillRecipe";
+import { fantasyZenithPillIRecipe } from "../items/recipes/pills/fantasyZenithPillRecipe";
 import { craftingActionItemsMap } from "../items/techniques/craftingAction";
 import { techniqueItemsMap } from "../items/techniques/technique";
 import { inkSplashing } from "../techniques/1/inkSplashing";
@@ -62,6 +66,19 @@ const trial7Recipe = getTrialRecipe('bodyForging', 'Middle', 'hard', 'Trial 7 Re
 const trial7Buffs = [trialCraftingBuffs.naughtyCauldron];
 const trial7Rewards = [craftingActionItemsMap[fourColorArray.name], {...spiritInk, stacks: 3}];
 
+const trial8Recipe = getTrialRecipe('bodyForging', 'Middle', 'hard', 'Trial 8 Recipe');
+const trial8Buffs = [trialCraftingBuffs.misfortune];
+const trial8Rewards = [{...spiritInk, stacks: 5}, {...inkIron, stacks: 2}];
+
+const trial9Enemies = getGameEnemies(['Poeyu', 'Lingyu Lurker'], 'alpha');
+const trial9EnemyBuffs = [trialCombatBuffs.elitePower];
+const trial9Rewards = [bindingAgonyPillIRecipe, fantasyZenithPillIRecipe, {...spiritInk, stacks: 2}];
+
+const trial10Enemies = getGameEnemies(['Poeyu']) // Change to some kind of painted phoenix 
+const trial10PlayerBuffs = [trialCombatBuffs.seaOfFire];
+const trial10EnemyBuffs = [trialCombatBuffs.phoenixBlessing];
+const trial10Rewards = [inkBrushRecipe, {...spiritInk, stacks: 3}];
+
 export const trialListBf: Trial[] = [
     createCombat('First Steps', trial1Enemies, trial1Rewards),
     createCrafting('Crafting Basics', trial2Recipe, trial2Rewards, 'normal'),
@@ -69,5 +86,8 @@ export const trialListBf: Trial[] = [
     createCombat('Forest Brawl', trial4Enemies, trial4Rewards),
     createCrafting('Minimum Qualifications', trial5Recipe, trial5Rewards, 'normal'),
     createCombat('Walking Corpses', trial6Enemies, trial6Rewards, trial6PlayerBuffs),
-    createCrafting('Naughty Cauldron', trial7Recipe, trial7Rewards, 'normal', false, trial7Buffs)
+    createCrafting('Naughty Cauldron', trial7Recipe, trial7Rewards, 'normal', false, trial7Buffs),
+    createCrafting('Misfortune', trial8Recipe, trial8Rewards, 'perfect', false, trial8Buffs),
+    createCombat('Outstanding Beasts', trial9Enemies, trial9Rewards, [], trial9EnemyBuffs),
+    createCombat('Phoenix Presence', trial10Enemies, trial10Rewards, trial10PlayerBuffs, trial10EnemyBuffs),
 ];
