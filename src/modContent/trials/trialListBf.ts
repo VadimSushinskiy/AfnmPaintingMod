@@ -6,6 +6,7 @@ import { bindingAgonyPillIRecipe } from "../items/recipes/pills/bindingAgonyPill
 import { fantasyZenithPillIRecipe } from "../items/recipes/pills/fantasyZenithPillRecipe";
 import { craftingActionItemsMap } from "../items/techniques/craftingAction";
 import { techniqueItemsMap } from "../items/techniques/technique";
+import { youngPhoenix } from "../monsters/phoenix";
 import { inkSplashing } from "../techniques/1/inkSplashing";
 import { inkWall } from "../techniques/1/inkWall";
 import { Trial } from "../types/Trial";
@@ -74,7 +75,7 @@ const trial9Enemies = getGameEnemies(['Poeyu', 'Lingyu Lurker'], 'alpha');
 const trial9EnemyBuffs = [trialCombatBuffs.elitePower];
 const trial9Rewards = [bindingAgonyPillIRecipe, fantasyZenithPillIRecipe, {...spiritInk, stacks: 2}];
 
-const trial10Enemies = getGameEnemies(['Poeyu']) // Change to some kind of painted phoenix 
+const trial10Enemies = [youngPhoenix]; 
 const trial10PlayerBuffs = [trialCombatBuffs.seaOfFire];
 const trial10EnemyBuffs = [trialCombatBuffs.phoenixBlessing];
 const trial10Rewards = [inkBrushRecipe, {...spiritInk, stacks: 3}];
